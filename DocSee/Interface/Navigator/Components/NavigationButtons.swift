@@ -36,6 +36,10 @@ struct NavigationButtons: View {
         }
         .controlGroupStyle(.navigation)
         .menuIndicator(.hidden)
+        #if os(macOS)
         .menuStyle(.borderedButton)
+        #else
+        .menuStyle(.borderlessButton)
+        #endif
     }
 }

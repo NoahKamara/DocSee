@@ -1,6 +1,22 @@
 import SwiftUI
 import Docsy
 
+
+//extension Document.ReferenceHierarchy {
+//    static var preview: Self {
+//        Self.init(paths: [[
+//            "doc://slothcreatorbuildingdoccdocumentationinxcode.SlothCreator/documentation/SlothCreator",
+//            "doc://slothcreatorbuildingdoccdocumentationinxcode.SlothCreator/documentation/SlothCreator/CareSchedule",
+//            "doc://slothcreatorbuildingdoccdocumentationinxcode.SlothCreator/documentation/SlothCreator/CareSchedule/Event"
+//        ]])
+//    }
+//}
+//
+//#Preview {
+//    HierarchyView(hierarchy: .reference(.preview))
+//}
+
+
 struct ContentView: View {
     @Environment(DocumentationContext.self)
     private var context
@@ -18,7 +34,15 @@ struct ContentView: View {
     var body: some View {
         Group {
             if let document {
-                Text("DOC")
+                ScrollView(.vertical) {
+                    LazyVStack(alignment: .leading) {
+                        ContentHeaderView(document: document)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: 800)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                }
+                .contentMargins(20, for: .scrollContent)
             } else {
                 ProgressView {
                     VStack {
@@ -53,4 +77,6 @@ struct ContentView: View {
         self.document = document
     }
 }
+
+
 
