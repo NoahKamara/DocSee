@@ -57,8 +57,7 @@ struct MainView: View, DropDelegate {
         NavigationSplitView {
             NavigatorView(navigator: navigator)
                 .navigationDestination(item: $navigator.selection) { reference in
-                    ContentView2(reference: reference)
-                        .foregroundStyle(.red)
+                    ContentView(reference: reference)
                 }
         } detail: {
             Text("Content")
@@ -99,23 +98,6 @@ struct MainView: View, DropDelegate {
 //#Preview(traits: .workspace) {
 //    MainView()
 //}
-
-struct ContentView2: View {
-    @Environment(DocumentationContext.self)
-    private var context
-
-    let reference: TopicReference
-
-    var body: some View {
-        Text(reference.url.absoluteString)
-
-    }
-
-    func load() async throws {
-        let contents = try await context.contents(for: reference)
-        print("contents", contents.count)
-    }
-}
 
 //#Preview {
 //    ContentView2()

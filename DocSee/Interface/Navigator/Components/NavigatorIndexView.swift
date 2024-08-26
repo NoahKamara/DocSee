@@ -14,7 +14,7 @@ struct NavigatorIndexView: View {
     }
 
     var body: some View {
-        if !index.root.children.isEmpty {
+        if !index.root.languages.isEmpty {
             NavigatorTreeView(root: index.root, language: .swift)
         } else {
             Text(index.identifier)

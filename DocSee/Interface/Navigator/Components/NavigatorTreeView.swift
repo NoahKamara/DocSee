@@ -3,12 +3,12 @@ import Docsy
 
 struct NavigatorTreeView: View {
     @Bindable
-    var root: NavigatorIndex.RootNode
+    var root: NavigatorIndex.NavigatorTree
 
     var language: SourceLanguage
 
     var body: some View {
-        ForEach(root.children) { node in
+        ForEach(root[language]) { node in
             NodeView(node: node)
         }
     }
@@ -140,7 +140,8 @@ extension PageType {
         switch self {
         case .root: .abbr("RT", .red)
         case .article: .symbol("text.document")
-        case .tutorial: .symbol("app.connected.to.app.below.fill")
+        case .overview: .symbol("app.connected.to.app.below.fill")
+        case .tutorial: .symbol("square.fill.text.grid.1x2")
 //        case .section:
 //        case .learn:
 //        case .overview: .abbr("OV", .red)
