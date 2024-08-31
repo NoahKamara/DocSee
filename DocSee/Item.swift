@@ -16,3 +16,19 @@ final class Item {
         self.timestamp = timestamp
     }
 }
+
+
+import SwiftUI
+
+struct TestView: View {
+    var body: some View {
+        Text("")
+            .onAppear {
+                print(Bundle.allBundles)
+            }
+    }
+}
+
+#Preview {
+    TestView()
+}

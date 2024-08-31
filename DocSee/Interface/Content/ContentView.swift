@@ -16,6 +16,89 @@ import Docsy
 //    HierarchyView(hierarchy: .reference(.preview))
 //}
 
+struct BlockContentsView: View {
+    let contents: [BlockContent]
+
+    init(_ contents: [BlockContent]) {
+        self.contents = contents
+    }
+
+    var body: some View {
+        ForEach((0..<contents.count).map({ $0 }), id:\.self) { i in
+            BlockContentView(contents[i])
+        }
+    }
+}
+struct BlockContentView: View {
+    let content: BlockContent
+
+    init(_ content: BlockContent) {
+        self.content = content
+    }
+
+    var body: some View {
+        switch content {
+        case .paragraph(let paragraph):
+            InlineContentView(paragraph.inlineContent)
+        case .aside(let aside):
+            AsideView(aside)
+//        case .codeListing(let codeListing):
+//            <#code#>
+//        case .heading(let heading):
+//            <#code#>
+//        case .orderedList(let orderedList):
+//            <#code#>
+        default: Text("H")
+        }
+    }
+}
+
+
+
+
+struct ContentSectionView: View {
+    let section: AnyContentSection
+
+    var body: some View {
+        switch section {
+        case .discussion(let contentSection):
+            BlockContentsView(contentSection.content)
+        case .content(let contentSection):
+            BlockContentsView(contentSection.content)
+//            <#code#>
+//        case .taskGroup(let taskGroupSection):
+//            <#code#>
+//        case .relationships(let relationshipsSection):
+//            <#code#>
+//        case .declarations(let declarationsSection):
+//            <#code#>
+//        case .parameters(let parametersSection):
+//            <#code#>
+//        case .attributes(let attributesSection):
+//            <#code#>
+//        case .properties(let propertiesSection):
+//            <#code#>
+//        case .restParameters(let rESTParametersSection):
+//            <#code#>
+//        case .restEndpoint(let rESTEndpointSection):
+//            <#code#>
+//        case .restBody(let rESTBodySection):
+//            <#code#>
+//        case .restResponses(let rESTResponseSection):
+//            <#code#>
+//        case .plistDetails(let plistDetailsSection):
+//            <#code#>
+//        case .possibleValues(let possibleValuesSection):
+//            <#code#>
+//        case .mentions(let mentionsSection):
+        default:
+            Text("Not Implemented \(section)")
+        }
+    }
+}
+
+
+
 
 struct ContentView: View {
     @Environment(DocumentationContext.self)
@@ -34,15 +117,8 @@ struct ContentView: View {
     var body: some View {
         Group {
             if let document {
-                ScrollView(.vertical) {
-                    LazyVStack(alignment: .leading) {
-                        ContentHeaderView(document: document)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(maxWidth: 800)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                }
-                .contentMargins(20, for: .scrollContent)
+                DocumentView(document)
+                    .contentMargins(20, for: .scrollContent)
             } else {
                 ProgressView {
                     VStack {

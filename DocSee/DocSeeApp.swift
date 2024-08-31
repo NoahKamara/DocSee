@@ -1,10 +1,3 @@
-//
-//  DocSeeApp.swift
-//  DocSee
-//
-//  Created by Noah Kamara on 24.08.24.
-//
-
 import SwiftUI
 import SwiftData
 import Docsy
@@ -85,6 +78,18 @@ extension UTType {
     }
 }
 
+enum BundleDataProviderError: Error {
+    case noResoureURL(String)
+}
+
+extension LocalFileSystemDataProvider {
+    init(bundle: Bundle) throws {
+        guard let resourceURL = bundle.resourceURL else {
+            throw BundleDataProviderError.noResoureURL(bundle.bundleIdentifier ?? bundle.description)
+        }
+        try self.init(rootURL: resourceURL)
+    }
+}
 
 //public struct DoccArchiveDropDelegate: DropDelegate, ViewModifier {
 //    @State
