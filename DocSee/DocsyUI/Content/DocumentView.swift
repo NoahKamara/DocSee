@@ -12,7 +12,7 @@ public struct DocumentView: View {
 
     public var body: some View {
         ScrollView(.vertical) {
-            LazyVStack(alignment: .leading) {
+            LazyVStack(alignment: .leading, spacing: 5) {
                 ContentHeaderView(
                     roleHeading: document.metadata.roleHeading,
                     title: document.metadata.title ?? document.identifier.url.lastPathComponent,
@@ -25,7 +25,17 @@ public struct DocumentView: View {
             .frame(maxWidth: 800)
             .frame(maxWidth: .infinity, alignment: .center)
         }
+        .contentMargins(10, for: .scrollContent)
         .environment(references)
+        .textSelection(.enabled)
     }
 }
+
+#Preview {
+    PreviewDocument("/documentation/testdocumentation/markdown") { document in
+        DocumentView(document)
+    }
+    .frame(maxWidth: 500, maxHeight: 900)
+}
+
 

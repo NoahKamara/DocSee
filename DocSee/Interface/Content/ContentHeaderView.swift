@@ -38,15 +38,13 @@ struct ContentHeaderView: View {
 }
 
 #Preview {
-    let document = Previews.document
-    ContentHeaderView(
-        roleHeading: "Article",
-        title: "How to train a Dragon",
-        abstract: [
-            .text("Be a "),
-            .emphasis(inlineContent: [.text("nice ")]),
-            .strong(inlineContent: [.text("person")])
-        ]
-    )
+    PreviewDocument(keyPath: \.metadata, \.abstract) { (metadata, abstract) in
+        ContentHeaderView(
+            roleHeading: metadata.roleHeading,
+            title: metadata.title,
+            abstract: abstract
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
 }
 

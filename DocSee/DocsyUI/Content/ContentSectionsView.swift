@@ -15,5 +15,9 @@ struct ContentSectionsView: View {
     }
 }
 
-
-
+#Preview {
+    PreviewDocument("/documentation/testdocumentation/markdown") { document in
+        DocumentView(document)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+}

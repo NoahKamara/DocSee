@@ -20,6 +20,18 @@ struct PreviewDocument<Content: View>: View {
         self.content = content
     }
 
+    init(
+        _ path: String
+    ) where Content == DocumentView {
+        self.reference = TopicReference(
+            bundleIdentifier: "com.noahkamara.TestDocumentation",
+            path: path,
+            sourceLanguage: .swift
+        )
+
+        self.content = DocumentView.init
+    }
+
     init<T>(
         _ path: String = "/documentation/testdocumentation/styles",
         keyPath: KeyPath<Document,T>,
@@ -32,6 +44,25 @@ struct PreviewDocument<Content: View>: View {
         )
 
         self.content = { content($0[keyPath: keyPath]) }
+    }
+
+    init<T0, each T>(
+        _ path: String = "/documentation/testdocumentation/styles",
+        keyPath: KeyPath<Document,T0>,
+        _ otherPaths: repeat KeyPath<Document,each T>,
+        @ViewBuilder content: @escaping (T0, repeat each T) -> Content
+    ) {
+        self.reference = TopicReference(
+            bundleIdentifier: "com.noahkamara.TestDocumentation",
+            path: path,
+            sourceLanguage: .swift
+        )
+
+        self.content = {
+            content(
+                $0[keyPath: keyPath], repeat $0[keyPath: each otherPaths]
+            )
+        }
     }
 
     func load() async throws {
@@ -89,6 +120,7 @@ struct PreviewDocument<Content: View>: View {
                 self.error = error
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

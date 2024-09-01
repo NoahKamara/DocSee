@@ -2,20 +2,6 @@ import SwiftUI
 import Docsy
 
 
-//extension Document.ReferenceHierarchy {
-//    static var preview: Self {
-//        Self.init(paths: [[
-//            "doc://slothcreatorbuildingdoccdocumentationinxcode.SlothCreator/documentation/SlothCreator",
-//            "doc://slothcreatorbuildingdoccdocumentationinxcode.SlothCreator/documentation/SlothCreator/CareSchedule",
-//            "doc://slothcreatorbuildingdoccdocumentationinxcode.SlothCreator/documentation/SlothCreator/CareSchedule/Event"
-//        ]])
-//    }
-//}
-//
-//#Preview {
-//    HierarchyView(hierarchy: .reference(.preview))
-//}
-
 struct BlockContentsView: View {
     let contents: [BlockContent]
 
@@ -24,12 +10,16 @@ struct BlockContentsView: View {
     }
 
     var body: some View {
-        ForEach((0..<contents.count).map({ $0 }), id:\.self) { i in
-            BlockContentView(contents[i])
+        VStack(alignment: .leading) {
+            ForEach((0..<contents.count).map({ $0 }), id:\.self) { i in
+                BlockContentView(contents[i])
+            }
         }
     }
 }
-struct BlockContentView: View {
+
+
+fileprivate struct BlockContentView: View {
     let content: BlockContent
 
     init(_ content: BlockContent) {
@@ -42,19 +32,77 @@ struct BlockContentView: View {
             InlineContentView(paragraph.inlineContent)
         case .aside(let aside):
             AsideView(aside)
-//        case .codeListing(let codeListing):
-//            <#code#>
-//        case .heading(let heading):
-//            <#code#>
-//        case .orderedList(let orderedList):
-//            <#code#>
+        case .codeListing(let codeListing):
+            CodeListingView(codeListing)
+        case .heading(let heading):
+            HeadingView(heading)
+        case .orderedList(let orderedList):
+            OrderedListView(list: orderedList)
+        case .unorderedList(let unorderedList):
+            UnorderedListView(list: unorderedList)
+        case .termList(let termList):
+            TermListView(list: termList)
         default: Text("H")
         }
     }
 }
 
 
+struct HeadingView: View {
+    let heading: BlockContent.Heading
 
+    init(_ heading: BlockContent.Heading) {
+        self.heading = heading
+    }
+
+    func font(for level: Int) -> Font {
+        switch level {
+        case 1: Font.largeTitle
+        case 2: Font.title
+        case 3: Font.title2
+        case 4: Font.title3
+        case 5: Font.headline
+        /* case 6 */ default: Font.subheadline
+        }
+    }
+
+    func padding(for level: Int) -> CGFloat {
+        switch level {
+        case 1: 20
+        case 2: 10
+        case 3: 10
+        case 4: 10
+        case 5: 10
+        /* case 6 */ default: 10
+        }
+    }
+
+    var body: some View {
+        Group {
+            if let anchor = heading.anchor {
+                Text(heading.text)
+                    .tag(anchor)
+            } else {
+                Text(heading.text)
+            }
+        }
+        .headerProminence(.increased)
+        .font(font(for: heading.level))
+        .padding(.top, padding(for: heading.level))
+    }
+}
+
+#Preview("Heading") {
+    VStack(alignment: .leading) {
+        ForEach(1..<7) { level in
+            HeadingView(.init(
+                level: level,
+                text: "Heading \(level)",
+                anchor: "heading-\(level)"
+            ))
+        }
+    }
+}
 
 struct ContentSectionView: View {
     let section: AnyContentSection
@@ -95,6 +143,13 @@ struct ContentSectionView: View {
             Text("Not Implemented \(section)")
         }
     }
+}
+
+#Preview {
+    PreviewDocument("/documentation/testdocumentation/markdown") { document in
+        DocumentView(document)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
 }
 
 

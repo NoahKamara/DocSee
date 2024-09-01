@@ -4,10 +4,10 @@ import DocsySchema
 extension BlockContent.AsideStyle.OutputStyle {
     var color: Color {
         switch self {
-        case .experiment: .yellow
+        case .experiment: .purple
         case .important: .orange
         case .note: .gray
-        case .tip: .gray
+        case .tip: .teal
         case .warning: .red
         }
     }
@@ -21,18 +21,18 @@ struct AsideView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
+        CalloutView(aside.style.renderKind.color) {
             Text(aside.displayName)
                 .font(.headline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(aside.style.renderKind.color)
 
-            BlockContentsView(aside.content)
+            VStack(alignment: .leading) {
+                BlockContentsView(aside.content)
+            }
         }
-        .background(in: RoundedRectangle(cornerRadius: 30))
-        .backgroundStyle(aside.style.renderKind.color.quinary)
-
     }
 }
+
 
 #Preview {
     let content: [BlockContent] = [.paragraph(.init(inlineContent: [.text("This is an Aside")]))]
@@ -47,7 +47,13 @@ struct AsideView: View {
         .init(style: .unknown("Custom Style"), content: content),
     ]
 
-    ForEach(Array(zip(0..<asides.count, asides)), id:\.0) { e in
-        AsideView(e.1)
+    ScrollView {
+        LazyVStack(spacing: 10) {
+            ForEach(Array(zip(0..<asides.count, asides)), id:\.0) { e in
+                AsideView(e.1)
+            }
+        }
+        .frame(maxWidth: .infinity)
     }
+    .contentMargins(20)
 }
