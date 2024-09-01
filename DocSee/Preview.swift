@@ -28,8 +28,12 @@ struct PreviewWorkspace: PreviewModifier {
         let workspace = DocumentationWorkspace()
         let context = DocumentationContext(dataProvider: workspace)
 
-        let provider = try LocalFileSystemDataProvider(bundle: .main)
-        try await workspace.registerProvider(provider)
+        do {
+            let provider = try LocalFileSystemDataProvider(bundle: .main)
+            try await workspace.registerProvider(provider)
+        } catch {
+            print("ERROR in provider", error)
+        }
 
         return (workspace, context)
     }

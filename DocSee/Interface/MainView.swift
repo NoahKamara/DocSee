@@ -17,10 +17,11 @@ import AppKit
 #endif
 
 struct Pasteboard {
+    static let pasteboard: OSPasteboard = .general
+
+
     #if os(macOS)
     typealias OSPasteboard = NSPasteboard
-
-    static let pasteboard: NSPasteboard = .general
 
     static func setString(_ value: String) {
         pasteboard.clearContents()
@@ -34,7 +35,14 @@ struct Pasteboard {
 
     #else
     typealias OSPasteboard = UIPasteboard
-    #error("UIPasteboard not implemeneted")
+
+    static func setString(_ value: String) {
+        pasteboard.setObjects([value])
+    }
+
+    static func setURL(_ value: URL) {
+        pasteboard.setObjects([value])
+    }
     #endif
 }
 
@@ -72,7 +80,7 @@ struct MainView: View, DropDelegate {
                 .navigationDestination(item: $navigator.selection) { reference in
                     ContentView(reference: reference)
                         .toolbar {
-                            ToolbarItem(placement: .accessoryBar(id: "debug")) {
+                            ToolbarItem(placement: .debugBar) {
                                 Menu("Reference") {
                                     Text("Bundle: \(reference.bundleIdentifier)")
                                     Text("Path: \(reference.path)")
@@ -97,11 +105,12 @@ struct MainView: View, DropDelegate {
                             }
                         }
                 }
+                .navigationTitle("DocSee")
         } detail: {
             Text("Content")
         }
         .toolbar(content: {
-            ToolbarItem(placement: .accessoryBar(id: "debug")) {
+            ToolbarItem(placement: .debugBar) {
                 DebugModeButton()
             }
             ToolbarItemGroup(placement: .navigation) {
@@ -158,5 +167,10 @@ struct MainView: View, DropDelegate {
 //}
 
 extension ToolbarItemPlacement {
+    #if os(macOS)
     static let debugBar = accessoryBar(id: "debugBar")
+    #else
+    static let debugBar = topBarTrailing
+    #endif
 }
+

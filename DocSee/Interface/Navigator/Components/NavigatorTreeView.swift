@@ -52,27 +52,32 @@ fileprivate extension NavigatorTreeView {
 }
 
 
+
 // MARK: Leaf
 fileprivate extension NavigatorTreeView {
     struct LeafView: View {
         let node: NavigatorIndex.Node
 
         var body: some View {
-            if let reference = node.reference {
-                Label {
-                    Text(node.title)
-                } icon: {
-                    PageTypeIcon(node.type)
-                }
-                .tag(reference)
+            Group {
+                if let reference = node.reference {
+                    NavigationLink(value: reference) {
+                        Label {
+                            Text(node.title)
+                        } icon: {
+                            PageTypeIcon(node.type)
+                        }
+                    }
 
-            } else if case .groupMarker = node.type {
-                Text(node.title)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
-            } else {
-                Text("Unknown \(node.type)")
-                    .foregroundStyle(.red)
+
+                } else if case .groupMarker = node.type {
+                    Text(node.title)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text("Unknown \(node.type)")
+                        .foregroundStyle(.red)
+                }
             }
         }
     }

@@ -87,7 +87,10 @@ extension LocalFileSystemDataProvider {
         guard let resourceURL = bundle.resourceURL else {
             throw BundleDataProviderError.noResoureURL(bundle.bundleIdentifier ?? bundle.description)
         }
-        try self.init(rootURL: resourceURL)
+        try self.init(
+            rootURL: resourceURL.appending(components: "TestDocumentation.doccarchive"),
+            allowArbitraryCatalogDirectories: false
+        )
     }
 }
 

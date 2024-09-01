@@ -22,3 +22,8 @@ struct NavigatorView: View {
         }
     }
 }
+
+#Preview(traits: .workspace) {
+    NavigatorView(navigator: .init())
+        .listStyle(.sidebar)
+}
