@@ -1,0 +1,542 @@
+{
+    "primaryContentSections": [
+        {
+            "kind": "content",
+            "content": [
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "anchor": "Overview",
+                    "text": "Overview"
+                },
+                {
+                    "type": "paragraph",
+                    "inlineContent": [
+                        {
+                            "type": "text",
+                            "text": "This is plain text. You can use "
+                        },
+                        {
+                            "type": "strong",
+                            "inlineContent": [
+                                {
+                                    "type": "text",
+                                    "text": "bold text"
+                                }
+                            ]
+                        },
+                        {
+                            "text": " or ",
+                            "type": "text"
+                        },
+                        {
+                            "type": "strong",
+                            "inlineContent": [
+                                {
+                                    "type": "text",
+                                    "text": "bold text"
+                                }
+                            ]
+                        },
+                        {
+                            "text": ", ",
+                            "type": "text"
+                        },
+                        {
+                            "type": "emphasis",
+                            "inlineContent": [
+                                {
+                                    "text": "italic text",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "text": " or "
+                        },
+                        {
+                            "type": "emphasis",
+                            "inlineContent": [
+                                {
+                                    "text": "italic text",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "text": ", and "
+                        },
+                        {
+                            "inlineContent": [
+                                {
+                                    "inlineContent": [
+                                        {
+                                            "type": "text",
+                                            "text": "bold italic text"
+                                        }
+                                    ],
+                                    "type": "strong"
+                                }
+                            ],
+                            "type": "emphasis"
+                        },
+                        {
+                            "text": ".",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "inlineContent": [
+                        {
+                            "text": "For ",
+                            "type": "text"
+                        },
+                        {
+                            "type": "codeVoice",
+                            "code": "inline code"
+                        },
+                        {
+                            "text": ", use backticks.",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "paragraph"
+                },
+                {
+                    "type": "paragraph",
+                    "inlineContent": [
+                        {
+                            "text": "You can create ",
+                            "type": "text"
+                        },
+                        {
+                            "type": "reference",
+                            "isActive": true,
+                            "identifier": "https:\/\/www.example.com"
+                        },
+                        {
+                            "text": " and reference other parts of your documentation like ",
+                            "type": "text"
+                        },
+                        {
+                            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/FeatureFlags",
+                            "type": "reference",
+                            "isActive": true
+                        },
+                        {
+                            "type": "text",
+                            "text": " or "
+                        },
+                        {
+                            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/FeatureFlags\/current",
+                            "type": "reference",
+                            "isActive": true
+                        },
+                        {
+                            "type": "text",
+                            "text": "."
+                        }
+                    ]
+                },
+                {
+                    "type": "paragraph",
+                    "inlineContent": [
+                        {
+                            "type": "text",
+                            "text": "HTML tags like "
+                        },
+                        {
+                            "text": "emphasis",
+                            "type": "text"
+                        },
+                        {
+                            "type": "text",
+                            "text": " can be used inline too."
+                        }
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "anchor": "Feature-flags-on-the-command-line",
+                    "text": "Feature flags on the command line"
+                },
+                {
+                    "inlineContent": [
+                        {
+                            "text": "Command-line feature flags live in the ",
+                            "type": "text"
+                        },
+                        {
+                            "code": "Docc.Convert.FeatureFlagOptions",
+                            "type": "codeVoice"
+                        },
+                        {
+                            "text": " in ",
+                            "type": "text"
+                        },
+                        {
+                            "code": "SwiftDocCUtilities",
+                            "type": "codeVoice"
+                        },
+                        {
+                            "type": "text",
+                            "text": "."
+                        },
+                        {
+                            "type": "text",
+                            "text": " "
+                        },
+                        {
+                            "text": "This type implements the ",
+                            "type": "text"
+                        },
+                        {
+                            "type": "codeVoice",
+                            "code": "ParsableArguments"
+                        },
+                        {
+                            "text": " protocol from Swift Argument Parser to create an option",
+                            "type": "text"
+                        },
+                        {
+                            "text": " ",
+                            "type": "text"
+                        },
+                        {
+                            "type": "text",
+                            "text": "group for the "
+                        },
+                        {
+                            "type": "codeVoice",
+                            "code": "convert"
+                        },
+                        {
+                            "type": "text",
+                            "text": " and "
+                        },
+                        {
+                            "type": "codeVoice",
+                            "code": "preview"
+                        },
+                        {
+                            "text": " commands.",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "paragraph"
+                },
+                {
+                    "type": "paragraph",
+                    "inlineContent": [
+                        {
+                            "text": "These options are then handled in ",
+                            "type": "text"
+                        },
+                        {
+                            "code": "ConvertAction.init(fromConvertCommand:)",
+                            "type": "codeVoice"
+                        },
+                        {
+                            "type": "text",
+                            "text": ", still in"
+                        },
+                        {
+                            "text": " ",
+                            "type": "text"
+                        },
+                        {
+                            "code": "SwiftDocCUtilities",
+                            "type": "codeVoice"
+                        },
+                        {
+                            "type": "text",
+                            "text": ", where they are written into the global feature flags "
+                        },
+                        {
+                            "type": "reference",
+                            "isActive": true,
+                            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/FeatureFlags\/current"
+                        },
+                        {
+                            "type": "text",
+                            "text": " "
+                        },
+                        {
+                            "text": "instance, which can then be used during the compilation process.",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "Feature flags in Info.plist",
+                    "anchor": "Feature-flags-in-Infoplist"
+                },
+                {
+                    "type": "paragraph",
+                    "inlineContent": [
+                        {
+                            "type": "text",
+                            "text": "A subset of feature flags can affect how a documentation bundle is authored. For example, the"
+                        },
+                        {
+                            "type": "text",
+                            "text": " "
+                        },
+                        {
+                            "type": "text",
+                            "text": "experimental overloaded symbol presentation can affect how a bundle curates its symbols due to the"
+                        },
+                        {
+                            "text": " ",
+                            "type": "text"
+                        },
+                        {
+                            "type": "text",
+                            "text": "creation of overload group pages. These flags should also be added to the"
+                        },
+                        {
+                            "text": " ",
+                            "type": "text"
+                        },
+                        {
+                            "code": "DocumentationBundle\/Info\/BundleFeatureFlags",
+                            "type": "codeVoice"
+                        },
+                        {
+                            "type": "text",
+                            "text": " type, so that they can be parsed out of a bundle’s"
+                        },
+                        {
+                            "type": "text",
+                            "text": " "
+                        },
+                        {
+                            "text": "Info.plist.",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "inlineContent": [
+                        {
+                            "type": "text",
+                            "text": "Feature flags that are loaded from an Info.plist file are saved into the global feature flags while"
+                        },
+                        {
+                            "type": "text",
+                            "text": " "
+                        },
+                        {
+                            "text": "the bundle is being registered. To ensure that your new feature flag is properly loaded, update the",
+                            "type": "text"
+                        },
+                        {
+                            "type": "text",
+                            "text": " "
+                        },
+                        {
+                            "code": "FeatureFlags\/loadFlagsFromBundle(_:)",
+                            "type": "codeVoice"
+                        },
+                        {
+                            "text": " method to load your new field into the global flags.",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "paragraph"
+                }
+            ]
+        }
+    ],
+    "variants": [
+        {
+            "traits": [
+                {
+                    "interfaceLanguage": "swift"
+                }
+            ],
+            "paths": [
+                "\/documentation\/swiftdocc\/addingfeatureflags"
+            ]
+        }
+    ],
+    "seeAlsoSections": [
+        {
+            "generated": true,
+            "identifiers": [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/Features"
+            ],
+            "title": "Development",
+            "anchor": "Development"
+        }
+    ],
+    "abstract": [
+        {
+            "type": "text",
+            "text": "Develop experimental features by adding feature flags."
+        }
+    ],
+    "kind": "article",
+    "schemaVersion": {
+        "minor": 3,
+        "major": 0,
+        "patch": 0
+    },
+    "identifier": {
+        "url": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/AddingFeatureFlags",
+        "interfaceLanguage": "swift"
+    },
+    "sections": [],
+    "metadata": {
+        "roleHeading": "Article",
+        "title": "Adding Feature Flags",
+        "role": "article",
+        "modules": [
+            {
+                "name": "SwiftDocC"
+            }
+        ]
+    },
+    "hierarchy": {
+        "paths": [
+            [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC"
+            ]
+        ]
+    },
+    "references": {
+        "https://www.example.com": {
+            "type": "link",
+            "titleInlineContent": [
+                {
+                    "type": "text",
+                    "text": "links"
+                }
+            ],
+            "identifier": "https:\/\/www.example.com",
+            "title": "links",
+            "url": "https:\/\/www.example.com"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC": {
+            "role": "collection",
+            "abstract": [
+                {
+                    "type": "text",
+                    "text": "Combine code comments with markup prose to produce structured, semantic documentation."
+                }
+            ],
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC",
+            "type": "topic",
+            "url": "\/documentation\/swiftdocc",
+            "title": "SwiftDocC"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/Features": {
+            "kind": "article",
+            "role": "article",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/Features",
+            "title": "Indicating Feature Availability to Tools",
+            "url": "\/documentation\/swiftdocc\/features",
+            "abstract": [
+                {
+                    "type": "text",
+                    "text": "Add features to DocC and indicate the feature’s availability to other tools."
+                }
+            ],
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/FeatureFlags": {
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/FeatureFlags",
+            "navigatorTitle": [
+                {
+                    "text": "FeatureFlags",
+                    "kind": "identifier"
+                }
+            ],
+            "title": "FeatureFlags",
+            "url": "\/documentation\/swiftdocc\/featureflags",
+            "type": "topic",
+            "abstract": [
+                {
+                    "type": "text",
+                    "text": "A set of feature flags that conditionally enable (usually experimental) behavior in Swift-DocC."
+                }
+            ],
+            "role": "symbol",
+            "fragments": [
+                {
+                    "text": "struct",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "FeatureFlags"
+                }
+            ],
+            "kind": "symbol"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/FeatureFlags/current": {
+            "fragments": [
+                {
+                    "text": "static",
+                    "kind": "keyword"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "kind": "keyword",
+                    "text": "var"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "text": "current",
+                    "kind": "identifier"
+                },
+                {
+                    "kind": "text",
+                    "text": ": "
+                },
+                {
+                    "text": "FeatureFlags",
+                    "preciseIdentifier": "s:9SwiftDocC12FeatureFlagsV",
+                    "kind": "typeIdentifier"
+                }
+            ],
+            "title": "current",
+            "type": "topic",
+            "role": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/FeatureFlags\/current",
+            "url": "\/documentation\/swiftdocc\/featureflags\/current",
+            "kind": "symbol",
+            "abstract": [
+                {
+                    "type": "text",
+                    "text": "The current feature flags that Swift-DocC uses to conditionally enable"
+                },
+                {
+                    "text": " ",
+                    "type": "text"
+                },
+                {
+                    "type": "text",
+                    "text": "(usually experimental) behavior in Swift-DocC."
+                }
+            ]
+        }
+    }
+}
