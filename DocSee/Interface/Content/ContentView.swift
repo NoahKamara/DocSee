@@ -42,6 +42,8 @@ fileprivate struct BlockContentView: View {
             UnorderedListView(list: unorderedList)
         case .termList(let termList):
             TermListView(list: termList)
+        case .table(let table):
+            TableView(table)
         default: Text("H")
         }
     }
