@@ -1,0 +1,1306 @@
+{
+    "hierarchy": {
+        "paths": [
+            [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/StaticAnalysis"
+            ]
+        ]
+    },
+    "schemaVersion": {
+        "major": 0,
+        "minor": 3,
+        "patch": 0
+    },
+    "relationshipsSections": [
+        {
+            "title": "Conforms To",
+            "kind": "relationships",
+            "type": "conformsTo",
+            "identifiers": [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/Checker",
+                "doc:\/\/swift-docc.SwiftDocC\/8Markdown13MarkupVisitorP",
+                "doc:\/\/swift-docc.SwiftDocC\/8Markdown12MarkupWalkerP"
+            ]
+        }
+    ],
+    "identifier": {
+        "interfaceLanguage": "swift",
+        "url": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker"
+    },
+    "seeAlsoSections": [
+        {
+            "title": "Generic Checks",
+            "anchor": "Generic-Checks",
+            "generated": true,
+            "identifiers": [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/Checker",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/AnyChecker"
+            ]
+        }
+    ],
+    "sections": [],
+    "topicSections": [
+        {
+            "identifiers": [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/init(_:)"
+            ],
+            "title": "Initializers",
+            "generated": true,
+            "anchor": "Initializers"
+        },
+        {
+            "generated": true,
+            "title": "Instance Properties",
+            "identifiers": [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/checkers",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/problems"
+            ],
+            "anchor": "Instance-Properties"
+        },
+        {
+            "generated": true,
+            "identifiers": [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visit(_:)-7sh2d",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitBlockQuote(_:)-1qmop",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitCodeBlock(_:)-4qev3",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitCustomBlock(_:)-4q4fj",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitCustomInline(_:)-1g2fi",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitDocument(_:)-9bjmm",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitEmphasis(_:)-97oq0",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitHTMLBlock(_:)-37i3w",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitHeading(_:)-1s6ni",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitImage(_:)-3gspa",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitInlineCode(_:)-9xy2s",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitInlineHTML(_:)-81o0s",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitLineBreak(_:)-79sox",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitLink(_:)-91l87",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitListItem(_:)-40gax",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitOrderedList(_:)-491oq",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitParagraph(_:)-3exbl",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitSoftBreak(_:)-5vt8s",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitStrong(_:)-469vs",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitText(_:)-36wda",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitThematicBreak(_:)-3bpxu",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitUnorderedList(_:)-3figv"
+            ],
+            "title": "Instance Methods",
+            "anchor": "Instance-Methods"
+        },
+        {
+            "anchor": "Default-Implementations",
+            "title": "Default Implementations",
+            "identifiers": [
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/Checker-Implementations",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/MarkupVisitor-Implementations",
+                "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/MarkupWalker-Implementations"
+            ],
+            "generated": true
+        }
+    ],
+    "primaryContentSections": [
+        {
+            "declarations": [
+                {
+                    "platforms": [
+                        "macOS"
+                    ],
+                    "tokens": [
+                        {
+                            "text": "struct",
+                            "kind": "keyword"
+                        },
+                        {
+                            "kind": "text",
+                            "text": " "
+                        },
+                        {
+                            "kind": "identifier",
+                            "text": "CompositeChecker"
+                        }
+                    ],
+                    "languages": [
+                        "swift"
+                    ]
+                }
+            ],
+            "kind": "declarations"
+        }
+    ],
+    "abstract": [
+        {
+            "text": "A collection of checkers which all visit the same ",
+            "type": "text"
+        },
+        {
+            "type": "codeVoice",
+            "code": "Markup"
+        },
+        {
+            "text": " tree.",
+            "type": "text"
+        }
+    ],
+    "kind": "symbol",
+    "metadata": {
+        "roleHeading": "Structure",
+        "externalID": "s:9SwiftDocC16CompositeCheckerV",
+        "role": "symbol",
+        "modules": [
+            {
+                "name": "SwiftDocC"
+            }
+        ],
+        "fragments": [
+            {
+                "kind": "keyword",
+                "text": "struct"
+            },
+            {
+                "kind": "text",
+                "text": " "
+            },
+            {
+                "kind": "identifier",
+                "text": "CompositeChecker"
+            }
+        ],
+        "navigatorTitle": [
+            {
+                "text": "CompositeChecker",
+                "kind": "identifier"
+            }
+        ],
+        "title": "CompositeChecker",
+        "symbolKind": "struct"
+    },
+    "variants": [
+        {
+            "traits": [
+                {
+                    "interfaceLanguage": "swift"
+                }
+            ],
+            "paths": [
+                "\/documentation\/swiftdocc\/compositechecker"
+            ]
+        }
+    ],
+    "references": {
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitInlineHTML(_:)-81o0s": {
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitinlinehtml(_:)-81o0s",
+            "role": "symbol",
+            "type": "topic",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitInlineHTML"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "text": "InlineHTML",
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown10InlineHTMLV"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ],
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitInlineHTML(_:)-81o0s",
+            "title": "visitInlineHTML(_:)",
+            "abstract": []
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/checkers": {
+            "kind": "symbol",
+            "title": "checkers",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/checkers",
+            "fragments": [
+                {
+                    "text": "var",
+                    "kind": "keyword"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "kind": "identifier",
+                    "text": "checkers"
+                },
+                {
+                    "text": ": [",
+                    "kind": "text"
+                },
+                {
+                    "text": "AnyChecker",
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:9SwiftDocC10AnyCheckerV"
+                },
+                {
+                    "text": "]",
+                    "kind": "text"
+                }
+            ],
+            "role": "symbol",
+            "abstract": [
+                {
+                    "type": "text",
+                    "text": "The checkers that will visit the markup tree."
+                }
+            ],
+            "url": "\/documentation\/swiftdocc\/compositechecker\/checkers",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitStrong(_:)-469vs": {
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitStrong(_:)-469vs",
+            "role": "symbol",
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "func"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "text": "visitStrong",
+                    "kind": "identifier"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "text": "Strong",
+                    "preciseIdentifier": "s:8Markdown6StrongV"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ],
+            "title": "visitStrong(_:)",
+            "type": "topic",
+            "abstract": [],
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitstrong(_:)-469vs"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitCustomBlock(_:)-4q4fj": {
+            "abstract": [],
+            "role": "symbol",
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitCustomBlock(_:)-4q4fj",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitCustomBlock"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "text": "CustomBlock",
+                    "preciseIdentifier": "s:8Markdown11CustomBlockV"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ],
+            "title": "visitCustomBlock(_:)",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitcustomblock(_:)-4q4fj",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitThematicBreak(_:)-3bpxu": {
+            "role": "symbol",
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "func"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitThematicBreak"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "text": "ThematicBreak",
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown13ThematicBreakV"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "abstract": [],
+            "type": "topic",
+            "kind": "symbol",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitthematicbreak(_:)-3bpxu",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitThematicBreak(_:)-3bpxu",
+            "title": "visitThematicBreak(_:)"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitText(_:)-36wda": {
+            "type": "topic",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitText"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown4TextV",
+                    "text": "Text"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitText(_:)-36wda",
+            "role": "symbol",
+            "title": "visitText(_:)",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visittext(_:)-36wda",
+            "abstract": [],
+            "kind": "symbol"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitParagraph(_:)-3exbl": {
+            "abstract": [],
+            "role": "symbol",
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitParagraph(_:)-3exbl",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitParagraph"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "text": "Paragraph",
+                    "preciseIdentifier": "s:8Markdown9ParagraphV"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ],
+            "title": "visitParagraph(_:)",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitparagraph(_:)-3exbl",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitHTMLBlock(_:)-37i3w": {
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitHTMLBlock(_:)-37i3w",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visithtmlblock(_:)-37i3w",
+            "type": "topic",
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "func"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "text": "visitHTMLBlock",
+                    "kind": "identifier"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "preciseIdentifier": "s:8Markdown9HTMLBlockV",
+                    "text": "HTMLBlock",
+                    "kind": "typeIdentifier"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "role": "symbol",
+            "abstract": [],
+            "title": "visitHTMLBlock(_:)"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/StaticAnalysis": {
+            "role": "collectionGroup",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/StaticAnalysis",
+            "abstract": [
+                {
+                    "text": "Run static analysis checks on markup files.",
+                    "type": "text"
+                }
+            ],
+            "url": "\/documentation\/swiftdocc\/staticanalysis",
+            "title": "Static Analysis",
+            "kind": "article",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker": {
+            "fragments": [
+                {
+                    "text": "struct",
+                    "kind": "keyword"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "text": "CompositeChecker",
+                    "kind": "identifier"
+                }
+            ],
+            "title": "CompositeChecker",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker",
+            "abstract": [
+                {
+                    "text": "A collection of checkers which all visit the same ",
+                    "type": "text"
+                },
+                {
+                    "type": "codeVoice",
+                    "code": "Markup"
+                },
+                {
+                    "type": "text",
+                    "text": " tree."
+                }
+            ],
+            "url": "\/documentation\/swiftdocc\/compositechecker",
+            "role": "symbol",
+            "navigatorTitle": [
+                {
+                    "text": "CompositeChecker",
+                    "kind": "identifier"
+                }
+            ],
+            "kind": "symbol",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC": {
+            "role": "collection",
+            "abstract": [
+                {
+                    "type": "text",
+                    "text": "Combine code comments with markup prose to produce structured, semantic documentation."
+                }
+            ],
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC",
+            "type": "topic",
+            "url": "\/documentation\/swiftdocc",
+            "title": "SwiftDocC"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitLineBreak(_:)-79sox": {
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitLineBreak(_:)-79sox",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitlinebreak(_:)-79sox",
+            "abstract": [],
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitLineBreak"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown9LineBreakV",
+                    "text": "LineBreak"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "title": "visitLineBreak(_:)",
+            "role": "symbol",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/8Markdown13MarkupVisitorP": {
+            "title": "Markdown.MarkupVisitor",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/8Markdown13MarkupVisitorP",
+            "type": "unresolvable"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitImage(_:)-3gspa": {
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitImage"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown5ImageV",
+                    "text": "Image"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ],
+            "title": "visitImage(_:)",
+            "role": "symbol",
+            "abstract": [],
+            "kind": "symbol",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitimage(_:)-3gspa",
+            "type": "topic",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitImage(_:)-3gspa"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitListItem(_:)-40gax": {
+            "abstract": [],
+            "role": "symbol",
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitListItem(_:)-40gax",
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "func"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitListItem"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "text": "ListItem",
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown8ListItemV"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "title": "visitListItem(_:)",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitlistitem(_:)-40gax",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitCodeBlock(_:)-4qev3": {
+            "abstract": [],
+            "type": "topic",
+            "role": "symbol",
+            "kind": "symbol",
+            "title": "visitCodeBlock(_:)",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitcodeblock(_:)-4qev3",
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "func"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "text": "visitCodeBlock",
+                    "kind": "identifier"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "text": "CodeBlock",
+                    "preciseIdentifier": "s:8Markdown9CodeBlockV",
+                    "kind": "typeIdentifier"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitCodeBlock(_:)-4qev3"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/MarkupWalker-Implementations": {
+            "kind": "article",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/MarkupWalker-Implementations",
+            "type": "topic",
+            "title": "MarkupWalker Implementations",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/markupwalker-implementations",
+            "role": "collectionGroup",
+            "abstract": []
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/init(_:)": {
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/init(_:)",
+            "kind": "symbol",
+            "title": "init(_:)",
+            "abstract": [
+                {
+                    "type": "text",
+                    "text": "Creates a checker that performs the combined work of the given checkers."
+                }
+            ],
+            "role": "symbol",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/init(_:)",
+            "fragments": [
+                {
+                    "text": "init",
+                    "kind": "identifier"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "kind": "keyword",
+                    "text": "some"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "preciseIdentifier": "s:ST",
+                    "text": "Sequence",
+                    "kind": "typeIdentifier"
+                },
+                {
+                    "kind": "text",
+                    "text": "<"
+                },
+                {
+                    "text": "any",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "preciseIdentifier": "s:9SwiftDocC7CheckerP",
+                    "text": "Checker",
+                    "kind": "typeIdentifier"
+                },
+                {
+                    "text": ">)",
+                    "kind": "text"
+                }
+            ],
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/Checker": {
+            "url": "\/documentation\/swiftdocc\/checker",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/Checker",
+            "role": "symbol",
+            "navigatorTitle": [
+                {
+                    "text": "Checker",
+                    "kind": "identifier"
+                }
+            ],
+            "title": "Checker",
+            "abstract": [
+                {
+                    "type": "text",
+                    "text": "A markup checker."
+                }
+            ],
+            "fragments": [
+                {
+                    "text": "protocol",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "Checker"
+                }
+            ],
+            "type": "topic",
+            "kind": "symbol"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/AnyChecker": {
+            "fragments": [
+                {
+                    "text": "struct",
+                    "kind": "keyword"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "kind": "identifier",
+                    "text": "AnyChecker"
+                }
+            ],
+            "url": "\/documentation\/swiftdocc\/anychecker",
+            "kind": "symbol",
+            "role": "symbol",
+            "title": "AnyChecker",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/AnyChecker",
+            "abstract": [
+                {
+                    "text": "A type-erased container for any ",
+                    "type": "text"
+                },
+                {
+                    "type": "codeVoice",
+                    "code": "Checker"
+                },
+                {
+                    "text": ".",
+                    "type": "text"
+                }
+            ],
+            "type": "topic",
+            "navigatorTitle": [
+                {
+                    "kind": "identifier",
+                    "text": "AnyChecker"
+                }
+            ]
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitEmphasis(_:)-97oq0": {
+            "role": "symbol",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitEmphasis"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "text": "Emphasis",
+                    "preciseIdentifier": "s:8Markdown8EmphasisV"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ],
+            "abstract": [],
+            "type": "topic",
+            "kind": "symbol",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitemphasis(_:)-97oq0",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitEmphasis(_:)-97oq0",
+            "title": "visitEmphasis(_:)"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visit(_:)-7sh2d": {
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visit"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "preciseIdentifier": "s:8Markdown6MarkupP",
+                    "kind": "typeIdentifier",
+                    "text": "Markup"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visit(_:)-7sh2d",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visit(_:)-7sh2d",
+            "abstract": [],
+            "title": "visit(_:)",
+            "role": "symbol",
+            "kind": "symbol",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitBlockQuote(_:)-1qmop": {
+            "type": "topic",
+            "abstract": [],
+            "role": "symbol",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitblockquote(_:)-1qmop",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitBlockQuote(_:)-1qmop",
+            "kind": "symbol",
+            "title": "visitBlockQuote(_:)",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "text": "visitBlockQuote",
+                    "kind": "identifier"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "text": "BlockQuote",
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown10BlockQuoteV"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ]
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitUnorderedList(_:)-3figv": {
+            "abstract": [],
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitUnorderedList(_:)-3figv",
+            "role": "symbol",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitunorderedlist(_:)-3figv",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "text": "visitUnorderedList",
+                    "kind": "identifier"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "text": "UnorderedList",
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown13UnorderedListV"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ],
+            "type": "topic",
+            "title": "visitUnorderedList(_:)",
+            "kind": "symbol"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitSoftBreak(_:)-5vt8s": {
+            "abstract": [],
+            "role": "symbol",
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitSoftBreak(_:)-5vt8s",
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "func"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitSoftBreak"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "text": "SoftBreak",
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown9SoftBreakV"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "title": "visitSoftBreak(_:)",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitsoftbreak(_:)-5vt8s",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitLink(_:)-91l87": {
+            "title": "visitLink(_:)",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitLink"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "text": "Link",
+                    "preciseIdentifier": "s:8Markdown4LinkV",
+                    "kind": "typeIdentifier"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "abstract": [],
+            "type": "topic",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitlink(_:)-91l87",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitLink(_:)-91l87",
+            "role": "symbol",
+            "kind": "symbol"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/Checker-Implementations": {
+            "role": "collectionGroup",
+            "type": "topic",
+            "kind": "article",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/Checker-Implementations",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/checker-implementations",
+            "abstract": [],
+            "title": "Checker Implementations"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/MarkupVisitor-Implementations": {
+            "kind": "article",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/MarkupVisitor-Implementations",
+            "role": "collectionGroup",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/markupvisitor-implementations",
+            "abstract": [],
+            "type": "topic",
+            "title": "MarkupVisitor Implementations"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitDocument(_:)-9bjmm": {
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitDocument(_:)-9bjmm",
+            "role": "symbol",
+            "abstract": [],
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "text": "visitDocument",
+                    "kind": "identifier"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "text": "Document",
+                    "kind": "typeIdentifier",
+                    "preciseIdentifier": "s:8Markdown8DocumentV"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "kind": "symbol",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitdocument(_:)-9bjmm",
+            "title": "visitDocument(_:)",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/8Markdown12MarkupWalkerP": {
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/8Markdown12MarkupWalkerP",
+            "type": "unresolvable",
+            "title": "Markdown.MarkupWalker"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/problems": {
+            "title": "problems",
+            "type": "topic",
+            "abstract": [
+                {
+                    "text": "Problems found while walking.",
+                    "type": "text"
+                }
+            ],
+            "kind": "symbol",
+            "role": "symbol",
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "var"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "text": "problems",
+                    "kind": "identifier"
+                },
+                {
+                    "text": ": [",
+                    "kind": "text"
+                },
+                {
+                    "preciseIdentifier": "s:9SwiftDocC7ProblemV",
+                    "kind": "typeIdentifier",
+                    "text": "Problem"
+                },
+                {
+                    "text": "]",
+                    "kind": "text"
+                }
+            ],
+            "url": "\/documentation\/swiftdocc\/compositechecker\/problems",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/problems"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitHeading(_:)-1s6ni": {
+            "abstract": [],
+            "role": "symbol",
+            "kind": "symbol",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitHeading(_:)-1s6ni",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "kind": "identifier",
+                    "text": "visitHeading"
+                },
+                {
+                    "kind": "text",
+                    "text": "("
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "text": "Heading",
+                    "preciseIdentifier": "s:8Markdown7HeadingV"
+                },
+                {
+                    "kind": "text",
+                    "text": ")"
+                }
+            ],
+            "title": "visitHeading(_:)",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitheading(_:)-1s6ni",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitOrderedList(_:)-491oq": {
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "func"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "text": "visitOrderedList",
+                    "kind": "identifier"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "kind": "typeIdentifier",
+                    "text": "OrderedList",
+                    "preciseIdentifier": "s:8Markdown11OrderedListV"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "kind": "symbol",
+            "title": "visitOrderedList(_:)",
+            "role": "symbol",
+            "abstract": [],
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitorderedlist(_:)-491oq",
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitOrderedList(_:)-491oq",
+            "type": "topic"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitInlineCode(_:)-9xy2s": {
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitInlineCode(_:)-9xy2s",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitinlinecode(_:)-9xy2s",
+            "fragments": [
+                {
+                    "kind": "keyword",
+                    "text": "func"
+                },
+                {
+                    "text": " ",
+                    "kind": "text"
+                },
+                {
+                    "text": "visitInlineCode",
+                    "kind": "identifier"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "preciseIdentifier": "s:8Markdown10InlineCodeV",
+                    "text": "InlineCode",
+                    "kind": "typeIdentifier"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "abstract": [],
+            "role": "symbol",
+            "type": "topic",
+            "title": "visitInlineCode(_:)",
+            "kind": "symbol"
+        },
+        "doc://swift-docc.SwiftDocC/documentation/SwiftDocC/CompositeChecker/visitCustomInline(_:)-1g2fi": {
+            "identifier": "doc:\/\/swift-docc.SwiftDocC\/documentation\/SwiftDocC\/CompositeChecker\/visitCustomInline(_:)-1g2fi",
+            "title": "visitCustomInline(_:)",
+            "fragments": [
+                {
+                    "text": "func",
+                    "kind": "keyword"
+                },
+                {
+                    "kind": "text",
+                    "text": " "
+                },
+                {
+                    "text": "visitCustomInline",
+                    "kind": "identifier"
+                },
+                {
+                    "text": "(",
+                    "kind": "text"
+                },
+                {
+                    "preciseIdentifier": "s:8Markdown12CustomInlineV",
+                    "text": "CustomInline",
+                    "kind": "typeIdentifier"
+                },
+                {
+                    "text": ")",
+                    "kind": "text"
+                }
+            ],
+            "type": "topic",
+            "abstract": [],
+            "kind": "symbol",
+            "url": "\/documentation\/swiftdocc\/compositechecker\/visitcustominline(_:)-1g2fi",
+            "role": "symbol"
+        }
+    }
+}
