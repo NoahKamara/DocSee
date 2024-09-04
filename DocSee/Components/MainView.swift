@@ -76,7 +76,7 @@ struct MainView: View, DropDelegate {
 
     var body: some View {
         NavigationSplitView {
-            NavigatorView(navigator: navigator)
+            SidebarView(navigator: navigator)
                 .navigationDestination(item: $navigator.selection) { reference in
                     ContentView(reference: reference)
                         .toolbar {

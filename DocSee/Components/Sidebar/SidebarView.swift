@@ -2,7 +2,7 @@
 import Docsy
 import SwiftUI
 
-struct NavigatorView: View {
+struct SidebarView: View {
     @Environment(DocumentationContext.self)
     private var context
 
@@ -14,16 +14,23 @@ struct NavigatorView: View {
 
     var body: some View {
         List {
+            Button("Log") {
+                print(context.index.tree.dumpTree())
+            }
             NavigatorTreeView(tree: context.index.tree, language: language)
+            if context.index.tree.root.children?.isEmpty != true {
+                Text("No Content yet")
+            }
         }
         .safeAreaInset(edge: .top) {
             LanguagePicker(context.index.root.availableLanguages, selection: $language)
+                .padding(.horizontal, 10)
         }
     }
 }
 
 #Preview(traits: .workspace) {
-    NavigatorView(navigator: .init())
+    SidebarView(navigator: .init())
         .listStyle(.sidebar)
         .frame(maxHeight: .infinity)
 }

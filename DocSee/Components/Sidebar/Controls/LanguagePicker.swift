@@ -1,7 +1,7 @@
 import DocsySchema
 import SwiftUI
 
-extension NavigatorView {
+extension SidebarView {
     struct LanguagePicker: View {
         @Binding
         var selection: SourceLanguage
@@ -32,5 +32,5 @@ extension NavigatorView {
 #Preview {
     @Previewable @State var selection = SourceLanguage.swift
 
-    NavigatorView.LanguagePicker([.swift, .objective], selection: $selection)
+    SidebarView.LanguagePicker([.swift, .objective], selection: $selection)
 }
