@@ -1,5 +1,5 @@
 //
-//  DebugMode.swift
+//  AppSettings.swift
 //  DocSee
 //
 //  Created by Noah Kamara on 30.08.24.
@@ -14,7 +14,7 @@ class DebugMode {
 }
 
 extension EnvironmentValues {
-    @Entry var debugMode: DebugMode = DebugMode()
+    @Entry var debugMode: DebugMode = .init()
 }
 
 struct DebugModeButton: View {

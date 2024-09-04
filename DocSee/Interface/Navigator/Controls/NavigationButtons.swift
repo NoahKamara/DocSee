@@ -2,15 +2,14 @@
 
 import SwiftUI
 
-
 struct NavigationButtons: View {
     @Bindable var navigator: Navigator
 
     var body: some View {
         ControlGroup {
             Menu {
-                ForEach(Array(navigator.history.pastItems.enumerated()), id:\.offset) { item in
-                    Button(action: { navigator.goBack(1+item.offset) }) {
+                ForEach(Array(navigator.history.pastItems.enumerated()), id: \.offset) { item in
+                    Button(action: { navigator.goBack(1 + item.offset) }) {
                         Text(item.element.url.absoluteString)
                     }
                 }
@@ -22,8 +21,8 @@ struct NavigationButtons: View {
             .disabled(!navigator.canGoBack)
 
             Menu {
-                ForEach(Array(navigator.history.futureItems.enumerated()), id:\.offset) { item in
-                    Button(action: { navigator.goForward(1+item.offset) }) {
+                ForEach(Array(navigator.history.futureItems.enumerated()), id: \.offset) { item in
+                    Button(action: { navigator.goForward(1 + item.offset) }) {
                         Text(item.element.url.absoluteString)
                     }
                 }
@@ -36,10 +35,10 @@ struct NavigationButtons: View {
         }
         .controlGroupStyle(.navigation)
         .menuIndicator(.hidden)
-        #if os(macOS)
-        .menuStyle(.borderedButton)
-        #else
-        .menuStyle(.borderlessButton)
-        #endif
+#if os(macOS)
+            .menuStyle(.borderedButton)
+#else
+            .menuStyle(.borderlessButton)
+#endif
     }
 }

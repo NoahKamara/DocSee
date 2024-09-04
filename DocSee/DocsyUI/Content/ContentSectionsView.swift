@@ -1,5 +1,5 @@
-import SwiftUI
 import DocsySchema
+import SwiftUI
 
 struct ContentSectionsView: View {
     let sections: [AnyContentSection]
@@ -9,7 +9,7 @@ struct ContentSectionsView: View {
     }
 
     var body: some View {
-        ForEach(Array(sections.enumerated()), id:\.offset) { item in
+        ForEach(Array(sections.enumerated()), id: \.offset) { item in
             ContentSectionView(section: item.element)
         }
     }

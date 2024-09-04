@@ -1,6 +1,5 @@
-import SwiftUI
 import Docsy
-
+import SwiftUI
 
 struct BlockContentsView: View {
     let contents: [BlockContent]
@@ -11,15 +10,14 @@ struct BlockContentsView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            ForEach((0..<contents.count).map({ $0 }), id:\.self) { i in
+            ForEach((0..<contents.count).map { $0 }, id: \.self) { i in
                 BlockContentView(contents[i])
             }
         }
     }
 }
 
-
-fileprivate struct BlockContentView: View {
+private struct BlockContentView: View {
     let content: BlockContent
 
     init(_ content: BlockContent) {
@@ -42,13 +40,26 @@ fileprivate struct BlockContentView: View {
             UnorderedListView(list: unorderedList)
         case .termList(let termList):
             TermListView(list: termList)
-        case .table(let table):
-            TableView(table)
-        default: Text("H")
+//        case .table(let table):
+//            TableView(table)
+        default:
+//            CalloutView(.red) {
+//                ContentUnavailableView {
+//                    Label("Content Unavailable", systemImage: "exclamationmark.triangle.fill")
+//                        .font(.title3)
+//                } description: {
+//                    Text("This Block is not implemented yet :/ (\(content.type)")
+//                } actions: {
+//                    Button("Annoy the developer") {
+//                        print("IMPLEMENT ME HAHA")
+//                    }
+//                }
+//                .frame(maxWidth: .infinity, alignment: .center)
+//            }
+            Text("UNavailable")
         }
     }
 }
-
 
 struct HeadingView: View {
     let heading: BlockContent.Heading
@@ -154,9 +165,6 @@ struct ContentSectionView: View {
     .frame(maxWidth: .infinity, maxHeight: .infinity)
 }
 
-
-
-
 struct ContentView: View {
     @Environment(DocumentationContext.self)
     private var context
@@ -210,6 +218,3 @@ struct ContentView: View {
         self.document = document
     }
 }
-
-
-

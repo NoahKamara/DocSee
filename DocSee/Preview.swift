@@ -1,10 +1,10 @@
 
 
+import Docsy
 import Foundation
 import SwiftUI
-import Docsy
 
-//struct TestView: View {
+// struct TestView: View {
 //    @Environment(DocCOnte.self)
 //    var ws
 //
@@ -19,9 +19,8 @@ import Docsy
 //            }
 //        }
 //    }
-//}
+// }
 //
-
 
 struct PreviewWorkspace: PreviewModifier {
     static func makeSharedContext() async throws -> (DocumentationWorkspace, DocumentationContext) {
@@ -45,9 +44,8 @@ struct PreviewWorkspace: PreviewModifier {
     }
 }
 
-
-extension PreviewTrait where T == Preview.ViewTraits {
-    public static var workspace: PreviewTrait<T> {
-        Self.modifier(PreviewWorkspace())
+public extension PreviewTrait where T == Preview.ViewTraits {
+    static var workspace: PreviewTrait<T> {
+        modifier(PreviewWorkspace())
     }
 }

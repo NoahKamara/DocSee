@@ -1,5 +1,5 @@
-import SwiftUI
 import Docsy
+import SwiftUI
 
 /// A base view View for ordered and unordered lists
 struct ListView<Marker: View>: View {
@@ -12,7 +12,7 @@ struct ListView<Marker: View>: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            ForEach(0..<items.count, id:\.self) { index in
+            ForEach(0..<items.count, id: \.self) { index in
                 let item = items[index]
                 Label {
                     BlockContentsView(item.content)
@@ -32,7 +32,7 @@ struct ListView<Marker: View>: View {
 struct OrderedListView: View {
     let list: BlockContent.OrderedList
     var body: some View {
-        ListView(items: list.items) { item, index in
+        ListView(items: list.items) { _, index in
             Text("\(Int(list.startIndex) + index).")
         }
     }
@@ -53,17 +53,14 @@ struct UnorderedListView: View {
                 }
             }
         }
-
     }
 }
-
-
 
 struct TermListView: View {
     let list: BlockContent.TermList
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            ForEach(list.items, id:\.term.inlineContent.plainText) { item in
+            ForEach(list.items, id: \.term.inlineContent.plainText) { item in
                 VStack(alignment: .leading, spacing: 3) {
                     InlineContentView(item.term.inlineContent)
                     BlockContentsView(item.definition.content)

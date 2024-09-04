@@ -1,7 +1,6 @@
-import SwiftUI
-import SwiftData
 import Docsy
-
+import SwiftData
+import SwiftUI
 
 struct URLBookmark: Codable {
     var data: Data
@@ -25,8 +24,8 @@ class DocumentationReference {
     }
 }
 
-//@Model
-//class Workspace {
+// @Model
+// class Workspace {
 //    @Attribute(.unique)
 //    private(set) var identifier: String
 //
@@ -41,15 +40,14 @@ class DocumentationReference {
 //        self.displayName = displayName
 //        self.url = url
 //    }
-//}
-
+// }
 
 @main
 struct DocSeeApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
-            DocumentationReference.self
+            DocumentationReference.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
 
@@ -72,6 +70,7 @@ struct DocSeeApp: App {
 }
 
 import UniformTypeIdentifiers
+
 extension UTType {
     static var doccarchive: UTType {
         .init(importedAs: "com.apple.documentation.archive", conformingTo: .directory)
@@ -94,7 +93,7 @@ extension LocalFileSystemDataProvider {
     }
 }
 
-//public struct DoccArchiveDropDelegate: DropDelegate, ViewModifier {
+// public struct DoccArchiveDropDelegate: DropDelegate, ViewModifier {
 //    @State
 //    var isEntered: Bool = false
 //
@@ -138,13 +137,10 @@ extension LocalFileSystemDataProvider {
 //    public func dropExited(info: DropInfo) {
 //        self.isEntered = false
 //    }
-//}
+// }
 //
-//extension View {
+// extension View {
 //    func docsyDropDelegate() -> some View {
 //        self.modifier(DoccArchiveDropDelegate())
 //    }
-//}
-
-
-
+// }

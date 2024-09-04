@@ -25,7 +25,7 @@ public struct TextBuilder {
     }
 
     public static func buildPartialBlock(accumulated: Text, next: Text) -> Text {
-        accumulated+next
+        accumulated + next
     }
 
     public static func buildEither(first component: Text) -> Text {

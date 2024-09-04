@@ -1,11 +1,9 @@
-import SwiftUI
 import DocsySchema
-
+import SwiftUI
 
 struct PreviewDocument<Content: View>: View {
     let content: (Document) -> Content
     let reference: TopicReference
-
 
     init(
         _ path: String = "/documentation/testdocumentation/styles",
@@ -34,7 +32,7 @@ struct PreviewDocument<Content: View>: View {
 
     init<T>(
         _ path: String = "/documentation/testdocumentation/styles",
-        keyPath: KeyPath<Document,T>,
+        keyPath: KeyPath<Document, T>,
         @ViewBuilder content: @escaping (T) -> Content
     ) {
         self.reference = TopicReference(
@@ -48,8 +46,8 @@ struct PreviewDocument<Content: View>: View {
 
     init<T0, each T>(
         _ path: String = "/documentation/testdocumentation/styles",
-        keyPath: KeyPath<Document,T0>,
-        _ otherPaths: repeat KeyPath<Document,each T>,
+        keyPath: KeyPath<Document, T0>,
+        _ otherPaths: repeat KeyPath<Document, each T>,
         @ViewBuilder content: @escaping (T0, repeat each T) -> Content
     ) {
         self.reference = TopicReference(
@@ -124,11 +122,11 @@ struct PreviewDocument<Content: View>: View {
     }
 }
 
-#Preview("PreviewDocument") {
-    PreviewDocument { _ in
-        Text("Hello World")
-    }
-}
+// #Preview("PreviewDocument") {
+//    PreviewDocument { _ in
+//        Text("Hello World")
+//    }
+// }
 
 #Preview("PreviewDocument: KeyPath") {
     PreviewDocument(keyPath: \.abstract) { abstract in
@@ -149,12 +147,12 @@ class ReferenceResolver {
 
     func insert(_ references: [String: Reference]) {
         for (id, reference) in references {
-            self.insert(reference, forIdentifier: id)
+            insert(reference, forIdentifier: id)
         }
     }
 
     func insert(_ reference: Reference, forIdentifier id: String) {
-        self.references[id] = reference
+        references[id] = reference
     }
 }
 
@@ -172,7 +170,7 @@ extension ReferenceResolverProtocol {
 public class DocumentReferenceResolver {
     private var references: [ReferenceIdentifier: Reference]
 
-    init(references: [ReferenceIdentifier : Reference]) {
+    init(references: [ReferenceIdentifier: Reference]) {
         self.references = references
     }
 
@@ -182,23 +180,21 @@ public class DocumentReferenceResolver {
     }
 }
 
-
-
 extension PreviewDocument {
     static func primaryBlockContent(
         at path: String,
         @ViewBuilder content: @escaping ([BlockContent]) -> Content
     ) -> PreviewDocument {
         PreviewDocument(path) { document in
-            let blockContent: [BlockContent] = document.primaryContentSections.flatMap({ primarySection in
+            let blockContent: [BlockContent] = document.primaryContentSections.flatMap { primarySection in
                 switch primarySection {
                 case .content(let content): content.content
                 case .discussion(let discussion): discussion.content
                 default: [BlockContent]()
                 }
-            }).map({ content in
+            }.map { content in
                 content
-            })
+            }
 
             content(blockContent)
         }

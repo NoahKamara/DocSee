@@ -1,5 +1,5 @@
-import SwiftUI
 import DocsySchema
+import SwiftUI
 
 extension BlockContent.AsideStyle.OutputStyle {
     var color: Color {
@@ -33,7 +33,6 @@ struct AsideView: View {
     }
 }
 
-
 #Preview {
     let content: [BlockContent] = [.paragraph(.init(inlineContent: [.text("This is an Aside")]))]
 
@@ -49,7 +48,7 @@ struct AsideView: View {
 
     ScrollView {
         LazyVStack(spacing: 10) {
-            ForEach(Array(zip(0..<asides.count, asides)), id:\.0) { e in
+            ForEach(Array(zip(0..<asides.count, asides)), id: \.0) { e in
                 AsideView(e.1)
             }
         }

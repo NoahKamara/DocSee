@@ -26,7 +26,6 @@ struct CalloutView<Content: View>: View {
         .padding(1)
         .containerShape(RoundedRectangle(cornerRadius: 15))
         .backgroundStyle(tint.quinary)
-
     }
 }
 
@@ -36,4 +35,3 @@ struct CalloutView<Content: View>: View {
     }
     .padding()
 }
-

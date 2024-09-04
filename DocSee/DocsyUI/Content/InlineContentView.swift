@@ -1,6 +1,5 @@
-import SwiftUI
 import DocsySchema
-
+import SwiftUI
 
 struct InlineContentView: View {
     let content: [InlineContent]
@@ -25,30 +24,29 @@ struct InlineContentView: View {
     }
 }
 
-
 #Preview("Inline Content") {
     VStack(alignment: .leading) {
         PreviewDocument.primaryBlockContent(at: "/documentation/testdocumentation/styles") { blocks in
-            let inlineContent: [InlineContent] = blocks.flatMap({ block in
+            let inlineContent: [InlineContent] = blocks.flatMap { block in
                 if case .paragraph(let paragraph) = block {
                     return paragraph.inlineContent + [.text(" ")]
                 } else {
                     return [InlineContent]()
                 }
-            })
+            }
 
             InlineContentView(inlineContent)
                 .frame(maxHeight: .infinity)
         }
 
         PreviewDocument.primaryBlockContent(at: "/documentation/testdocumentation/references") { blocks in
-            let inlineContent: [InlineContent] = blocks.flatMap({ block in
+            let inlineContent: [InlineContent] = blocks.flatMap { block in
                 if case .paragraph(let paragraph) = block {
                     return paragraph.inlineContent + [.text(" ")]
                 } else {
                     return [InlineContent]()
                 }
-            })
+            }
 
             InlineContentView(inlineContent)
                 .frame(maxHeight: .infinity)
@@ -56,8 +54,8 @@ struct InlineContentView: View {
     }
 }
 
-
 // MARK: Rendering
+
 extension [InlineContent] {
     func attributed(with references: DocumentReferenceResolver? = nil) -> AttributedString {
         reduce(into: AttributedString()) { result, element in
@@ -119,8 +117,6 @@ extension InlineContent {
                 string = .init("UNKNOWN \(identifier.identifier)")
             }
 
-
-
         case .text(let text):
             string = AttributedString(text)
             //
@@ -135,7 +131,7 @@ extension InlineContent {
 
         default:
             print("NOT IMPLEMENTED")
-            string = AttributedString(self.plainText)
+            string = AttributedString(plainText)
             string.foregroundColor = .red
         }
 

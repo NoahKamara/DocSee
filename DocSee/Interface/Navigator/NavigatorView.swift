@@ -1,6 +1,6 @@
 
-import SwiftUI
 import Docsy
+import SwiftUI
 
 struct NavigatorView: View {
     @Environment(DocumentationContext.self)
@@ -12,13 +12,15 @@ struct NavigatorView: View {
     @Bindable
     var navigator: Navigator
 
+
+
     var body: some View {
-        List(selection: $navigator.selection) {
-            Section {
-                ForEach(context.bundleIdentifiers, id:\.self) { identifier in
-                    NavigatorIndexView(identifier: identifier, context: context)
-                }
-            }
+        List {
+            NavigatorTreeView(tree: context.index.tree, language: language)
+        }
+        .safeAreaInset(edge: .top) {
+            LanguagePicker(context.index.root.availableLanguages, selection: $language)
+
         }
     }
 }
@@ -26,4 +28,8 @@ struct NavigatorView: View {
 #Preview(traits: .workspace) {
     NavigatorView(navigator: .init())
         .listStyle(.sidebar)
+        .frame(maxHeight: .infinity)
 }
+
+import OSLog
+

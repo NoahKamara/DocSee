@@ -1,5 +1,5 @@
-import SwiftUI
 import DocsySchema
+import SwiftUI
 
 public struct DocumentView: View {
     let document: Document
@@ -12,7 +12,7 @@ public struct DocumentView: View {
 
     public var body: some View {
         ScrollView(.vertical) {
-            LazyVStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 5) {
                 ContentHeaderView(
                     roleHeading: document.metadata.roleHeading,
                     title: document.metadata.title ?? document.identifier.url.lastPathComponent,
@@ -37,5 +37,3 @@ public struct DocumentView: View {
     }
     .frame(maxWidth: 500, maxHeight: 900)
 }
-
-

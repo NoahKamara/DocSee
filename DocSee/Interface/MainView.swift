@@ -1,9 +1,10 @@
-import SwiftUI
 import Docsy
+import SwiftUI
 
-extension EnvironmentValues {
-    @Entry public var documentationWorkspace = DocumentationWorkspace()
+public extension EnvironmentValues {
+    @Entry var documentationWorkspace = DocumentationWorkspace()
 }
+
 @propertyWrapper
 struct Workspace: DynamicProperty {
     @Environment(\.documentationWorkspace)
@@ -16,11 +17,10 @@ struct Workspace: DynamicProperty {
 import AppKit
 #endif
 
-struct Pasteboard {
+enum Pasteboard {
     static let pasteboard: OSPasteboard = .general
 
-
-    #if os(macOS)
+#if os(macOS)
     typealias OSPasteboard = NSPasteboard
 
     static func setString(_ value: String) {
@@ -33,7 +33,7 @@ struct Pasteboard {
         pasteboard.setString(value.absoluteString, forType: .string)
     }
 
-    #else
+#else
     typealias OSPasteboard = UIPasteboard
 
     static func setString(_ value: String) {
@@ -43,7 +43,7 @@ struct Pasteboard {
     static func setURL(_ value: URL) {
         pasteboard.setObjects([value])
     }
-    #endif
+#endif
 }
 
 struct MainView: View, DropDelegate {
@@ -147,7 +147,7 @@ struct MainView: View, DropDelegate {
 //                    rootURL: baseURI.appending(component: "SlothCreator.doccarchive")
 //                )
 //
-////                try await workspace.registerProvider(doccProvider)
+        ////                try await workspace.registerProvider(doccProvider)
 //                try await workspace.registerProvider(slothcreatorProvider)
 //            } catch let desribedError as DescribedError {
 //                print(desribedError.errorDescription)
@@ -158,19 +158,18 @@ struct MainView: View, DropDelegate {
     }
 }
 
-//#Preview(traits: .workspace) {
+// #Preview(traits: .workspace) {
 //    MainView()
-//}
+// }
 
-//#Preview {
+// #Preview {
 //    ContentView2()
-//}
+// }
 
 extension ToolbarItemPlacement {
-    #if os(macOS)
+#if os(macOS)
     static let debugBar = accessoryBar(id: "debugBar")
-    #else
+#else
     static let debugBar = topBarTrailing
-    #endif
+#endif
 }
-

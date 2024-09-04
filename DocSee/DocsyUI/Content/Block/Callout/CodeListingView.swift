@@ -1,5 +1,5 @@
-import SwiftUI
 import DocsySchema
+import SwiftUI
 
 struct CodeListingView: View {
     let codeListing: BlockContent.CodeListing
@@ -25,4 +25,3 @@ struct CodeListingView: View {
 #Preview {
     PreviewDocument("//documentation/testdocumentation/codelisting")
 }
-

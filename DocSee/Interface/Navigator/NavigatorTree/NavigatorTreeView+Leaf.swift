@@ -1,60 +1,8 @@
-import SwiftUI
 import Docsy
-
-struct NavigatorTreeView: View {
-    @Bindable
-    var root: NavigatorIndex.NavigatorTree
-
-    var language: SourceLanguage
-
-    var body: some View {
-        ForEach(root[language]) { node in
-            NodeView(node: node)
-        }
-    }
-}
-
-// MARK: Node
-fileprivate extension NavigatorTreeView {
-    struct NodeView: View {
-        let node: NavigatorIndex.Node
-
-        var body: some View {
-            if let children = node.children {
-                ElementView(node: node, children: children)
-            } else {
-                LeafView(node: node)
-            }
-        }
-    }
-}
-
-// MARK: Element
-fileprivate extension NavigatorTreeView {
-    struct ElementView: View {
-        let node: NavigatorIndex.Node
-        let children: [NavigatorIndex.Node]
-
-        var body: some View {
-            if let children = node.children {
-                DisclosureGroup {
-                    ForEach(children) { child in
-                        NodeView(node: child)
-                    }
-                } label: {
-                    LeafView(node: node)
-                }
-            } else {
-                LeafView(node: node)
-            }
-        }
-    }
-}
+import SwiftUI
 
 
-
-// MARK: Leaf
-fileprivate extension NavigatorTreeView {
+extension NavigatorTreeView {
     struct LeafView: View {
         let node: NavigatorIndex.Node
 
@@ -69,7 +17,6 @@ fileprivate extension NavigatorTreeView {
                         }
                     }
 
-
                 } else if case .groupMarker = node.type {
                     Text(node.title)
                         .fontWeight(.semibold)
@@ -83,7 +30,7 @@ fileprivate extension NavigatorTreeView {
     }
 }
 
-
+// MARK: PageTypeIcon
 struct PageTypeIcon: View {
     enum Icon {
         case abbr(String, Color)
@@ -139,7 +86,6 @@ struct PageTypeIcon: View {
     PageTypeIcon(.article)
 }
 
-
 extension PageType {
     var icon: PageTypeIcon.Icon {
         switch self {
@@ -147,11 +93,11 @@ extension PageType {
         case .article: .symbol("text.document")
         case .overview: .symbol("app.connected.to.app.below.fill")
         case .tutorial: .symbol("square.fill.text.grid.1x2")
-//        case .section:
-//        case .learn:
-//        case .overview: .abbr("OV", .red)
-//        case .resources:
-//        case .symbol:
+            //        case .section:
+            //        case .learn:
+            //        case .overview: .abbr("OV", .red)
+            //        case .resources:
+            //        case .symbol:
         case .framework: .symbol("square.stack.3d.up.fill")
         case .class: .abbr("C", .purple)
         case .structure: .abbr("S", .purple)
@@ -159,27 +105,27 @@ extension PageType {
         case .enumeration: .abbr("E", .purple)
         case .function, .instanceMethod, .initializer: .abbr("M", .purple)
         case .extension: .abbr("Ex", .orange)
-//        case .variable:
-//        case .typeAlias:
-//        case .associatedType:
-//        case .operator:
-//        case .macro:
-//        case .union:
-//        case .enumerationCase:
+            //        case .variable:
+            //        case .typeAlias:
+            //        case .associatedType:
+            //        case .operator:
+            //        case .macro:
+            //        case .union:
+            //        case .enumerationCase:
         case .instanceProperty: .abbr("P", .purple)
-//        case .subscript:
-//        case .typeMethod:
-//        case .typeProperty:
-//        case .buildSetting:
-//        case .propertyListKey:
+            //        case .subscript:
+            //        case .typeMethod:
+            //        case .typeProperty:
+            //        case .buildSetting:
+            //        case .propertyListKey:
         case .sampleCode: .symbol("curlybraces")
-//        case .httpRequest:
-//        case .dictionarySymbol:
-//        case .namespace:
-//        case .propertyListKeyReference:
-//        case .languageGroup:
-//        case .container:
-//        case .groupMarker:
+            //        case .httpRequest:
+            //        case .dictionarySymbol:
+            //        case .namespace:
+            //        case .propertyListKeyReference:
+            //        case .languageGroup:
+            //        case .container:
+            //        case .groupMarker:
         default: .unknown(self)
         }
     }

@@ -5,8 +5,8 @@
 //  Created by Noah Kamara on 27.08.24.
 //
 
-import SwiftUI
 import Docsy
+import SwiftUI
 
 struct ContentHeaderView: View {
     let roleHeading: String?
@@ -38,7 +38,7 @@ struct ContentHeaderView: View {
 }
 
 #Preview {
-    PreviewDocument(keyPath: \.metadata, \.abstract) { (metadata, abstract) in
+    PreviewDocument(keyPath: \.metadata, \.abstract) { metadata, abstract in
         ContentHeaderView(
             roleHeading: metadata.roleHeading,
             title: metadata.title,
@@ -47,4 +47,3 @@ struct ContentHeaderView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
-

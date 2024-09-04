@@ -1,14 +1,14 @@
-import Foundation
 import Docsy
+import Foundation
 
-//struct AppleDeveloperDataProvider: DataProvider {
+// struct AppleDeveloperDataProvider: DataProvider {
 //    let identifier: String = "com.apple.documentation"
 //    let session: URLSession = .shared
 //
 //    func bundles() async throws -> [DocumentationBundle] {
 //        let (data, _) = try await session.data(from: URL(string: "https://developer.apple.com/tutorials/data/documentation/technologies.json")!)
 //    }
-//}
+// }
 
 import DocsySchema
 
@@ -30,6 +30,7 @@ typealias TODO = String
 import Foundation
 
 // MARK: - Index
+
 public struct Technologies: Decodable {
     /// The current version of the document schema.
     public let schemaVersion: SemanticVersion
@@ -60,7 +61,7 @@ public struct Technologies: Decodable {
     init(
         schemaVersion: SemanticVersion,
         identifier: TopicReference,
-        references: [ReferenceIdentifier : Reference],
+        references: [ReferenceIdentifier: Reference],
         hierarchy: Hierarchy?,
         metadata: Metadata,
         sections: [Section],
@@ -81,6 +82,7 @@ public struct Technologies: Decodable {
 public extension Document {
     typealias Section = String
 }
+
 public extension Technologies {
     typealias Hierarchy = Document.Hierarchy
     typealias Section = Document.Section
@@ -88,6 +90,7 @@ public extension Technologies {
 }
 
 // MARK: - LegalNotices
+
 public struct LegalNotices: Decodable {
     public let copyright: String
     public let termsOfUse: String
@@ -101,6 +104,7 @@ public struct LegalNotices: Decodable {
 }
 
 // MARK: - Section
+
 public struct TechnologiesSection: Decodable {
     public let groups: [Group]
 
@@ -109,9 +113,10 @@ public struct TechnologiesSection: Decodable {
     }
 }
 
-extension TechnologiesSection {
+public extension TechnologiesSection {
     // MARK: - Group
-    public struct Group: Decodable {
+
+    struct Group: Decodable {
         public let name: String
         public let technologies: [Technology]
 
@@ -122,8 +127,8 @@ extension TechnologiesSection {
     }
 }
 
-
 // MARK: - Technology
+
 public struct Technology: Decodable {
     public let destination: Reference
     public let title: String
@@ -148,6 +153,7 @@ public struct Technology: Decodable {
 }
 
 // MARK: - Destination
+
 public struct Destination: Decodable {
     /// The identifier of the destinations reference
     public let identifier: ReferenceIdentifier
@@ -156,5 +162,3 @@ public struct Destination: Decodable {
         self.identifier = identifier
     }
 }
-
-

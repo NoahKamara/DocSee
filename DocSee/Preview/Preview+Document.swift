@@ -5,9 +5,8 @@
 //  Created by Noah Kamara on 27.08.24.
 //
 
-import Foundation
 import Docsy
-
+import Foundation
 
 enum Previews {
     static func decode<T: Decodable>(_ id: String, json: String) -> T {
