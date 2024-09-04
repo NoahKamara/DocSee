@@ -12,14 +12,13 @@ struct NavigatorTreeView: View {
     }
 }
 
-
 extension EnvironmentValues {
     @Entry
     var sourceLanguage: SourceLanguage = .swift
 }
 
-
 // MARK: Node
+
 private extension NavigatorTreeView {
     struct NodeView: View {
         let node: NavigatorIndex.Node
@@ -67,5 +66,3 @@ private extension NavigatorTreeView {
         }
     }
 }
-
-

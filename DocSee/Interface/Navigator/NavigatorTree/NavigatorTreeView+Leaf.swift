@@ -1,7 +1,6 @@
 import Docsy
 import SwiftUI
 
-
 extension NavigatorTreeView {
     struct LeafView: View {
         let node: NavigatorIndex.Node
@@ -31,6 +30,7 @@ extension NavigatorTreeView {
 }
 
 // MARK: PageTypeIcon
+
 struct PageTypeIcon: View {
     enum Icon {
         case abbr(String, Color)
@@ -93,11 +93,11 @@ extension PageType {
         case .article: .symbol("text.document")
         case .overview: .symbol("app.connected.to.app.below.fill")
         case .tutorial: .symbol("square.fill.text.grid.1x2")
-            //        case .section:
-            //        case .learn:
-            //        case .overview: .abbr("OV", .red)
-            //        case .resources:
-            //        case .symbol:
+        //        case .section:
+        //        case .learn:
+        //        case .overview: .abbr("OV", .red)
+        //        case .resources:
+        //        case .symbol:
         case .framework: .symbol("square.stack.3d.up.fill")
         case .class: .abbr("C", .purple)
         case .structure: .abbr("S", .purple)
@@ -105,27 +105,27 @@ extension PageType {
         case .enumeration: .abbr("E", .purple)
         case .function, .instanceMethod, .initializer: .abbr("M", .purple)
         case .extension: .abbr("Ex", .orange)
-            //        case .variable:
-            //        case .typeAlias:
-            //        case .associatedType:
-            //        case .operator:
-            //        case .macro:
-            //        case .union:
-            //        case .enumerationCase:
+        //        case .variable:
+        //        case .typeAlias:
+        //        case .associatedType:
+        //        case .operator:
+        //        case .macro:
+        //        case .union:
+        //        case .enumerationCase:
         case .instanceProperty: .abbr("P", .purple)
-            //        case .subscript:
-            //        case .typeMethod:
-            //        case .typeProperty:
-            //        case .buildSetting:
-            //        case .propertyListKey:
+        //        case .subscript:
+        //        case .typeMethod:
+        //        case .typeProperty:
+        //        case .buildSetting:
+        //        case .propertyListKey:
         case .sampleCode: .symbol("curlybraces")
-            //        case .httpRequest:
-            //        case .dictionarySymbol:
-            //        case .namespace:
-            //        case .propertyListKeyReference:
-            //        case .languageGroup:
-            //        case .container:
-            //        case .groupMarker:
+        //        case .httpRequest:
+        //        case .dictionarySymbol:
+        //        case .namespace:
+        //        case .propertyListKeyReference:
+        //        case .languageGroup:
+        //        case .container:
+        //        case .groupMarker:
         default: .unknown(self)
         }
     }

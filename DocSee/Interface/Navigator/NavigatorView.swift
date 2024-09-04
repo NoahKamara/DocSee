@@ -12,15 +12,12 @@ struct NavigatorView: View {
     @Bindable
     var navigator: Navigator
 
-
-
     var body: some View {
         List {
             NavigatorTreeView(tree: context.index.tree, language: language)
         }
         .safeAreaInset(edge: .top) {
             LanguagePicker(context.index.root.availableLanguages, selection: $language)
-
         }
     }
 }
@@ -32,4 +29,3 @@ struct NavigatorView: View {
 }
 
 import OSLog
-
