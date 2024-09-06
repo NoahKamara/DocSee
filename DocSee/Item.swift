@@ -1,3 +1,10 @@
+//
+//  Item.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 import Foundation
 import SwiftData
 

@@ -1,6 +1,13 @@
-import Foundation
+//
+//  ResourceProvider.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 import DocCViewer
 import Docsy
+import Foundation
 
 class DocsyResourceProvider: BundleResourceProvider {
     let context: DocumentationContext

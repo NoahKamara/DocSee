@@ -1,8 +1,8 @@
 //
 //  AppSettings.swift
-//  DocSee
+// DocSee
 //
-//  Created by Noah Kamara on 30.08.24.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import Foundation

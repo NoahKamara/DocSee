@@ -1,8 +1,15 @@
-import SwiftUI
-import UniformTypeIdentifiers
-import Docsy
+//
+//  DocumentView.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 import BundleAppSourceProvider
 import DocCViewer
+import Docsy
+import SwiftUI
+import UniformTypeIdentifiers
 
 struct DocumentView: View {
     let navigator: Navigator

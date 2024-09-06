@@ -1,3 +1,10 @@
+//
+//  NavigatorTreeView+Leaf.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 import Docsy
 import SwiftUI
 

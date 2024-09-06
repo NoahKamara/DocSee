@@ -1,3 +1,10 @@
+//
+//  ProviderManagerView.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 // import SwiftUI
 //
 // enum ContainerStyle {

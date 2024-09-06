@@ -1,3 +1,9 @@
+//
+//  Navigator.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
 
 import Docsy
 import Observation
@@ -75,7 +81,7 @@ extension Navigator {
 
         init(current: TopicReference? = nil) {
             self.future = []
-            self.history = current.map({ [$0] }) ?? []
+            self.history = current.map { [$0] } ?? []
         }
 
         var canGoBack: Bool { current != nil && history.count > 1 }

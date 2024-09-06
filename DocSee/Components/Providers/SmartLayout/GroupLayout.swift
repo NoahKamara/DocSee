@@ -1,3 +1,10 @@
+//
+//  GroupLayout.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 // import SwiftUI
 //
 // struct GroupLayout<Content: View>: View {

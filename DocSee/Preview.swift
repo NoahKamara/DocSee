@@ -1,9 +1,13 @@
-
+//
+//  Preview.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
 
 import Docsy
 import Foundation
 import SwiftUI
-
 
 struct PreviewWorkspace: PreviewModifier {
     static func makeSharedContext() async throws -> (DocumentationWorkspace, DocumentationContext) {

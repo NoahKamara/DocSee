@@ -1,3 +1,10 @@
+//
+//  ServerDataProvider.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 import Docsy
 
 // public struct ServerDataProvider: DataProvider {

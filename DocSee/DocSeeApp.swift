@@ -1,3 +1,10 @@
+//
+//  DocSeeApp.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 import Docsy
 import SwiftData
 import SwiftUI

@@ -1,3 +1,10 @@
+//
+//  MainView.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
+
 import Docsy
 import SwiftUI
 
@@ -150,6 +157,3 @@ enum DocsyResourceProviderError: Error {
     case invalidURL(String)
     case loadingFailed(any Error)
 }
-
-
-

@@ -1,3 +1,9 @@
+//
+//  SidebarView.swift
+// DocSee
+//
+//  Copyright © 2024 Noah Kamara.
+//
 
 import Docsy
 import SwiftUI
@@ -28,7 +34,6 @@ struct SidebarView: View {
 
     @Bindable
     var navigator: Navigator
-
 
     var body: some View {
         List(selection: $navigator.selection) {
