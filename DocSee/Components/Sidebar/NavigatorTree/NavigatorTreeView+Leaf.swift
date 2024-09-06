@@ -8,13 +8,15 @@ extension NavigatorTreeView {
         var body: some View {
             Group {
                 if let reference = node.reference {
-                    NavigationLink(value: reference) {
-                        Label {
-                            Text(node.title)
-                        } icon: {
-                            PageTypeIcon(node.type)
-                        }
+//                    NavigationLink(value: reference) {
+//
+//                    }
+                    Label {
+                        Text(node.title)
+                    } icon: {
+                        PageTypeIcon(node.type)
                     }
+                    .tag(reference)
 
                 } else if case .groupMarker = node.type {
                     Text(node.title)
@@ -72,11 +74,8 @@ struct PageTypeIcon: View {
                     .padding(2)
 
             case .unknown(let type):
-                Text(type.rawValue.prefix(2))
+                Text("UNKNOWN \(type.rawValue)")
                     .foregroundStyle(.red)
-                    .onAppear {
-                        print("UNKNOWN", type)
-                    }
             }
         }
     }

@@ -8,7 +8,7 @@ struct NavigatorTreeView: View {
 
     var body: some View {
         Group {
-            ForEach(tree.root.children ?? []) { child in
+            ForEach(tree.children ?? []) { child in
                 NodeView(node: child)
             }
         }
@@ -63,6 +63,7 @@ private extension NavigatorTreeView {
 }
 
 // MARK: LanguageNodeView
+
 private extension NavigatorTreeView {
     struct LanguageNodeView: View {
         let node: NavigatorIndex.LanguageGroup

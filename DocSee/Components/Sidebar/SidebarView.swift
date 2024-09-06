@@ -12,18 +12,17 @@ struct SidebarView: View {
     @Bindable
     var navigator: Navigator
 
+
     var body: some View {
-        List {
-            Button("Log") {
-                print(context.index.tree.dumpTree())
-            }
+        List(selection: $navigator.selection) {
             NavigatorTreeView(tree: context.index.tree, language: language)
-            if context.index.tree.root.children?.isEmpty != true {
+
+            if context.index.tree.isEmpty {
                 Text("No Content yet")
             }
         }
         .safeAreaInset(edge: .top) {
-            LanguagePicker(context.index.root.availableLanguages, selection: $language)
+            LanguagePicker(context.index.tree.availableLanguages, selection: $language)
                 .padding(.horizontal, 10)
         }
     }
@@ -34,5 +33,3 @@ struct SidebarView: View {
         .listStyle(.sidebar)
         .frame(maxHeight: .infinity)
 }
-
-import OSLog

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD3E18C52C8A494F009362BB /* DocCViewer */; };
 		FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FDDB4FEE2C7AD0810038592C /* Docsy */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */,
+				FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +60,7 @@
 				FD85D9D02C795DD200C74606 /* DocSee */,
 				FD85D9CF2C795DD200C74606 /* Products */,
 				FDAC8B252C7FD48C00FC4198 /* Resources */,
+				FDC381EB2C8B977D001AB4DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +70,13 @@
 				FD85D9CE2C795DD200C74606 /* DocSee.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FDC381EB2C8B977D001AB4DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -91,6 +101,7 @@
 			name = DocSee;
 			packageProductDependencies = (
 				FDDB4FEE2C7AD0810038592C /* Docsy */,
+				FD3E18C52C8A494F009362BB /* DocCViewer */,
 			);
 			productName = DocSee;
 			productReference = FD85D9CE2C795DD200C74606 /* DocSee.app */;
@@ -122,6 +133,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				FDDB4FED2C7AD0810038592C /* XCLocalSwiftPackageReference "../Docsy" */,
+				FD3E18C42C8A494F009362BB /* XCLocalSwiftPackageReference "../DocCViewer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FD85D9CF2C795DD200C74606 /* Products */;
@@ -372,6 +384,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		FD3E18C42C8A494F009362BB /* XCLocalSwiftPackageReference "../DocCViewer" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../DocCViewer;
+		};
 		FDDB4FED2C7AD0810038592C /* XCLocalSwiftPackageReference "../Docsy" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Docsy;
@@ -379,6 +395,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FD3E18C52C8A494F009362BB /* DocCViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DocCViewer;
+		};
 		FDDB4FEE2C7AD0810038592C /* Docsy */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Docsy;

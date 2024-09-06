@@ -8,7 +8,7 @@ public extension Text {
 
 @resultBuilder
 public struct TextBuilder {
-    public static func buildBlock<Data, ID>(_ forEach: ForEach<Data, ID, Text>) -> Text? {
+    public static func buildBlock(_ forEach: ForEach<some Any, some Any, Text>) -> Text? {
         //        forEach.data.reduce(Text(""), { forEach.content($0) })
         if let first = forEach.data.first {
             forEach.data
