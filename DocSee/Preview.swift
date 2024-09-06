@@ -4,23 +4,6 @@ import Docsy
 import Foundation
 import SwiftUI
 
-// struct TestView: View {
-//    @Environment(DocCOnte.self)
-//    var ws
-//
-//    var body: some View {
-//        NavigationStack {
-//            List {
-//                Section("Bundles") {
-//                    ForEach(ws.bundles.keys.sorted(), id:\.self) { identifier in
-//                        Text(identifier)
-//                    }
-//                }
-//            }
-//        }
-//    }
-// }
-//
 
 struct PreviewWorkspace: PreviewModifier {
     static func makeSharedContext() async throws -> (DocumentationWorkspace, DocumentationContext) {

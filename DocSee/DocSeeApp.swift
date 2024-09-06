@@ -58,14 +58,38 @@ struct DocSeeApp: App {
         }
     }()
 
-    let workspace = DocumentationWorkspace()
+    var body: some Scene {
+        Group {
+            MainScene()
+        }
+        .modelContainer(sharedModelContainer)
+    }
+}
+
+struct MainScene: Scene {
+    let workspace: DocumentationWorkspace
+    let context: DocumentationContext
+
+    init() {
+        let workspace = DocumentationWorkspace()
+        self.workspace = workspace
+        self.context = DocumentationContext(dataProvider: workspace)
+    }
 
     var body: some Scene {
-        WindowGroup {
-            MainView(context: DocumentationContext(dataProvider: workspace))
+        Group {
+            Window("DocSee", id: "main") {
+                MainView(context: context)
+            }
+
+            WindowGroup(id: "secondary", for: TopicReference.self) { $reference in
+                DocumentView(context: context, navigator: .init(initialTopic: reference))
+                    .presentedWindowStyle(.plain)
+                    .presentedWindowToolbarStyle(.unified)
+            }
+            .windowBackgroundDragBehavior(.enabled)
         }
         .environment(\.documentationWorkspace, workspace)
-        .modelContainer(sharedModelContainer)
     }
 }
 
@@ -92,55 +116,3 @@ extension LocalFileSystemDataProvider {
         )
     }
 }
-
-// public struct DoccArchiveDropDelegate: DropDelegate, ViewModifier {
-//    @State
-//    var isEntered: Bool = false
-//
-//    @Environment(DocumentationWorkspace.self)
-//    private var workspace
-//
-//    let allowedContentTypes: [UTType] = [
-//        .doccarchive,
-//        .directory,
-////        .url,
-////        .fileURL
-//    ]
-//
-//    public func body(content: Content) -> some View {
-//        content
-//            .onDrop(of: allowedContentTypes, delegate: self)
-//    }
-//
-//    public func validateDrop(info: DropInfo) -> Bool {
-//        print("validate", info)
-//        let providers = info.itemProviders(for: allowedContentTypes)
-//
-//        for provider in providers {
-//            print(provider.load)
-//        }
-//        return info.hasItemsConforming(to: allowedContentTypes)
-//    }
-//
-//    public  func performDrop(info: DropInfo) -> Bool { false }
-//
-//    public func dropEntered(info: DropInfo) {
-//        print("entered")
-//    }
-//
-//    public func dropUpdated(info: DropInfo) -> DropProposal? {
-////        print("updated")
-//        self.isEntered = true
-//        return .init(operation: .copy)
-//    }
-//
-//    public func dropExited(info: DropInfo) {
-//        self.isEntered = false
-//    }
-// }
-//
-// extension View {
-//    func docsyDropDelegate() -> some View {
-//        self.modifier(DoccArchiveDropDelegate())
-//    }
-// }

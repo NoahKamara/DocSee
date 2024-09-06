@@ -2,6 +2,23 @@
 import Docsy
 import SwiftUI
 
+struct OpenTopicInWindowButton: View {
+    let topic: TopicReference
+
+    init(_ topic: TopicReference) {
+        self.topic = topic
+    }
+
+    @Environment(\.openWindow)
+    var openWindow
+
+    var body: some View {
+        Button(action: { openWindow(value: topic) }) {
+            Label("Open in New Window", systemImage: "macwindow.badge.plus")
+        }
+    }
+}
+
 struct SidebarView: View {
     @Environment(DocumentationContext.self)
     private var context

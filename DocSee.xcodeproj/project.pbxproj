@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD3E18C52C8A494F009362BB /* DocCViewer */; };
+		FDA9FCC42C8BB64F004D78CA /* BundleAppSourceProvider in Frameworks */ = {isa = PBXBuildFile; productRef = FDA9FCC32C8BB64F004D78CA /* BundleAppSourceProvider */; };
 		FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FDDB4FEE2C7AD0810038592C /* Docsy */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */,
+				FDA9FCC42C8BB64F004D78CA /* BundleAppSourceProvider in Frameworks */,
 				FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +104,7 @@
 			packageProductDependencies = (
 				FDDB4FEE2C7AD0810038592C /* Docsy */,
 				FD3E18C52C8A494F009362BB /* DocCViewer */,
+				FDA9FCC32C8BB64F004D78CA /* BundleAppSourceProvider */,
 			);
 			productName = DocSee;
 			productReference = FD85D9CE2C795DD200C74606 /* DocSee.app */;
@@ -398,6 +401,10 @@
 		FD3E18C52C8A494F009362BB /* DocCViewer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DocCViewer;
+		};
+		FDA9FCC32C8BB64F004D78CA /* BundleAppSourceProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BundleAppSourceProvider;
 		};
 		FDDB4FEE2C7AD0810038592C /* Docsy */ = {
 			isa = XCSwiftPackageProductDependency;

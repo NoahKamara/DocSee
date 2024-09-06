@@ -1,10 +1,3 @@
-//
-//  Item.swift
-//  DocSee
-//
-//  Created by Noah Kamara on 24.08.24.
-//
-
 import Foundation
 import SwiftData
 

@@ -16,6 +16,9 @@ extension NavigatorTreeView {
                     } icon: {
                         PageTypeIcon(node.type)
                     }
+                    .contextMenu {
+                        OpenTopicInWindowButton(reference)
+                    }
                     .tag(reference)
 
                 } else if case .groupMarker = node.type {

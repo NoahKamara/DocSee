@@ -60,6 +60,10 @@ public class Navigator {
             history.goForward()
         }
     }
+
+    public init(initialTopic: TopicReference? = nil) {
+        self.history = History(current: initialTopic)
+    }
 }
 
 extension Navigator {
@@ -69,16 +73,21 @@ extension Navigator {
 
         private(set) var history: [TopicReference] = []
 
-        public var canGoBack: Bool { current != nil && history.count > 1 }
-        public var canGoForward: Bool { current != nil && !future.isEmpty }
+        init(current: TopicReference? = nil) {
+            self.future = []
+            self.history = current.map({ [$0] }) ?? []
+        }
+
+        var canGoBack: Bool { current != nil && history.count > 1 }
+        var canGoForward: Bool { current != nil && !future.isEmpty }
 
         mutating func push(_ reference: TopicReference) {
             clearFuture()
             history.append(reference)
         }
 
-        public var pastItems: [TopicReference] { history.dropLast() }
-        public var futureItems: [TopicReference] { future.reversed() }
+        var pastItems: [TopicReference] { history.dropLast() }
+        var futureItems: [TopicReference] { future.reversed() }
 
         mutating func goBack() {
             guard !history.isEmpty else { return }
