@@ -25,7 +25,6 @@ import DocCViewer
 import AppKit
 #endif
 
-
 struct MainView: View {
     @Environment(\.documentationWorkspace)
     private var workspace

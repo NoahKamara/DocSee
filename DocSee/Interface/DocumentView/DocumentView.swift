@@ -35,7 +35,7 @@ struct DocumentView: View {
                 ToolbarItem(id: "navigation", placement: .navigation) {
                     NavigationButtons(viewer: viewer)
                 }
-                
+
                 ToolbarItem(id: "open-topic-in-window") {
                     OptionalTopicButton(navigator.selection) { topic in
                         OpenTopicInWindowButton(topic)

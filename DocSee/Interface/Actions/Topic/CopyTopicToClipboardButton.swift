@@ -2,11 +2,11 @@
 //  CopyTopicToClipboardButton.swift
 //  DocSee
 //
-//  Created by Noah Kamara on 07.09.24.
+//  Copyright © 2024 Noah Kamara.
 //
 
-import SwiftUI
 import Docsy
+import SwiftUI
 
 struct CopyTopicToClipboardButton: View {
     let topic: TopicReference

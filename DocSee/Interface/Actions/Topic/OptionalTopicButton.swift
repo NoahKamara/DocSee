@@ -2,11 +2,11 @@
 //  OptionalTopicButton.swift
 //  DocSee
 //
-//  Created by Noah Kamara on 07.09.24.
+//  Copyright © 2024 Noah Kamara.
 //
 
-import SwiftUI
 import Docsy
+import SwiftUI
 
 struct OptionalTopicButton<Content: View>: View {
     let topic: TopicReference?
@@ -14,8 +14,7 @@ struct OptionalTopicButton<Content: View>: View {
 
     init(
         _ topic: TopicReference?,
-        @ViewBuilder
-        content: @escaping (TopicReference) -> Content
+        @ViewBuilder content: @escaping (TopicReference) -> Content
     ) {
         self.topic = topic
         self.content = content
