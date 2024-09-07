@@ -1,6 +1,6 @@
 //
 //  AppSettings.swift
-// DocSee
+//  DocSee
 //
 //  Copyright © 2024 Noah Kamara.
 //
@@ -19,7 +19,7 @@ extension EnvironmentValues {
 
 struct DebugModeButton: View {
     @Environment(\.debugMode)
-    private var debugMode: DebugMode
+    private var debugMode
 
     public init() {}
 

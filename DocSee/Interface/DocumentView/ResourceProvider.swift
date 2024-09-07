@@ -1,6 +1,6 @@
 //
 //  ResourceProvider.swift
-// DocSee
+//  DocSee
 //
 //  Copyright © 2024 Noah Kamara.
 //
@@ -23,19 +23,8 @@ class DocsyResourceProvider: BundleResourceProvider {
             throw .invalidURL(urlString)
         }
 
-        switch kind {
-        case .documentation, .tutorial: url.append(component: "index.html")
-        default: break
-        }
-
         do {
             var data = try await context.contentsOfURL(url)
-            if [BundleAssetKind.documentation, .tutorial].contains(kind) {
-                var string = String(data: data, encoding: .utf8)!
-                let baseURI = "doc://\(identifier)/"
-                string.replace("var baseUrl = \"/\";", with: "var baseUrl = \"\(baseURI)\";", maxReplacements: 1)
-                data = string.data(using: .utf8)!
-            }
             return data
         } catch {
             throw .loadingFailed(error)

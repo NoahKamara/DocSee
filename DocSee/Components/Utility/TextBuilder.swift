@@ -1,6 +1,6 @@
 //
 //  TextBuilder.swift
-// DocSee
+//  DocSee
 //
 //  Copyright © 2024 Noah Kamara.
 //

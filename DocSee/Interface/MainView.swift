@@ -1,6 +1,6 @@
 //
 //  MainView.swift
-// DocSee
+//  DocSee
 //
 //  Copyright © 2024 Noah Kamara.
 //
@@ -54,12 +54,7 @@ enum Pasteboard {
 #endif
 }
 
-struct MainView: View, DropDelegate {
-    func performDrop(info: DropInfo) -> Bool {
-        let urlProviders = info.itemProviders(for: [.url])
-        return true
-    }
-
+struct MainView: View {
     @Environment(\.documentationWorkspace)
     private var workspace
 
@@ -88,14 +83,11 @@ struct MainView: View, DropDelegate {
         } detail: {
             DocumentView(context: context, navigator: navigator)
         }
-        .toolbar(content: {
+        .toolbar {
             ToolbarItem(placement: .debugBar) {
                 DebugModeButton()
             }
-            ToolbarItemGroup(placement: .navigation) {
-                NavigationButtons(navigator: navigator)
-            }
-        })
+        }
         .environment(\.openURL, .init(handler: { url in
             switch url.scheme {
             case "doc":

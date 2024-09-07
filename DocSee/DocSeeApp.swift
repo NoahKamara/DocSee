@@ -1,6 +1,6 @@
 //
 //  DocSeeApp.swift
-// DocSee
+//  DocSee
 //
 //  Copyright © 2024 Noah Kamara.
 //
@@ -85,7 +85,7 @@ struct MainScene: Scene {
 
     var body: some Scene {
         Group {
-            Window("DocSee", id: "main") {
+            WindowGroup("DocSee") {
                 MainView(context: context)
             }
 
@@ -118,7 +118,7 @@ extension LocalFileSystemDataProvider {
             throw BundleDataProviderError.noResoureURL(bundle.bundleIdentifier ?? bundle.description)
         }
         try self.init(
-            rootURL: resourceURL.appending(components: "TestDocumentation.doccarchive"),
+            rootURL: resourceURL,
             allowArbitraryCatalogDirectories: false
         )
     }
