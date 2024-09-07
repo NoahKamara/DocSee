@@ -9,7 +9,6 @@ import AppIntents
 import Docsy
 import SwiftUI
 
-
 struct OpenTopicInWindowButton: View {
     let topic: TopicReference
 
@@ -25,4 +24,9 @@ struct OpenTopicInWindowButton: View {
             Label("Open in New Window", systemImage: "macwindow.badge.plus")
         }
     }
+}
+
+#Preview {
+    OpenTopicInWindowButton(.preview)
+        .padding(20)
 }

@@ -14,7 +14,7 @@ extension NavigatorTreeView {
 
         var body: some View {
             Group {
-                if let reference = node.reference {
+                if let topic = node.reference {
 //                    NavigationLink(value: reference) {
 //
 //                    }
@@ -24,9 +24,11 @@ extension NavigatorTreeView {
                         PageTypeIcon(node.type)
                     }
                     .contextMenu {
-                        OpenTopicInWindowButton(reference)
+                        OpenTopicInWindowButton(topic)
+                        Divider()
+                        CopyTopicToClipboardButton(topic)
                     }
-                    .tag(reference)
+                    .tag(topic)
 
                 } else if case .groupMarker = node.type {
                     Text(node.title)

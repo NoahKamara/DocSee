@@ -25,34 +25,6 @@ import DocCViewer
 import AppKit
 #endif
 
-enum Pasteboard {
-    static let pasteboard: OSPasteboard = .general
-
-#if os(macOS)
-    typealias OSPasteboard = NSPasteboard
-
-    static func setString(_ value: String) {
-        pasteboard.clearContents()
-        pasteboard.setString(value, forType: .string)
-    }
-
-    static func setURL(_ value: URL) {
-        pasteboard.clearContents()
-        pasteboard.setString(value.absoluteString, forType: .string)
-    }
-
-#else
-    typealias OSPasteboard = UIPasteboard
-
-    static func setString(_ value: String) {
-        pasteboard.setObjects([value])
-    }
-
-    static func setURL(_ value: URL) {
-        pasteboard.setObjects([value])
-    }
-#endif
-}
 
 struct MainView: View {
     @Environment(\.documentationWorkspace)
