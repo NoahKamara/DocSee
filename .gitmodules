@@ -1,0 +1,6 @@
+[submodule "Modules/DocCViewer"]
+	path = Modules/DocCViewer
+	url = https://github.com/NoahKamara/DocCViewer
+[submodule "Modules/Docsy"]
+	path = Modules/Docsy
+	url = https://github.com/NoahKamara/Docsy

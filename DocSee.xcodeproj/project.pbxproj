@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD3E18C52C8A494F009362BB /* DocCViewer */; };
+		FD857F5D2CBDC9F600F949CD /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F5C2CBDC9F600F949CD /* Docsy */; };
+		FD857F5F2CBDC9F600F949CD /* DocsySchema in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F5E2CBDC9F600F949CD /* DocsySchema */; };
+		FD857F622CBDCA0400F949CD /* BundleAppSourceProvider in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F612CBDCA0400F949CD /* BundleAppSourceProvider */; };
+		FD857F642CBDCA0400F949CD /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F632CBDCA0400F949CD /* DocCViewer */; };
 		FDA9FCC42C8BB64F004D78CA /* BundleAppSourceProvider in Frameworks */ = {isa = PBXBuildFile; productRef = FDA9FCC32C8BB64F004D78CA /* BundleAppSourceProvider */; };
 		FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FDDB4FEE2C7AD0810038592C /* Docsy */; };
 /* End PBXBuildFile section */
@@ -47,9 +51,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD857F5F2CBDC9F600F949CD /* DocsySchema in Frameworks */,
 				FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */,
 				FDA9FCC42C8BB64F004D78CA /* BundleAppSourceProvider in Frameworks */,
 				FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */,
+				FD857F622CBDCA0400F949CD /* BundleAppSourceProvider in Frameworks */,
+				FD857F642CBDCA0400F949CD /* DocCViewer in Frameworks */,
+				FD857F5D2CBDC9F600F949CD /* Docsy in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +113,10 @@
 				FDDB4FEE2C7AD0810038592C /* Docsy */,
 				FD3E18C52C8A494F009362BB /* DocCViewer */,
 				FDA9FCC32C8BB64F004D78CA /* BundleAppSourceProvider */,
+				FD857F5C2CBDC9F600F949CD /* Docsy */,
+				FD857F5E2CBDC9F600F949CD /* DocsySchema */,
+				FD857F612CBDCA0400F949CD /* BundleAppSourceProvider */,
+				FD857F632CBDCA0400F949CD /* DocCViewer */,
 			);
 			productName = DocSee;
 			productReference = FD85D9CE2C795DD200C74606 /* DocSee.app */;
@@ -135,8 +147,8 @@
 			mainGroup = FD85D9C52C795DD200C74606;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				FDDB4FED2C7AD0810038592C /* XCLocalSwiftPackageReference "../Docsy" */,
-				FD3E18C42C8A494F009362BB /* XCLocalSwiftPackageReference "../DocCViewer" */,
+				FD857F5B2CBDC9F600F949CD /* XCLocalSwiftPackageReference "Modules/Docsy" */,
+				FD857F602CBDCA0400F949CD /* XCLocalSwiftPackageReference "Modules/DocCViewer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FD85D9CF2C795DD200C74606 /* Products */;
@@ -387,18 +399,34 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FD3E18C42C8A494F009362BB /* XCLocalSwiftPackageReference "../DocCViewer" */ = {
+		FD857F5B2CBDC9F600F949CD /* XCLocalSwiftPackageReference "Modules/Docsy" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../DocCViewer;
+			relativePath = Modules/Docsy;
 		};
-		FDDB4FED2C7AD0810038592C /* XCLocalSwiftPackageReference "../Docsy" */ = {
+		FD857F602CBDCA0400F949CD /* XCLocalSwiftPackageReference "Modules/DocCViewer" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../Docsy;
+			relativePath = Modules/DocCViewer;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		FD3E18C52C8A494F009362BB /* DocCViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DocCViewer;
+		};
+		FD857F5C2CBDC9F600F949CD /* Docsy */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Docsy;
+		};
+		FD857F5E2CBDC9F600F949CD /* DocsySchema */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DocsySchema;
+		};
+		FD857F612CBDCA0400F949CD /* BundleAppSourceProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BundleAppSourceProvider;
+		};
+		FD857F632CBDCA0400F949CD /* DocCViewer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DocCViewer;
 		};
