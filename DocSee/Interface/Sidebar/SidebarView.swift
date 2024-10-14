@@ -26,10 +26,10 @@ struct SidebarView: View {
                 Text("No Content yet")
             }
         }
-        .safeAreaInset(edge: .top) {
-            LanguagePicker(context.index.tree.availableLanguages, selection: $language)
-                .padding(.horizontal, 10)
-        }
+//        .safeAreaInset(edge: .top) {
+//            LanguagePicker(context.index.tree.availableLanguages, selection: $language)
+//                .padding(.horizontal, 10)
+//        }
     }
 }
 
