@@ -50,7 +50,7 @@ struct DocumentView: View {
             }
             .onChange(of: navigator.selection, initial: true) { _, newValue in
                 guard let newValue else { return }
-                viewer.load(.init(bundleIdentifier: newValue.bundleIdentifier, path: newValue.path))
+                viewer.navigate(to: .init(bundleIdentifier: newValue.bundleIdentifier, path: newValue.path))
             }
     }
 }
