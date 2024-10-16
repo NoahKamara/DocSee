@@ -15,9 +15,6 @@ extension NavigatorTreeView {
         var body: some View {
             Group {
                 if let topic = node.reference {
-//                    NavigationLink(value: reference) {
-//
-//                    }
                     Label {
                         Text(node.title)
                     } icon: {

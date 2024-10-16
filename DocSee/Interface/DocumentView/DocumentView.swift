@@ -27,11 +27,6 @@ struct DocumentView: View {
     var body: some View {
         DocumentationView(viewer: viewer)
             .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    NavigationButtons(viewer: viewer)
-                }
-            }
-            .toolbar(id: "custom-bar") {
                 ToolbarItem(id: "navigation", placement: .navigation) {
                     NavigationButtons(viewer: viewer)
                 }
@@ -52,13 +47,27 @@ struct DocumentView: View {
                 guard let newValue else { return }
                 viewer.navigate(to: .init(bundleIdentifier: newValue.bundleIdentifier, path: newValue.path))
             }
+            .task {
+                do {
+                    let urlDidChangePublisher = viewer.bridge.channel(for: .didNavigate)
+                    
+                    let urlDidChangeNotifications = await urlDidChangePublisher.values(as: URL.self)
+                    
+                    for try await url in urlDidChangeNotifications {
+                        let topic = TopicReference(url: url)
+                        self.navigator.selection = topic
+                    }
+                } catch {
+                    print("failed to receive url changes: \(error)")
+                }
+            }
     }
 }
 
 struct NavigationButtons: View {
     let viewer: DocumentationViewer
 
-    var body: some View {
+     var body: some View {
         ControlGroup {
             Button(action: { viewer.goBack() }) {
                 Image(systemName: "chevron.backward")
