@@ -1,12 +1,12 @@
 //
 //  PageTypeIcon.swift
-//  Playground
+//  DocSee
 //
-//  Created by Noah Kamara on 20.10.24.
+//  Copyright © 2024 Noah Kamara.
 //
 
-import SwiftUI
 import Docsy
+import SwiftUI
 
 struct PageTypeIcon: View {
     enum Icon {
@@ -60,7 +60,7 @@ struct PageTypeIcon: View {
     PageTypeIcon(.article)
 }
 
-fileprivate extension PageType {
+private extension PageType {
     var icon: PageTypeIcon.Icon {
         switch self {
         case .root: .abbr("RT", .red)

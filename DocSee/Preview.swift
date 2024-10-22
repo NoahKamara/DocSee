@@ -37,14 +37,13 @@ public extension PreviewTrait where T == Preview.ViewTraits {
     }
 }
 
-
 struct WorkspacePreview<Content: View>: View {
     @Environment(\.documentationWorkspace)
     var workspace
-    
+
     @ViewBuilder
     var content: (DocumentationWorkspace) -> Content
-    
+
     var body: some View {
         content(workspace)
     }

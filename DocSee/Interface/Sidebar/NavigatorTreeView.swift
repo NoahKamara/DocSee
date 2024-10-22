@@ -1,17 +1,16 @@
 //
-//  NavigatorTree.swift
+//  NavigatorTreeView.swift
 //  DocSee
 //
-//  Created by Noah Kamara on 19.10.24.
+//  Copyright © 2024 Noah Kamara.
 //
 
-
-import SwiftUI
 import Docsy
+import SwiftUI
 
 struct NavigatorTreeView: View {
     let tree: NavigatorTree
-    
+
     var body: some View {
         NavigatorTreeRootView(root: tree.root)
     }
@@ -22,31 +21,32 @@ struct NavigatorTreeView: View {
 }
 
 // MARK: Root
-fileprivate struct NavigatorTreeRootView: View {
+
+private struct NavigatorTreeRootView: View {
     let root: NavigatorTree.Node
-    
+
     var body: some View {
         ForEach(root.children) { child in
             NodeView(node: child, canEdit: true)
         }
         .onMove { indices, newOffset in
             withAnimation(.default) {
-                root.moveChildren(from:indices, to: newOffset)
+                root.moveChildren(from: indices, to: newOffset)
             }
         }
     }
 }
 
-
 // MARK: Node
-fileprivate struct NodeView: View {
+
+private struct NodeView: View {
     let node: NavigatorTree.Node
-    
+
     @State
     var isExpanded: Bool = false
-    
+
     var canEdit: Bool = false
-    
+
     var body: some View {
         if node.type == .languageGroup {
             LanguageGroupNodeView(node: node)
@@ -64,9 +64,9 @@ fileprivate struct NodeView: View {
     }
 }
 
-
 // MARK: LanguageGroup
-fileprivate struct LanguageGroupNodeView: View {
+
+private struct LanguageGroupNodeView: View {
     var node: NavigatorTree.Node
 
     var language: SourceLanguage = .swift
@@ -82,14 +82,14 @@ fileprivate struct LanguageGroupNodeView: View {
     }
 }
 
-
 // MARK: Leaf
+
 struct LeafView: View {
-    @Bindable 
+    @Bindable
     var node: NavigatorTree.Node
-    
+
     let canEdit: Bool
-    
+
     var body: some View {
         Group {
             if let topic = node.reference {
@@ -117,8 +117,8 @@ struct LeafView: View {
                 }
             } else if case .groupMarker = node.type {
                 GroupMarkerView(node: node, canEdit: canEdit)
-             } else {
-                 Label(node.title, systemImage: "exclamationmark.triangle.fill")
+            } else {
+                Label(node.title, systemImage: "exclamationmark.triangle.fill")
                     .foregroundStyle(.yellow)
                     .onAppear {
                         print("Unknown Node type", node.type)
@@ -128,24 +128,23 @@ struct LeafView: View {
     }
 }
 
-
-fileprivate struct GroupMarkerView: View {
+private struct GroupMarkerView: View {
     @Bindable
     var node: NavigatorTree.Node
-    
+
     let canEdit: Bool
-    
+
     @State
     var isEditing: Bool = false
-    
+
     @FocusState
     var isFocused: Bool
-    
+
     func editTitle() {
         isEditing = true
         isFocused = true
     }
-    
+
     var body: some View {
         Group {
             if canEdit {
@@ -155,11 +154,11 @@ fileprivate struct GroupMarkerView: View {
                         .focused($isFocused)
                         .onChange(of: isFocused) { _, newValue in
                             if !newValue {
-                                self.isEditing = false
+                                isEditing = false
                             }
                         }
                         .onSubmit {
-                            self.isFocused = false
+                            isFocused = false
                         }
                 } else {
                     Text(node.title)
@@ -179,7 +178,6 @@ fileprivate struct GroupMarkerView: View {
     }
 }
 
-//#Preview {
+// #Preview {
 //    GroupMarkerView()
-//}
-
+// }

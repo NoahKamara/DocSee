@@ -20,7 +20,7 @@ import AppKit
 struct MainView: View {
     @Environment(\.documentationWorkspace)
     private var workspace
-    
+
     @Environment(DocumentationContext.self)
     var context
 
@@ -29,7 +29,7 @@ struct MainView: View {
 
     @Environment(\.debugMode)
     var debugMode
-    
+
     var body: some View {
         NavigationSplitView {
             SidebarView(index: navigator.index, selection: $navigator.selection)

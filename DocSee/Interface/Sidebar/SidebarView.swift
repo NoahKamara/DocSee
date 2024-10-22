@@ -8,27 +8,25 @@
 import Docsy
 import SwiftUI
 
-
 struct SidebarView: View {
     @Environment(DocumentationContext.self)
     private var context
 
     @Environment(\.documentationWorkspace)
     var workspace
-    
+
     let index: NavigatorIndex
-    
+
     @State
     var language: SourceLanguage = .swift
-    
+
     @Binding
     var selection: TopicReference?
-    
-    
+
     var body: some View {
         List(selection: $selection) {
             NavigatorTreeView(tree: index.tree)
-            
+
             if index.tree.root.children.isEmpty {
                 Text("No Content yet")
             }
@@ -81,7 +79,7 @@ struct SidebarView: View {
 //                            print("ERROR", error)
 //                        }
 //                    }
-//                    
+//
 //                    Button("Insert Known") {
 //                        do {
 //                            index.addBundleReference(
@@ -89,9 +87,9 @@ struct SidebarView: View {
 //                                displayName: "TestDocumentation"
 //                            )
 //                        let provider = try LocalFileSystemDataProvider(rootURL: URL(filePath: "/Users/noahkamara/Developer/DocSee/DocSee/Resources/TestDocumentation.doccarchive"))
-//                        
+//
 //                        let bundle = try provider.bundles().first!
-//                        
+//
 //                        Task {
 //                            try await workspace.registerProvider(provider)
 //                            index.dataProvider(workspace, didAddBundle: bundle)
@@ -117,10 +115,10 @@ struct SidebarView: View {
 //                        filePath: "/Users/noahkamara/Developer/DocSee/DocSee/Resources/SlothCreator.doccarchive"
 //                    )!
 //                )
-//                
+//
 //                let bundle = try provider.bundles().first!
 //                print("LOADING")
-//                
+//
 //                try await index.addProvider(bundle: bundle, for: provider)
 //            } catch {
 //                print("ERROR", error)
@@ -132,41 +130,37 @@ struct SidebarView: View {
 #Preview(traits: .workspace) {
     @Previewable @State
     var selection = TopicReference?.none
-    
+
     SidebarView(
         index: NavigatorIndex(),
         selection: $selection
     )
-        .listStyle(.sidebar)
-        .frame(maxHeight: .infinity)
+    .listStyle(.sidebar)
+    .frame(maxHeight: .infinity)
 }
-
 
 struct DocumentationBundleDescriptor: Identifiable {
     var id: String { bundleIdentifier }
     let metadata: DocumentationBundle.Metadata
-    
+
     var displayName: String { metadata.displayName }
     var bundleIdentifier: String { metadata.identifier }
-    
+
     var provider: DataProvider
 }
 
-
-
-
 struct BundleBrowserView: View {
     let onSubmit: (DocumentationBundleDescriptor) -> Void
-    
+
     @Environment(\.dismiss)
     var dismiss
-    
+
     @State
     private(set) var results: [DocumentationBundleDescriptor] = []
-    
+
     @State
     private(set) var isLoading: Bool = false
-    
+
     var body: some View {
         Group {
             if !results.isEmpty {
@@ -199,14 +193,13 @@ struct BundleBrowserView: View {
             }
         }
     }
-    
-    
+
     func load() async throws {
         let results = try await Task.detached {
             let provider = try AppBundleDataProvider(bundle: .main)
             let bundles = try provider.bundles()
-            
-            let descriptors = bundles.map({ bundle in
+
+            let descriptors = bundles.map { bundle in
                 DocumentationBundleDescriptor(
                     metadata: bundle.metadata,
                     provider: try! LocalFileSystemDataProvider(
@@ -214,17 +207,16 @@ struct BundleBrowserView: View {
                         allowArbitraryCatalogDirectories: true
                     )
                 )
-            })
-            
+            }
+
             return descriptors
         }.value
-        
+
         Task { @MainActor in
             self.results = results
 //                self.isLoading = false
         }
     }
-    
 }
 
 #Preview {
