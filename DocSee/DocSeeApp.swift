@@ -112,14 +112,36 @@ enum BundleDataProviderError: Error {
     case noResoureURL(String)
 }
 
-extension LocalFileSystemDataProvider {
-    init(bundle: Bundle) throws {
-        guard let resourceURL = bundle.resourceURL else {
-            throw BundleDataProviderError.noResoureURL(bundle.bundleIdentifier ?? bundle.description)
+struct AppBundleDataProvider: DataProvider {
+    let identifier: String
+    let fileSystemProvider: LocalFileSystemDataProvider
+    
+    init(bundle: Bundle, path: String? = nil) throws {
+        let bundleId = bundle.bundleIdentifier ?? "unknown"
+        
+        self.identifier = "com.docsee.bundle.\(bundleId).\(UUID().uuidString)"
+        
+        guard var resourceURL = bundle.resourceURL else {
+            throw BundleDataProviderError.noResoureURL(
+                bundle.bundleIdentifier ?? bundle.description
+            )
         }
-        try self.init(
+        
+        if let path {
+            resourceURL.append(path: path)
+        }
+        
+        self.fileSystemProvider = try LocalFileSystemDataProvider(
             rootURL: resourceURL,
-            allowArbitraryCatalogDirectories: false
+            allowArbitraryCatalogDirectories: true
         )
+    }
+    
+    func contentsOfURL(_ url: URL) throws -> Data {
+        try fileSystemProvider.contentsOfURL(url)
+    }
+    
+    func bundles() throws -> [DocumentationBundle] {
+        try fileSystemProvider.bundles()
     }
 }

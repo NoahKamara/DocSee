@@ -1,46 +1,12 @@
 //
-//  NavigatorTreeView+Leaf.swift
-//  DocSee
+//  PageTypeIcon.swift
+//  Playground
 //
-//  Copyright © 2024 Noah Kamara.
+//  Created by Noah Kamara on 20.10.24.
 //
 
-import Docsy
 import SwiftUI
-
-extension NavigatorTreeView {
-    struct LeafView: View {
-        let node: NavigatorIndex.Node
-
-        var body: some View {
-            Group {
-                if let topic = node.reference {
-                    Label {
-                        Text(node.title)
-                    } icon: {
-                        PageTypeIcon(node.type)
-                    }
-                    .contextMenu {
-                        OpenTopicInWindowButton(topic)
-                        Divider()
-                        CopyTopicToClipboardButton(topic)
-                    }
-                    .tag(topic)
-
-                } else if case .groupMarker = node.type {
-                    Text(node.title)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.secondary)
-                } else {
-                    Text("Unknown \(node.type)")
-                        .foregroundStyle(.red)
-                }
-            }
-        }
-    }
-}
-
-// MARK: PageTypeIcon
+import Docsy
 
 struct PageTypeIcon: View {
     enum Icon {
@@ -94,7 +60,7 @@ struct PageTypeIcon: View {
     PageTypeIcon(.article)
 }
 
-extension PageType {
+fileprivate extension PageType {
     var icon: PageTypeIcon.Icon {
         switch self {
         case .root: .abbr("RT", .red)

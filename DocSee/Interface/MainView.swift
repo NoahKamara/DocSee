@@ -12,14 +12,6 @@ public extension EnvironmentValues {
     @Entry var documentationWorkspace = DocumentationWorkspace()
 }
 
-@propertyWrapper
-struct Workspace: DynamicProperty {
-    @Environment(\.documentationWorkspace)
-    public var wrappedValue
-
-    public init() {}
-}
-
 import DocCViewer
 #if canImport(AppKit)
 import AppKit
@@ -30,26 +22,26 @@ struct MainView: View {
     private var workspace
 
     let context: DocumentationContext
+    
 
-    @MainActor
-    func load() async {
-        do {
-            let provider = try LocalFileSystemDataProvider(bundle: .main)
-            try await workspace.registerProvider(provider)
-        } catch {
-            print("Error registering Bundle Provider")
-        }
+    init(
+        context: DocumentationContext
+    ) {
+        self.context = context
+        self.index = NavigatorIndex(context: context)
     }
-
+    
     @Bindable
     var navigator = Navigator()
 
     @Environment(\.debugMode)
     var debugMode
 
+    var index: NavigatorIndex
+    
     var body: some View {
         NavigationSplitView {
-            SidebarView(navigator: navigator)
+            SidebarView(index: index, selection: $navigator.selection)
                 .navigationTitle("DocSee")
         } detail: {
             DocumentView(context: context, navigator: navigator)
@@ -73,10 +65,6 @@ struct MainView: View {
         }))
 //        .toolbarVisibility(debugMode.isDebugging ? .hidden : .automatic, for: .accessoryBar(id: "debug"))
         .environment(context)
-        .task {
-            await load()
-        }
-//        .task {
 //            let baseURI = URL(filePath: "/Users/noahkamara/Developer/DocSee/")
 //
 //            do {

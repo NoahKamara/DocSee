@@ -15,7 +15,7 @@ struct PreviewWorkspace: PreviewModifier {
         let context = DocumentationContext(dataProvider: workspace)
 
         do {
-            let provider = try LocalFileSystemDataProvider(bundle: .main)
+            let provider = try AppBundleDataProvider(bundle: .main)
             try await workspace.registerProvider(provider)
         } catch {
             print("ERROR in provider", error)
@@ -34,5 +34,18 @@ struct PreviewWorkspace: PreviewModifier {
 public extension PreviewTrait where T == Preview.ViewTraits {
     static var workspace: PreviewTrait<T> {
         modifier(PreviewWorkspace())
+    }
+}
+
+
+struct WorkspacePreview<Content: View>: View {
+    @Environment(\.documentationWorkspace)
+    var workspace
+    
+    @ViewBuilder
+    var content: (DocumentationWorkspace) -> Content
+    
+    var body: some View {
+        content(workspace)
     }
 }
