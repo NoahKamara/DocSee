@@ -29,11 +29,9 @@ struct Workspace {
 class NavigatorIndex {
     static let logger = Logger(subsystem: "com.noahkamara.docsee", category: "NavigatorIndex")
     
-    let context: DocumentationContext
     var tree: NavigatorTree = .preview()
     
-    init(context: DocumentationContext) {
-        self.context = context
+    init() {
         self.tree = .init(root: .init(title: "", type: .root))
     }
     

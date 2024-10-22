@@ -85,7 +85,7 @@ fileprivate struct LanguageGroupNodeView: View {
 
 // MARK: Leaf
 struct LeafView: View {
-    @Bindable
+    @Bindable 
     var node: NavigatorTree.Node
     
     let canEdit: Bool
@@ -99,7 +99,6 @@ struct LeafView: View {
                     } icon: {
                         PageTypeIcon(.framework)
                     }
-                    .tag(topic)
                     .contextMenu {
                         OpenTopicInWindowButton(topic)
                         CopyTopicToClipboardButton(topic)

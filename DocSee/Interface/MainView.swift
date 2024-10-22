@@ -20,28 +20,19 @@ import AppKit
 struct MainView: View {
     @Environment(\.documentationWorkspace)
     private var workspace
-
-    let context: DocumentationContext
     
+    @Environment(DocumentationContext.self)
+    var context
 
-    init(
-        context: DocumentationContext
-    ) {
-        self.context = context
-        self.index = NavigatorIndex(context: context)
-    }
-    
     @Bindable
     var navigator = Navigator()
 
     @Environment(\.debugMode)
     var debugMode
-
-    var index: NavigatorIndex
     
     var body: some View {
         NavigationSplitView {
-            SidebarView(index: index, selection: $navigator.selection)
+            SidebarView(index: navigator.index, selection: $navigator.selection)
                 .navigationTitle("DocSee")
         } detail: {
             DocumentView(context: context, navigator: navigator)

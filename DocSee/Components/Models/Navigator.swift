@@ -9,66 +9,23 @@ import Docsy
 import Observation
 
 @Observable
+@MainActor
 public class Navigator {
-    var history = History()
-    var selection: TopicReference? {
-        get {
-            access(keyPath: \.history)
-            return history.current
-        }
-        set {
-            withMutation(keyPath: \.history) {
-                if let newValue {
-                    history.push(newValue)
-                } else {
-                    history.clear()
-                }
-            }
-        }
-    }
+    var selection: TopicReference?
+    var index: NavigatorIndex
 
     public func goto(_ reference: TopicReference) {
-        withMutation(keyPath: \.history) {
-            history.push(reference)
+        withMutation(keyPath: \.selection) {
+            self.selection = reference
         }
     }
 
-    public var canGoBack: Bool {
-        access(keyPath: \.history)
-        return history.canGoBack
-    }
-
-    public var canGoForward: Bool {
-        access(keyPath: \.history)
-        return history.canGoForward
-    }
-
-    public func goBack() {
-        withMutation(keyPath: \.history) {
-            history.goBack()
-        }
-    }
-
-    public func goBack(_ offset: Int) {
-        for _ in 0..<offset {
-            history.goBack()
-        }
-    }
-
-    public func goForward() {
-        withMutation(keyPath: \.history) {
-            history.goForward()
-        }
-    }
-
-    public func goForward(_ offset: Int) {
-        for _ in 0..<offset {
-            history.goForward()
-        }
-    }
-
-    public init(initialTopic: TopicReference? = nil) {
-        self.history = History(current: initialTopic)
+    init(
+        index: NavigatorIndex? = nil,
+        initialTopic: TopicReference? = nil
+    ) {
+        self.index = index ?? NavigatorIndex()
+        self.selection = initialTopic
     }
 }
 

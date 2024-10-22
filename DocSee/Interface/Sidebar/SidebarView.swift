@@ -133,13 +133,11 @@ struct SidebarView: View {
     @Previewable @State
     var selection = TopicReference?.none
     
-    WorkspacePreview {
-        SidebarView(
-            index: NavigatorIndex(context: DocumentationContext(dataProvider: $0)),
-            selection: $selection
-        )
-            .listStyle(.sidebar)
-    }
+    SidebarView(
+        index: NavigatorIndex(),
+        selection: $selection
+    )
+        .listStyle(.sidebar)
         .frame(maxHeight: .infinity)
 }
 

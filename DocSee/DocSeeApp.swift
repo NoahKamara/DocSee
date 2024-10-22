@@ -86,7 +86,7 @@ struct MainScene: Scene {
     var body: some Scene {
         Group {
             WindowGroup("DocSee") {
-                MainView(context: context)
+                MainView()
             }
 
             WindowGroup(id: "secondary", for: TopicReference.self) { $reference in
@@ -97,6 +97,7 @@ struct MainScene: Scene {
             .windowBackgroundDragBehavior(.enabled)
         }
         .environment(\.documentationWorkspace, workspace)
+        .environment(context)
     }
 }
 
