@@ -90,7 +90,10 @@ struct MainScene: Scene {
             }
 
             WindowGroup(id: "secondary", for: TopicReference.self) { $reference in
-                DocumentView(context: context, navigator: .init(initialTopic: reference))
+                NavigationStack {
+                    DocumentView(context: context, navigator: .init(initialTopic: reference))
+                        .ignoresSafeArea(.all, edges: .bottom)
+                }
 #if os(macOS)
     .presentedWindowStyle(.plain)
     .presentedWindowToolbarStyle(.unified)

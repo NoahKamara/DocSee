@@ -30,12 +30,31 @@ struct MainView: View {
     @Environment(\.debugMode)
     var debugMode
 
+    @Environment(\.supportsMultipleWindows)
+    private var supportsMultipleWindows
+    
     var body: some View {
         NavigationSplitView {
             SidebarView(index: navigator.index, selection: $navigator.selection)
                 .navigationTitle("DocSee")
         } detail: {
             DocumentView(context: context, navigator: navigator)
+                .ignoresSafeArea(.all, edges: .bottom)
+                .toolbar {
+                    if supportsMultipleWindows {
+                        ToolbarItem(id: "open-topic-in-window") {
+                            OptionalTopicButton(navigator.selection) { topic in
+                                OpenTopicInWindowButton(topic)
+                            }
+                        }
+                    }
+
+                    ToolbarItem(id: "copy-topic-link") {
+                        OptionalTopicButton(navigator.selection) { topic in
+                            CopyTopicToClipboardButton(topic)
+                        }
+                    }
+                }
         }
         .toolbar {
             ToolbarItem(placement: .debugBar) {

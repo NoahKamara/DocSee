@@ -33,20 +33,6 @@ struct DocumentView: View {
                 ToolbarItem(id: "navigation", placement: .navigation) {
                     NavigationButtons(viewer: viewer)
                 }
-
-                if supportsMultipleWindows {
-                    ToolbarItem(id: "open-topic-in-window") {
-                        OptionalTopicButton(navigator.selection) { topic in
-                            OpenTopicInWindowButton(topic)
-                        }
-                    }
-                }
-
-                ToolbarItem(id: "copy-topic-link") {
-                    OptionalTopicButton(navigator.selection) { topic in
-                        CopyTopicToClipboardButton(topic)
-                    }
-                }
             }
             .onChange(of: navigator.selection, initial: true) { _, newValue in
                 guard let newValue else { return }
