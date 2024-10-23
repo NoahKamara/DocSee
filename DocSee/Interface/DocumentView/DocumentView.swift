@@ -24,6 +24,9 @@ struct DocumentView: View {
         self.navigator = navigator
     }
 
+    @Environment(\.supportsMultipleWindows)
+    private var supportsMultipleWindows
+    
     var body: some View {
         DocumentationView(viewer: viewer)
             .toolbar {
@@ -31,9 +34,11 @@ struct DocumentView: View {
                     NavigationButtons(viewer: viewer)
                 }
 
-                ToolbarItem(id: "open-topic-in-window") {
-                    OptionalTopicButton(navigator.selection) { topic in
-                        OpenTopicInWindowButton(topic)
+                if supportsMultipleWindows {
+                    ToolbarItem(id: "open-topic-in-window") {
+                        OptionalTopicButton(navigator.selection) { topic in
+                            OpenTopicInWindowButton(topic)
+                        }
                     }
                 }
 

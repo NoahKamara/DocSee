@@ -100,7 +100,7 @@ class NavigatorIndex {
                 NavigatorTree.Node(resolving: $0, at: bundle.rootReference)
             }
             print(
-                "[\(bundle.identifier)] found language: \(lang.id) with \(nodes[0].title) elements"
+                "[\(bundle.identifier)] found language: \(lang.id) with \(nodes.count) elements"
             )
 
             let langNode = NavigatorTree.Node(
