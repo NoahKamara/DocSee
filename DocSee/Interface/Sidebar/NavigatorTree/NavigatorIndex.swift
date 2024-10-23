@@ -20,11 +20,6 @@ struct DataProviderDescriptor {
     let metadata: [String: String]
 }
 
-struct Workspace {
-    let bundles: [BundleIdentifier: DocumentationBundle.Metadata]
-    let providers: [String: DataProviderDescriptor]
-}
-
 @MainActor
 class NavigatorIndex {
     static let logger = Logger(subsystem: "com.noahkamara.docsee", category: "NavigatorIndex")

@@ -12,12 +12,115 @@ struct NavigatorTreeView: View {
     let tree: NavigatorTree
 
     var body: some View {
-        NavigatorTreeRootView(root: tree.root)
+//        NavigatorTreeRootView(root: tree.root)
+        ForEach(tree.root.children) { child in
+            NodeView(node: child, canEdit: true)
+        }
+        .onMove { indices, newOffset in
+            print("MOVE")
+            withAnimation(.default) {
+                tree.root.moveChildren(from: indices, to: newOffset)
+            }
+        }
+    }
+}
+
+extension TopicReference: @retroactive Transferable {
+    public static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .topic)
+    }
+}
+
+import UniformTypeIdentifiers
+
+extension UTType {
+    static var topic = UTType(exportedAs: "com.docsee.topic", conformingTo: .json)
+    static var bookmark = UTType(exportedAs: "com.docsee.bookmark", conformingTo: .json)
+}
+
+struct Bookmark: Codable, Transferable, Equatable {
+    let topic: TopicReference
+    let displayName: String
+    
+    init(
+        topic: TopicReference,
+        displayName: String
+    ) {
+        self.topic = topic
+        self.displayName = displayName
+    }
+    
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .bookmark)
+    }
+}
+
+struct BookmarksView: View {
+    @State
+    var bookmarks: [Bookmark] = []
+    
+    func dropItems(_ items: [NSItemProvider], at offset: Int = 0) {
+        print("DROP", offset)
+        
+        for item in items {
+            _ = item.loadTransferable(type: Bookmark.self) { result in
+                switch result {
+                case .success(let ref):
+                    Task { @MainActor in
+                        bookmarks.insert(ref, at: offset)
+                    }
+                case .failure(let err):
+                    print("err", err)
+                }
+            }
+        }
+    }
+    
+    @State
+    var isDropping: Bool = false
+    
+    var body: some View {
+        LeafView(node: .groupMarker("Bookmarks"), canEdit: false)
+        
+        if !bookmarks.isEmpty {
+            ForEach(bookmarks, id:\.topic) { bookmark in
+                Label {
+                    Text(bookmark.displayName)
+                } icon: {
+                    Image(systemName: "bookmark")
+                        .padding(2)
+                }
+                .contextMenu {
+                    OpenTopicInWindowButton(bookmark.topic)
+                    CopyTopicToClipboardButton(bookmark.topic)
+                }
+            }
+            .onInsert(of: [.bookmark]) { offset, items in
+                dropItems(items, at: offset)
+            }
+            .animation(.default, value: bookmarks)
+        } else {
+            Group {
+                Text("Add Bookmarks by dragging topics here")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            }
+            .onDrop(of: [.bookmark], isTargeted: $isDropping) { items in
+                dropItems(items, at: 0)
+                return true
+            }
+        }
     }
 }
 
 #Preview {
-    NavigatorTreeView(tree: .preview())
+    List {
+        BookmarksView()
+        Divider()
+        NavigatorTreeView(tree: .preview())
+    }
+    .listStyle(.sidebar)
 }
 
 // MARK: Root
@@ -54,6 +157,7 @@ private struct NodeView: View {
             DisclosureGroup {
                 ForEach(node.children) { child in
                     NodeView(node: child)
+                        .moveDisabled(true)
                 }
             } label: {
                 LeafView(node: node, canEdit: false)
@@ -64,6 +168,12 @@ private struct NodeView: View {
     }
 }
 
+extension NavigatorTree.Node {
+    var nonEmptyChildren: [NavigatorTree.Node]? {
+        access(keyPath: \.children)
+        return children.isEmpty ? nil : children
+    }
+}
 // MARK: LanguageGroup
 
 private struct LanguageGroupNodeView: View {
@@ -76,13 +186,15 @@ private struct LanguageGroupNodeView: View {
     }
 
     var body: some View {
-        ForEach(node.children) { language in
-            NodeView(node: language)
+        OutlineGroup(node.children, children: \.nonEmptyChildren) { child in
+            LeafView(node: child, canEdit: false)
         }
     }
 }
 
 // MARK: Leaf
+
+
 
 struct LeafView: View {
     @Bindable
@@ -110,6 +222,7 @@ struct LeafView: View {
                         PageTypeIcon(node.type)
                     }
                     .tag(topic)
+                    .draggable(Bookmark(topic: topic, displayName: node.title))
                     .contextMenu {
                         OpenTopicInWindowButton(topic)
                         CopyTopicToClipboardButton(topic)

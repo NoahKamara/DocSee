@@ -5,11 +5,11 @@
 //  Copyright © 2024 Noah Kamara.
 //
 
-import BundleAppSourceProvider
 import DocCViewer
 import Docsy
 import SwiftUI
 import UniformTypeIdentifiers
+import BundleAppSourceProvider
 
 struct DocumentView: View {
     let navigator: Navigator

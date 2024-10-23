@@ -91,10 +91,14 @@ struct MainScene: Scene {
 
             WindowGroup(id: "secondary", for: TopicReference.self) { $reference in
                 DocumentView(context: context, navigator: .init(initialTopic: reference))
-                    .presentedWindowStyle(.plain)
-                    .presentedWindowToolbarStyle(.unified)
+#if os(macOS)
+    .presentedWindowStyle(.plain)
+    .presentedWindowToolbarStyle(.unified)
+#endif
             }
+#if os(macOS)
             .windowBackgroundDragBehavior(.enabled)
+#endif
         }
         .environment(\.documentationWorkspace, workspace)
         .environment(context)

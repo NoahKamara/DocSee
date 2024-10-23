@@ -19,14 +19,49 @@ public class NavigatorTree {
 
 extension NavigatorTree {
     static func preview() -> NavigatorTree {
-        let root = Node.root(children: [
-            Node.groupMarker("Example Group 1"),
-            Node.leaf("Example Item A", children: nil),
-            Node.leaf("Example Item B", children: nil),
-            Node.leaf("Example Item C", children: nil),
-            Node.leaf("Example Item D", children: nil),
-            Node.groupMarker("Example Group 2"),
-        ])
+        let bundle = TopicReference(
+            bundleIdentifier: "com.example.bundle",
+            path: "",
+            sourceLanguage: .swift
+        )
+
+        let root = Node.root(
+            children: [
+                Node.groupMarker("Example Group 1"),
+                Node(
+                    title: "Example Item A",
+                    reference: bundle.appendingPath("example_a"),
+                    type: .framework,
+                    children: [
+                        .init(
+                            title: "Some Reference",
+                            reference: bundle.appendingPath("some_ref"),
+                            type: .article,
+                            children: []
+                        )
+                    ]
+                ),
+                Node(
+                    title: "Example Item B",
+                    reference: bundle.appendingPath("example_b"),
+                    type: .framework,
+                    children: []
+                ),
+                Node(
+                    title: "Example Item C",
+                    reference: bundle.appendingPath("example_c"),
+                    type: .framework,
+                    children: []
+                ),
+                Node(
+                    title: "Example Item D",
+                    reference: bundle.appendingPath("example_d"),
+                    type: .framework,
+                    children: []
+                ),
+                Node.groupMarker("Example Group 2"),
+            ]
+        )
 
         return NavigatorTree(root: root)
     }

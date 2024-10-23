@@ -25,6 +25,8 @@ struct SidebarView: View {
 
     var body: some View {
         List(selection: $selection) {
+            BookmarksView()
+            
             NavigatorTreeView(tree: index.tree)
 
             if index.tree.root.children.isEmpty {

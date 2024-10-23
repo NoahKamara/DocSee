@@ -10,10 +10,9 @@
 		FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD3E18C52C8A494F009362BB /* DocCViewer */; };
 		FD857F5D2CBDC9F600F949CD /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F5C2CBDC9F600F949CD /* Docsy */; };
 		FD857F5F2CBDC9F600F949CD /* DocsySchema in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F5E2CBDC9F600F949CD /* DocsySchema */; };
-		FD857F622CBDCA0400F949CD /* BundleAppSourceProvider in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F612CBDCA0400F949CD /* BundleAppSourceProvider */; };
 		FD857F642CBDCA0400F949CD /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F632CBDCA0400F949CD /* DocCViewer */; };
-		FDA9FCC42C8BB64F004D78CA /* BundleAppSourceProvider in Frameworks */ = {isa = PBXBuildFile; productRef = FDA9FCC32C8BB64F004D78CA /* BundleAppSourceProvider */; };
 		FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FDDB4FEE2C7AD0810038592C /* Docsy */; };
+		FDEDD9432CC98134006FB572 /* BundleAppSourceProvider in Frameworks */ = {isa = PBXBuildFile; productRef = FDEDD9422CC98134006FB572 /* BundleAppSourceProvider */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,10 +52,9 @@
 			files = (
 				FD857F5F2CBDC9F600F949CD /* DocsySchema in Frameworks */,
 				FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */,
-				FDA9FCC42C8BB64F004D78CA /* BundleAppSourceProvider in Frameworks */,
 				FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */,
-				FD857F622CBDCA0400F949CD /* BundleAppSourceProvider in Frameworks */,
 				FD857F642CBDCA0400F949CD /* DocCViewer in Frameworks */,
+				FDEDD9432CC98134006FB572 /* BundleAppSourceProvider in Frameworks */,
 				FD857F5D2CBDC9F600F949CD /* Docsy in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,11 +110,10 @@
 			packageProductDependencies = (
 				FDDB4FEE2C7AD0810038592C /* Docsy */,
 				FD3E18C52C8A494F009362BB /* DocCViewer */,
-				FDA9FCC32C8BB64F004D78CA /* BundleAppSourceProvider */,
 				FD857F5C2CBDC9F600F949CD /* Docsy */,
 				FD857F5E2CBDC9F600F949CD /* DocsySchema */,
-				FD857F612CBDCA0400F949CD /* BundleAppSourceProvider */,
 				FD857F632CBDCA0400F949CD /* DocCViewer */,
+				FDEDD9422CC98134006FB572 /* BundleAppSourceProvider */,
 			);
 			productName = DocSee;
 			productReference = FD85D9CE2C795DD200C74606 /* DocSee.app */;
@@ -301,6 +298,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DocSee/DocSee.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DocSee/Preview Content\"";
@@ -341,6 +339,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DocSee/DocSee.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DocSee/Preview Content\"";
@@ -422,21 +421,18 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = DocsySchema;
 		};
-		FD857F612CBDCA0400F949CD /* BundleAppSourceProvider */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BundleAppSourceProvider;
-		};
 		FD857F632CBDCA0400F949CD /* DocCViewer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DocCViewer;
 		};
-		FDA9FCC32C8BB64F004D78CA /* BundleAppSourceProvider */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BundleAppSourceProvider;
-		};
 		FDDB4FEE2C7AD0810038592C /* Docsy */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Docsy;
+		};
+		FDEDD9422CC98134006FB572 /* BundleAppSourceProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD857F602CBDCA0400F949CD /* XCLocalSwiftPackageReference "Modules/DocCViewer" */;
+			productName = BundleAppSourceProvider;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
