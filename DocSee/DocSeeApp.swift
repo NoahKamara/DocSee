@@ -75,12 +75,12 @@ struct DocSeeApp: App {
 
 struct MainScene: Scene {
     let workspace: DocumentationWorkspace
-    let context: DocumentationContext
+    let context: DocSeeContext
 
     init() {
         let workspace = DocumentationWorkspace()
         self.workspace = workspace
-        self.context = DocumentationContext(dataProvider: workspace)
+        self.context = DocSeeContext(workspace: workspace)
     }
 
     var body: some Scene {

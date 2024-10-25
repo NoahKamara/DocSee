@@ -10,15 +10,6 @@ import Foundation
 import Observation
 import OSLog
 
-struct DataProviderDescriptor {
-    enum Kind {
-        case localFS
-    }
-
-    let id: String
-    let kind: Kind
-    let metadata: [String: String]
-}
 
 @MainActor
 class NavigatorIndex {
@@ -26,8 +17,8 @@ class NavigatorIndex {
 
     var tree: NavigatorTree = .preview()
 
-    init() {
-        self.tree = .init(root: .init(title: "", type: .root))
+    init(tree: NavigatorTree? = nil) {
+        self.tree = tree ?? .init(root: .init(title: "", type: .root))
     }
 
     private func getFirstToplevelNode(where condition: @escaping (NavigatorTree.Node) -> Bool) -> NavigatorTree.Node? {
@@ -53,6 +44,7 @@ class NavigatorIndex {
             didResolveIndex(index, for: bundle)
         }
     }
+    
 
 //    public func dataProvider(_: any DocumentationContextDataProvider, didRemoveBundle bundle: DocumentationBundle) {
 //        Self.logger.debug("[dataProvider] remove bundle '\(bundle.identifier)'")
@@ -63,10 +55,6 @@ class NavigatorIndex {
 //        }
 //    }
 
-    public func addGroupMarker(_ title: String, at offset: Int = 0) {
-        let node = NavigatorTree.Node.groupMarker(title)
-        tree.root.insertChild(node, at: offset)
-    }
 
     @discardableResult
     func addBundleReference(bundleIdentifier: BundleIdentifier, displayName: String) -> NavigatorTree.Node {

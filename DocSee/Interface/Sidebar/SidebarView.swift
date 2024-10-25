@@ -9,31 +9,30 @@ import Docsy
 import SwiftUI
 
 struct SidebarView: View {
-    @Environment(DocumentationContext.self)
-    private var context
-
-    @Environment(\.documentationWorkspace)
-    var workspace
-
-    let index: NavigatorIndex
+    let tree: NavigatorTree
 
     @State
     var language: SourceLanguage = .swift
 
-    @Binding
-    var selection: TopicReference?
-
+    @Bindable
+    var navigator: Navigator
+        
     var body: some View {
-        List(selection: $selection) {
+        List(selection: $navigator.selection) {
             BookmarksView()
             
-            NavigatorTreeView(tree: index.tree)
+            NavigatorTreeView(tree: tree)
 
-            if index.tree.root.children.isEmpty {
+            if tree.root.children.isEmpty {
                 Text("No Content yet")
             }
         }
+        .environment(navigator)
+        .listStyle(.sidebar)
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                EditButton()
+            }
             ToolbarItem {
                 Menu {
                     Button(action: {}) {
@@ -41,101 +40,25 @@ struct SidebarView: View {
                     }
 
                     Button(action: {
-                        index.addGroupMarker("New Group")
+                        tree.addGroupMarker("New Group")
                     }) {
                         Label("Add group mark", systemImage: "textformat")
                     }
                 } label: {
                     Label("Add", systemImage: "plus")
-                } primaryAction: {
-                    print("Add documentation")
                 }
             }
         }
-        .task {
-            do {
-                let provider = try AppBundleDataProvider(bundle: .main)
-                let bundles = try provider.bundles()
-                try await workspace.registerProvider(provider)
-                for bundle in bundles {
-                    index.dataProvider(workspace, didAddBundle: bundle)
-                }
-            } catch {
-                print("Error registering Bundle Provider")
-            }
-        }
-//        .safeAreaInset(
-//            edge: .top,
-//            content: {
-//                HStack {
-//                    Button("Insert New") {
-//                        do {
-//                            let provider = try LocalFileSystemDataProvider(rootURL: URL(filePath: "/Users/noahkamara/Developer/DocSee/DocSee/Resources/SlothCreator.doccarchive"))
-//                            let bundle = try provider.bundles().first!
-//
-//                            Task {
-//                                try await workspace.registerProvider(provider)
-//                                index.dataProvider(workspace, didAddBundle: bundle)
-//                            }
-//                        } catch {
-//                            print("ERROR", error)
-//                        }
-//                    }
-//
-//                    Button("Insert Known") {
-//                        do {
-//                            index.addBundleReference(
-//                                bundleIdentifier: "TestDocumentation",
-//                                displayName: "TestDocumentation"
-//                            )
-//                        let provider = try LocalFileSystemDataProvider(rootURL: URL(filePath: "/Users/noahkamara/Developer/DocSee/DocSee/Resources/TestDocumentation.doccarchive"))
-//
-//                        let bundle = try provider.bundles().first!
-//
-//                        Task {
-//                            try await workspace.registerProvider(provider)
-//                            index.dataProvider(workspace, didAddBundle: bundle)
-//                        }
-//                    } catch {
-//                        print("ERROR", error)
-//                    }
-//                }
-//            }
-//        })
-//        .toolbar {
-//            Button("Add Bundle", systemImage: "plus") {
-//                self.showsBundleBrowser.toggle()
-//            }
-//            Button("Log") {
-//                print(self.tree.root.dumpTree())
-//            }
-//        }
-//        .task {
-//            do {
-//                let provider = try LocalFileSystemDataProvider(
-//                    rootURL: URL(
-//                        filePath: "/Users/noahkamara/Developer/DocSee/DocSee/Resources/SlothCreator.doccarchive"
-//                    )!
-//                )
-//
-//                let bundle = try provider.bundles().first!
-//                print("LOADING")
-//
-//                try await index.addProvider(bundle: bundle, for: provider)
-//            } catch {
-//                print("ERROR", error)
-//            }
-//        }
     }
 }
 
-#Preview(traits: .workspace) {
+#Preview {
     @Previewable @State
     var selection = TopicReference?.none
 
     SidebarView(
-        index: NavigatorIndex(),
-        selection: $selection
+        tree: .preview(),
+        navigator: Navigator()
     )
     .listStyle(.sidebar)
     .frame(maxHeight: .infinity)

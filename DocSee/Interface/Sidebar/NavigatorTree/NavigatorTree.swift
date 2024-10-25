@@ -9,11 +9,303 @@ import Docsy
 import Foundation
 import Observation
 
-public class NavigatorTree {
+enum DocumentationSource: Codable, Sendable {
+    case localFS(LocalFS)
+    
+    struct LocalFS: Codable, Sendable {
+        let rootURL: URL
+    }
+}
+
+fileprivate func loadProvider(_ source: DocumentationSource) throws(PersistableDataProvider.SetupError) -> DataProvider  {
+    do {
+        return switch source {
+        case .localFS(let localFS): try LocalFileSystemDataProvider(
+            rootURL: localFS.rootURL,
+            allowArbitraryCatalogDirectories: true
+        )
+        }
+    } catch {
+        throw .setupFailure(error)
+    }
+}
+
+final class PersistableDataProvider: Sendable, DataProvider, Codable {
+    enum SetupError: Error {
+        case setupFailure(Error)
+    }
+    
+    var identifier: String { bundleIdentifier }
+    let bundleIdentifier: BundleIdentifier
+    let source: DocumentationSource
+    private let provider: DataProvider
+    
+    init(
+        bundleIdentifier: String = UUID().uuidString,
+        source: DocumentationSource
+    ) throws(SetupError) {
+        self.bundleIdentifier = bundleIdentifier
+        self.source = source
+        self.provider = try loadProvider(source)
+    }
+    
+    func contentsOfURL(_ url: URL) async throws -> Data {
+        try await provider.contentsOfURL(url)
+    }
+    
+    func bundles() async throws -> [Docsy.DocumentationBundle] {
+        let bundle = try await provider.bundles().first(
+            where: { $0.identifier == bundleIdentifier
+        })
+        
+        // return only the specified bundle
+        return bundle.map({ [$0] }) ?? []
+    }
+     
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.bundleIdentifier = try container.decode(String.self, forKey: .bundleIdentifier)
+        self.source = try container.decode(DocumentationSource.self, forKey: .source)
+        self.provider = try loadProvider(source)
+    }
+    
+    enum CodingKeys: CodingKey {
+        case bundleIdentifier
+        case source
+    }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.bundleIdentifier, forKey: .bundleIdentifier)
+        try container.encode(self.source, forKey: .source)
+    }
+}
+
+
+class Project: Codable {
+    struct Bundle: Codable {
+        let source: DocumentationSource
+        let metadata: DocumentationBundle.Metadata
+    }
+    
+    enum ProjectNode: Codable {
+        case bundle(BundleIdentifier)
+        case groupMarker(String)
+    }
+    
+    var items: [ProjectNode]
+    var references: [BundleIdentifier: Bundle]
+    
+    open var isPersistent: Bool = false
+    
+    init(
+        items: [ProjectNode],
+        references: [BundleIdentifier : Bundle]
+    ) {
+        self.items = items
+        self.references = references
+    }
+    
+    open func save() async throws {
+        fatalError("save() must be implemented by a subclass of Project")
+    }
+}
+
+
+import OSLog
+
+fileprivate extension NavigatorTree {
+    func getBundleNode(with bundleIdentifier: BundleIdentifier) -> Node? {
+        root.firstChild(where: {
+            $0.type == .root && $0.reference?.bundleIdentifier == bundleIdentifier
+        })
+    }
+}
+
+@Observable
+final class DocSeeContext: Sendable, DocumentationContextDataProviderDelegate {
+    static let logger = Logger(subsystem: "com.noahkamara.docsee", category: "Context2")
+    
+    let workspace: DocumentationWorkspace
+    
+    var tree: NavigatorTree
+    
+    private var project: Project
+    
+    init(workspace: DocumentationWorkspace) {
+        self.workspace = workspace
+        self.project = Project(
+            items: [],
+            references: [:]
+        )
+        self.tree = NavigatorTree()
+        workspace.delegate = self
+    }
+    
+    func load(_ newProject: Project) async throws {
+        if self.project.isPersistent {
+            try await self.project.save()
+        }
+        
+        let children = newProject.items.map { item in
+            switch item {
+            case .bundle(let bundleIdentifier):
+                bundleReference(metadata: project.references[bundleIdentifier]!.metadata)
+                
+            case .groupMarker(let displayName):
+                NavigatorTree.Node(
+                    title: displayName,
+                    type: .groupMarker,
+                    children: []
+                )
+            }
+        }
+        
+        
+        
+        withMutation(keyPath: \.project) {
+            self.project = project
+        }
+        
+        withMutation(keyPath: \.tree) {
+            tree.root.replaceChildren(with: children)
+        }
+    }
+    
+    func save() async throws {
+        self.project.items = self.tree.root.children.map({ page in
+            if let topic = page.reference {
+                Project.ProjectNode.bundle(topic.bundleIdentifier)
+            } else {
+                Project.ProjectNode.groupMarker(page.title)
+            }
+        })
+        try await self.project.save()
+    }
+    
+    
+    /// Add a bundle to the project
+    /// - Parameters:
+    ///   - displayName: display name for the bundle
+    ///   - bundleIdentifier: unique identifier for the bundle
+    ///   - source: Source for the bundle
+    func addBundle(
+        displayName: String,
+        bundleIdentifier: BundleIdentifier,
+        source: DocumentationSource
+    ) async throws {
+        let provider = try PersistableDataProvider(source: source)
+        
+        let bundle = Project.Bundle(
+            source: source,
+            metadata: .init(displayName: displayName, identifier: bundleIdentifier)
+        )
+        
+        project.references[bundleIdentifier] = bundle
+        
+        if tree.getBundleNode(with: bundleIdentifier) == nil {
+            let node = bundleReference(metadata: .init(displayName: displayName, identifier: bundleIdentifier))
+            tree.root.insertChild(node, at: 0)
+        }
+        
+        try await workspace.registerProvider(provider)
+    }
+    
+    func dataProvider(
+        _ dataProvider: any Docsy.DocumentationContextDataProvider,
+        didAddBundle bundle: Docsy.DocumentationBundle
+    ) {
+        Self.logger.debug("add bundle '\(bundle.identifier)'")
+
+        let existingBundleNode = tree.getBundleNode(with: bundle.identifier)
+        
+        if existingBundleNode == nil {
+            let newNode = bundleReference(metadata: bundle.metadata)
+            tree.root.insertChild(newNode, at: 0)
+        }
+        
+        Task {
+            let indexData = try await dataProvider.contentsOfURL(bundle.indexURL, in: bundle)
+            let index = try JSONDecoder().decode(DocumentationIndex.self, from: indexData)
+            didResolveIndex(index, for: bundle)
+        }
+    }
+
+    func dataProvider(
+        _ dataProvider: any Docsy.DocumentationContextDataProvider,
+        didRemoveBundle bundle: Docsy.DocumentationBundle
+    ) {
+        
+    }
+    
+    
+    func didResolveIndex(_ index: DocumentationIndex, for bundle: DocumentationBundle) {
+        let bundleNode = tree.root.firstChild(where: {
+            $0.type == .root && $0.reference == bundle.rootReference
+        })
+
+        guard let bundleNode else {
+            print("bundle not found: \(bundle.identifier)")
+            return
+        }
+
+        let bundleContent = index.interfaceLanguages.values.reversed().map { (lang, nodes) in
+            let children = nodes.map {
+                NavigatorTree.Node(resolving: $0, at: bundle.rootReference)
+            }
+            print(
+                "[\(bundle.identifier)] found language: \(lang.id) with \(nodes.count) elements"
+            )
+
+            return NavigatorTree.Node(
+                title: "\(bundle.displayName) (\(lang.name))",
+                type: .languageGroup,
+                children: children
+            )
+        }
+        
+        bundleNode.replaceChildren(with: bundleContent)
+    }
+}
+
+
+fileprivate func bundleReference(metadata: DocumentationBundle.Metadata) -> NavigatorTree.Node {
+    let bundleNode = NavigatorTree.Node(
+        title: metadata.displayName,
+        reference: TopicReference(
+            bundleIdentifier: metadata.identifier,
+            path: "",
+            sourceLanguage: .swift
+        ),
+        type: .root,
+        children: []
+    )
+
+    return bundleNode
+}
+
+public final class NavigatorTree: Codable {
     public let root: Node
 
     public init(root: Node) {
         self.root = root
+    }
+    
+    public init() {
+        self.root = Node(title: "", type: .root)
+    }
+    
+    public init(from decoder: any Decoder) throws {
+        self.root = try Node(from: decoder)
+    }
+    
+    public func encode(to encoder: any Encoder) throws {
+        try root.encode(to: encoder)
+    }
+    
+    public func addGroupMarker(_ title: String, at offset: Int = 0) {
+        let node = NavigatorTree.Node.groupMarker(title)
+        root.insertChild(node, at: offset)
     }
 }
 
@@ -136,6 +428,10 @@ public extension NavigatorTree {
 // MARK: Child Modifications
 
 extension NavigatorTree.Node {
+    func firstChild(where condition: @escaping (NavigatorTree.Node) -> Bool) -> NavigatorTree.Node? {
+        children.first(where: condition)
+    }
+
     func appendChild(_ node: NavigatorTree.Node) {
         withMutation(keyPath: \.children) {
             children.append(node)
@@ -154,6 +450,18 @@ extension NavigatorTree.Node {
         }
     }
 
+    func removeAllChildren() {
+        withMutation(keyPath: \.children) {
+            self.children = []
+        }
+    }
+    
+    func replaceChildren(with collection: [NavigatorTree.Node]) {
+        withMutation(keyPath: \.children) {
+            self.children = collection
+        }
+    }
+    
     func deleteChildren(at indices: IndexSet) {
         withMutation(keyPath: \.children) {
             children.remove(atOffsets: indices)

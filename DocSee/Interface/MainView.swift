@@ -21,7 +21,7 @@ struct MainView: View {
     @Environment(\.documentationWorkspace)
     private var workspace
 
-    @Environment(DocumentationContext.self)
+    @Environment(DocSeeContext.self)
     var context
 
     @Bindable
@@ -35,7 +35,7 @@ struct MainView: View {
     
     var body: some View {
         NavigationSplitView {
-            SidebarView(index: navigator.index, selection: $navigator.selection)
+            SidebarView(tree: context.tree, navigator:    navigator)
                 .navigationTitle("DocSee")
         } detail: {
             DocumentView(context: context, navigator: navigator)
@@ -73,28 +73,25 @@ struct MainView: View {
             default: return .systemAction
             }
         }))
-//        .toolbarVisibility(debugMode.isDebugging ? .hidden : .automatic, for: .accessoryBar(id: "debug"))
         .environment(context)
-//            let baseURI = URL(filePath: "/Users/noahkamara/Developer/DocSee/")
-//
-//            do {
-//                let doccProvider = try LocalFileSystemDataProvider(
-//                    rootURL: baseURI.appending(component: "docc.doccarchive")
-//                )
-//
-//
-//                let slothcreatorProvider = try LocalFileSystemDataProvider(
-//                    rootURL: baseURI.appending(component: "SlothCreator.doccarchive")
-//                )
-//
-        ////                try await workspace.registerProvider(doccProvider)
-//                try await workspace.registerProvider(slothcreatorProvider)
-//            } catch let desribedError as DescribedError {
-//                print(desribedError.errorDescription)
-//            } catch {
-//                print(error)
-//            }
-//        }
+        .task {
+            do {
+                let bundlePaths = [
+                    "docsee/testdocumentation",
+                    "docsee/swiftdocc",
+                    "docsee/slothcreator",
+                ]
+                
+                let indexProviders = bundlePaths.map { path in
+                    DocSeeIndexProvider(path: path)
+                }
+                for provider in indexProviders {
+                    try await workspace.registerProvider(provider)
+                }
+            } catch {
+                print("Error registering Bundle Provider")
+            }
+        }
     }
 }
 

@@ -12,7 +12,6 @@ import Observation
 @MainActor
 public class Navigator {
     var selection: TopicReference?
-    var index: NavigatorIndex
 
     public func goto(_ reference: TopicReference) {
         withMutation(keyPath: \.selection) {
@@ -21,10 +20,8 @@ public class Navigator {
     }
 
     init(
-        index: NavigatorIndex? = nil,
         initialTopic: TopicReference? = nil
     ) {
-        self.index = index ?? NavigatorIndex()
         self.selection = initialTopic
     }
 }

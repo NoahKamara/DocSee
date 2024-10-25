@@ -64,6 +64,9 @@ struct BookmarksView: View {
     var body: some View {
         LeafView(node: .groupMarker("Bookmarks"), canEdit: false)
         
+        if isDropping {
+            Text("DROPPING")
+        }
         if !bookmarks.isEmpty {
             ForEach(bookmarks, id:\.topic) { bookmark in
                 Label {
@@ -84,7 +87,7 @@ struct BookmarksView: View {
             }
             .animation(.default, value: bookmarks)
         } else {
-            Group {
+            ForEach([0], id:\.self) { _ in
                 Text("Add Bookmarks by dragging topics here")
                     .font(.callout)
                     .foregroundStyle(.secondary)

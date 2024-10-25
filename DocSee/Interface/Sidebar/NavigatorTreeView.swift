@@ -25,6 +25,14 @@ struct NavigatorTreeView: View {
     }
 }
 
+#Preview {
+    List {
+        NavigatorTreeView(tree: .preview())
+    }
+}
+
+
+
 // MARK: Root
 
 private struct NavigatorTreeRootView: View {
@@ -44,6 +52,40 @@ private struct NavigatorTreeRootView: View {
 
 // MARK: Node
 
+struct BundleRootView: View {
+    let bundle: NavigatorTree.Node
+    
+    var langNode: NavigatorTree.Node? {
+        bundle.children
+            .first(where: { $0.reference?.sourceLanguage == .swift }) ?? bundle.children.first
+    }
+    
+    var body: some View {
+        DisclosureGroup {
+            if let langNode {
+                if langNode.children.count > 1 {
+                    OutlineGroup(langNode.children, children: \.nonEmptyChildren) { child in
+                        LeafView(node: child, canEdit: false)
+                    }
+                } else if let first = langNode.children.first {
+                    OutlineGroup(first.children, children: \.nonEmptyChildren) { child in
+                        LeafView(node: child, canEdit: false)
+                    }
+                }
+            } else {
+                ProgressView()
+            }
+        } label: {
+            LeafView(node: bundle, canEdit: false)
+        }
+
+    }
+}
+
+//#Preview {
+//    BundleRootView()
+//}
+
 private struct NodeView: View {
     let node: NavigatorTree.Node
 
@@ -53,13 +95,13 @@ private struct NodeView: View {
     var canEdit: Bool = false
 
     var body: some View {
-        if node.type == .languageGroup {
-            LanguageGroupNodeView(node: node)
+        if node.type == .root {
+//            LanguageGroupNodeView(node: node)
+            BundleRootView(bundle: node)
         } else if !node.children.isEmpty {
             DisclosureGroup {
                 ForEach(node.children) { child in
                     NodeView(node: child)
-                        .moveDisabled(true)
                 }
             } label: {
                 LeafView(node: node, canEdit: false)
@@ -69,6 +111,28 @@ private struct NodeView: View {
         }
     }
 }
+
+struct TappableDisclosureGroup: DisclosureGroupStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        Section {
+            if configuration.isExpanded {
+                configuration.content
+            }
+        } header: {
+            HStack {
+                configuration.label
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Button(action: { configuration.isExpanded.toggle() }) {
+                    Image(systemName: "chevron.right")
+                        .rotationEffect(configuration.isExpanded ? .degrees(90) : .zero)
+                }
+            }
+        }
+    }
+}
+
+
 
 extension NavigatorTree.Node {
     var nonEmptyChildren: [NavigatorTree.Node]? {
@@ -88,9 +152,28 @@ private struct LanguageGroupNodeView: View {
     }
 
     var body: some View {
-        OutlineGroup(node.children, children: \.nonEmptyChildren) { child in
-            LeafView(node: child, canEdit: false)
+        ForEach(node.children.first!.children) { subNode in
+            OutlineGroup(subNode, children: \.nonEmptyChildren) { child in
+                LeafView(node: child, canEdit: false)
+                    .tag(child.reference)
+            }
+            .moveDisabled(true)
         }
+//        if node.children.isEmpty {
+//            LeafView(node: child, canEdit: false)
+//        } else {
+//            DisclosureGroup {
+//                ForEach(node.children) { child in
+//                    NodeView(node: child, isExpanded: false)
+//                }
+//            } label: {
+//                LeafView(node: child, canEdit: false)
+//            }
+//        }
+//
+//        DisclosureGroup(node.children, children: \.nonEmptyChildren) { child in
+//            
+//        }
     }
 }
 
@@ -107,39 +190,41 @@ struct LeafView: View {
     @Environment(\.supportsMultipleWindows)
     private var supportsMultipleWindows
 
+    
+    @Environment(Navigator.self)
+    var navigator: Navigator?
+    
+    
     var body: some View {
         Group {
             if let topic = node.reference {
-                if node.type == .root {
-                    Label {
-                        Text(node.title)
-                    } icon: {
-                        PageTypeIcon(.framework)
-                    }
-                    .contextMenu {
-                        if supportsMultipleWindows {
-                            OpenTopicInWindowButton(topic)
+                Group {
+                    if node.type == .root {
+                        Label {
+                            Text(node.title)
+                        } icon: {
+                            PageTypeIcon(.framework)
                         }
-                        CopyTopicToClipboardButton(topic)
-                    }
-                } else {
-                    Label {
-                        Text(node.title)
-                    } icon: {
-                        PageTypeIcon(node.type)
-                    }
-                    .tag(topic)
-                    .onDrag({
-                        print("DRAGGING")
-                        return NSItemProvider()
-                    })
-                    .draggable(Bookmark(topic: topic, displayName: node.title))
-                    .contextMenu {
-                        if supportsMultipleWindows {
-                            OpenTopicInWindowButton(topic)
+                        .contextMenu {
+                            TopicContextMenu(topic)
                         }
-                        CopyTopicToClipboardButton(topic)
+                    } else {
+                        Label {
+                            Text(node.title)
+                        } icon: {
+                            PageTypeIcon(node.type)
+                        }
                     }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    navigator?.selection = topic
+                }
+                .draggable(Bookmark(topic: topic, displayName: node.title))
+                .tag(topic)
+                .contextMenu {
+                    TopicContextMenu(topic)
                 }
             } else if case .groupMarker = node.type {
                 GroupMarkerView(node: node, canEdit: canEdit)
@@ -151,6 +236,7 @@ struct LeafView: View {
                     }
             }
         }
+        .lineLimit(1)
     }
 }
 

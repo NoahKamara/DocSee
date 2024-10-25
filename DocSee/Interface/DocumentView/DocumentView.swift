@@ -17,7 +17,7 @@ struct DocumentView: View {
     @State
     var viewer: DocumentationViewer
 
-    init(context: DocumentationContext, navigator: Navigator) {
+    init(context: DocSeeContext, navigator: Navigator) {
         let bundleProvider = DocsyResourceProvider(context: context)
         let provider = BundleAppSourceProvider(bundleProvider: bundleProvider)
         self.viewer = DocumentationViewer(provider: provider)
