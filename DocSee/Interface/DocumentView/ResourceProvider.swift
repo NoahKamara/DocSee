@@ -36,7 +36,7 @@ public enum ContextError: Error {
     case unknownBundle(BundleIdentifier)
 }
 
-public extension DocSeeContext {
+extension DocSeeContext {
     /// Provides contents for the url if the url is a valid url provided by this context
     ///
     /// > only use doc urls
