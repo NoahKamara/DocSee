@@ -30,9 +30,11 @@ struct SidebarView: View {
         .environment(navigator)
         .listStyle(.sidebar)
         .toolbar {
+#if os(iOS) // editing is always enabled on macos 
             ToolbarItem(placement: .primaryAction) {
                 EditButton()
             }
+#endif
             ToolbarItem {
                 Menu {
                     Button(action: {}) {

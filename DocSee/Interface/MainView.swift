@@ -35,8 +35,9 @@ struct MainView: View {
     
     var body: some View {
         NavigationSplitView {
-            SidebarView(tree: context.tree, navigator:    navigator)
+            SidebarView(tree: context.tree, navigator: navigator)
                 .navigationTitle("DocSee")
+                .navigationSplitViewColumnWidth(min: 350, ideal: 350, max: nil)
         } detail: {
             DocumentView(context: context, navigator: navigator)
                 .ignoresSafeArea(.all, edges: .bottom)

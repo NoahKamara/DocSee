@@ -11,6 +11,32 @@ import SwiftUI
 import UniformTypeIdentifiers
 import BundleAppSourceProvider
 
+extension ThemeSettings {
+    static let docsee: ThemeSettings = {
+        var settings = ThemeSettings()
+//        settings.features.docs.i18n.enable()
+        settings.features.docs.quickNavigation.enable()
+        
+        settings.theme.aside.borderRadius = "30rem"
+        
+        var color = settings.theme.color
+        
+        color.fill = .pair(
+            light: "#FFFFFF",
+            dark: "#1D1D1D"
+        )
+        
+        color.fillSecondary = .pair(
+            light: "#FFFFFF",
+            dark: "#292A30"
+        )
+        
+        settings.theme.color = color
+        
+        print(settings.description)
+        return settings
+    }()
+}
 struct DocumentView: View {
     let navigator: Navigator
 
@@ -20,7 +46,7 @@ struct DocumentView: View {
     init(context: DocSeeContext, navigator: Navigator) {
         let bundleProvider = DocsyResourceProvider(context: context)
         let provider = BundleAppSourceProvider(bundleProvider: bundleProvider)
-        self.viewer = DocumentationViewer(provider: provider)
+        self.viewer = DocumentationViewer(provider: provider, globalThemeSettings: .docsee)
         self.navigator = navigator
     }
 
