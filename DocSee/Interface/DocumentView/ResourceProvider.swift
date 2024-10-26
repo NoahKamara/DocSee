@@ -32,22 +32,18 @@ class DocsyResourceProvider: BundleResourceProvider {
     }
 }
 
-
 public enum ContextError: Error {
     case unknownBundle(BundleIdentifier)
 }
 
-
-
-extension DocSeeContext {
-    
+public extension DocSeeContext {
     /// Provides contents for the url if the url is a valid url provided by this context
     ///
     /// > only use doc urls
     ///
     /// - Parameter url: a doc url like `doc://<bundle-identifier>/path`
     /// - Returns:
-    public func contentsOfURL(_ url: URL) async throws -> Data {
+    func contentsOfURL(_ url: URL) async throws -> Data {
         guard url.scheme == "doc" else {
             fatalError("scheme error")
         }
@@ -69,23 +65,21 @@ extension DocSeeContext {
             throw error
         }
     }
-    
-    public func bundle(for identifier: BundleIdentifier) async throws(ContextError) -> DocumentationBundle {
+
+    func bundle(for identifier: BundleIdentifier) async throws(ContextError) -> DocumentationBundle {
         guard let bundle = await workspace.bundles[identifier] else {
             throw .unknownBundle(identifier)
         }
         return bundle
     }
 
-    public func index(for identifier: BundleIdentifier) async throws -> DocumentationIndex {
+    func index(for identifier: BundleIdentifier) async throws -> DocumentationIndex {
         let decoder = JSONDecoder()
-        
+
         return try await Task.detached {
             let bundle = try await self.bundle(for: identifier)
             let indexData = try await self.workspace.contentsOfURL(bundle.indexURL, in: bundle)
             return try decoder.decode(DocumentationIndex.self, from: indexData)
         }.value
     }
-
-
 }

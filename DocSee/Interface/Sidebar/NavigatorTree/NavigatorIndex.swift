@@ -10,7 +10,6 @@ import Foundation
 import Observation
 import OSLog
 
-
 @MainActor
 class NavigatorIndex {
     static let logger = Logger(subsystem: "com.noahkamara.docsee", category: "NavigatorIndex")
@@ -44,7 +43,6 @@ class NavigatorIndex {
             didResolveIndex(index, for: bundle)
         }
     }
-    
 
 //    public func dataProvider(_: any DocumentationContextDataProvider, didRemoveBundle bundle: DocumentationBundle) {
 //        Self.logger.debug("[dataProvider] remove bundle '\(bundle.identifier)'")
@@ -54,7 +52,6 @@ class NavigatorIndex {
 //            _ = self.bundles.removeValue(forKey: bundle.identifier)
 //        }
 //    }
-
 
     @discardableResult
     func addBundleReference(bundleIdentifier: BundleIdentifier, displayName: String) -> NavigatorTree.Node {
@@ -92,7 +89,7 @@ class NavigatorIndex {
             )
 
             let langNode = NavigatorTree.Node(
-                title: "\(bundle.displayName) (\(lang.name))",
+                title: lang.name,
                 type: .languageGroup,
                 children: children
             )

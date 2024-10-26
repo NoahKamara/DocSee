@@ -32,7 +32,7 @@ struct MainView: View {
 
     @Environment(\.supportsMultipleWindows)
     private var supportsMultipleWindows
-    
+
     var body: some View {
         NavigationSplitView {
             SidebarView(tree: context.tree, navigator: navigator)
@@ -82,7 +82,7 @@ struct MainView: View {
                     "docsee/swiftdocc",
                     "docsee/slothcreator",
                 ]
-                
+
                 let indexProviders = bundlePaths.map { path in
                     DocSeeIndexProvider(path: path)
                 }

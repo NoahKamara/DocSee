@@ -2,13 +2,13 @@
 //  Bookmark.swift
 //  DocSee
 //
-//  Created by Noah Kamara on 23.10.24.
+//  Copyright © 2024 Noah Kamara.
 //
 
+import CoreTransferable
+import Docsy
 import Foundation
 import UniformTypeIdentifiers
-import Docsy
-import CoreTransferable
 
 extension UTType {
     static var topic = UTType(exportedAs: "com.docsee.topic", conformingTo: .json)
@@ -18,7 +18,7 @@ extension UTType {
 struct Bookmark: Codable, Transferable, Equatable {
     let topic: TopicReference
     let displayName: String
-    
+
     init(
         topic: TopicReference,
         displayName: String
@@ -26,7 +26,7 @@ struct Bookmark: Codable, Transferable, Equatable {
         self.topic = topic
         self.displayName = displayName
     }
-    
+
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .bookmark)
     }
@@ -37,10 +37,10 @@ import SwiftUI
 struct BookmarksView: View {
     @State
     var bookmarks: [Bookmark] = []
-    
+
     func dropItems(_ items: [NSItemProvider], at offset: Int = 0) {
         print("DROP", offset)
-        
+
         for item in items {
             _ = item.loadTransferable(type: Bookmark.self) { result in
                 switch result {
@@ -54,21 +54,21 @@ struct BookmarksView: View {
             }
         }
     }
-    
+
     @State
     var isDropping: Bool = false
-    
+
     @Environment(\.supportsMultipleWindows)
     private var supportsMultipleWindows
-    
+
     var body: some View {
         LeafView(node: .groupMarker("Bookmarks"), canEdit: false)
-        
+
         if isDropping {
             Text("DROPPING")
         }
         if !bookmarks.isEmpty {
-            ForEach(bookmarks, id:\.topic) { bookmark in
+            ForEach(bookmarks, id: \.topic) { bookmark in
                 Label {
                     Text(bookmark.displayName)
                 } icon: {
@@ -87,7 +87,7 @@ struct BookmarksView: View {
             }
             .animation(.default, value: bookmarks)
         } else {
-            ForEach([0], id:\.self) { _ in
+            ForEach([0], id: \.self) { _ in
                 Text("Add Bookmarks by dragging topics here")
                     .font(.callout)
                     .foregroundStyle(.secondary)

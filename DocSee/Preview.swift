@@ -17,11 +17,11 @@ struct PreviewWorkspace: PreviewModifier {
         do {
             let provider = try AppBundleDataProvider(bundle: .main)
             try await workspace.registerProvider(provider)
-            
+
             let indexProvider = DocSeeIndexProvider(
                 path: "docsee/testdocumentation"
             )
-            
+
             try await workspace.registerProvider(indexProvider)
         } catch {
             print("ERROR in provider", error)
@@ -55,16 +55,13 @@ struct WorkspacePreview<Content: View>: View {
     }
 }
 
-
-
-
 struct ProviderTestView: View {
     @State
     var bundles: [DocumentationBundle] = []
-    
+
     @Environment(\.documentationWorkspace)
     var workspace
-    
+
     var body: some View {
         List {
             ForEach(bundles) { bundle in

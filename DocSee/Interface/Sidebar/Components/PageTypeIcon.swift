@@ -66,7 +66,7 @@ struct PageTypeIcon: View {
 private extension PageType {
     var icon: PageTypeIcon.Icon {
         switch self {
-        case .root: .abbr("RT", .red)
+        case .root: .symbol("square.grid.2x2")
         case .article: .symbol("text.document")
         case .overview: .symbol("app.connected.to.app.below.fill")
         case .tutorial: .symbol("square.fill.text.grid.1x2")
@@ -88,9 +88,8 @@ private extension PageType {
         case .operator: .abbr("Op", .green)
         //        case .macro:
         //        case .union:
-                
         case .instanceProperty: .abbr("P", .purple)
-//            case .subscript: 
+//            case .subscript:
         //        case .typeMethod:
         //        case .typeProperty:
         //        case .buildSetting:

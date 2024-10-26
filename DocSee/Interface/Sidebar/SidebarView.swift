@@ -16,11 +16,11 @@ struct SidebarView: View {
 
     @Bindable
     var navigator: Navigator
-        
+
     var body: some View {
         List(selection: $navigator.selection) {
             BookmarksView()
-            
+
             NavigatorTreeView(tree: tree)
 
             if tree.root.children.isEmpty {
@@ -30,7 +30,7 @@ struct SidebarView: View {
         .environment(navigator)
         .listStyle(.sidebar)
         .toolbar {
-#if os(iOS) // editing is always enabled on macos 
+#if os(iOS) // editing is always enabled on macos
             ToolbarItem(placement: .primaryAction) {
                 EditButton()
             }

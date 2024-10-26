@@ -95,8 +95,8 @@ struct MainScene: Scene {
                         .ignoresSafeArea(.all, edges: .bottom)
                 }
 #if os(macOS)
-    .presentedWindowStyle(.plain)
-    .presentedWindowToolbarStyle(.unified)
+                .presentedWindowStyle(.plain)
+                .presentedWindowToolbarStyle(.unified)
 #endif
             }
 #if os(macOS)

@@ -1,23 +1,23 @@
 //
-//  File.swift
+//  TopicContextMenu.swift
 //  DocSee
 //
-//  Created by Noah Kamara on 25.10.24.
+//  Copyright © 2024 Noah Kamara.
 //
 
-import SwiftUI
 import Docsy
+import SwiftUI
 
 struct TopicContextMenu: View {
     @Environment(\.supportsMultipleWindows)
     private var supportsMultipleWindows
-    
+
     let topic: TopicReference
-    
+
     init(_ topic: TopicReference) {
         self.topic = topic
     }
-    
+
     var body: some View {
         if supportsMultipleWindows {
             OpenTopicInWindowButton(topic)
