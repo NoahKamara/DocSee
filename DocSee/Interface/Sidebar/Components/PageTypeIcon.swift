@@ -51,6 +51,9 @@ struct PageTypeIcon: View {
             case .unknown(let type):
                 Text("UNKNOWN \(type.rawValue)")
                     .foregroundStyle(.red)
+                    .onAppear {
+                        print("unknown", type.rawValue)
+                    }
             }
         }
     }
@@ -71,23 +74,23 @@ private extension PageType {
         //        case .learn:
         //        case .overview: .abbr("OV", .red)
         //        case .resources:
-        //        case .symbol:
+        case .symbol: .symbol("list.bullet")
         case .framework: .symbol("square.stack.3d.up.fill")
         case .class: .abbr("C", .purple)
         case .structure: .abbr("S", .purple)
         case .protocol: .abbr("Pr", .purple)
-        case .enumeration: .abbr("E", .purple)
+        case .enumeration, .enumerationCase: .abbr("E", .purple)
         case .function, .instanceMethod, .initializer: .abbr("M", .purple)
         case .extension: .abbr("Ex", .orange)
-        //        case .variable:
-        //        case .typeAlias:
+        case .variable: .abbr("V", .green)
+        case .typeAlias: .abbr("T", .yellow)
         //        case .associatedType:
-        //        case .operator:
+        case .operator: .abbr("Op", .green)
         //        case .macro:
         //        case .union:
-        //        case .enumerationCase:
+                
         case .instanceProperty: .abbr("P", .purple)
-        //        case .subscript:
+//            case .subscript: 
         //        case .typeMethod:
         //        case .typeProperty:
         //        case .buildSetting:
