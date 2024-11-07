@@ -8,6 +8,16 @@
 import Docsy
 import SwiftUI
 
+actor Box<T>: Sendable {
+    var value: T
+    
+    init(initialValue value: T) {
+        self.value = value
+    }
+}
+
+
+
 public extension EnvironmentValues {
     @Entry var documentationWorkspace = DocumentationWorkspace()
 }
@@ -27,9 +37,6 @@ struct MainView: View {
     @Bindable
     var navigator = Navigator()
 
-    @Environment(\.debugMode)
-    var debugMode
-
     @Environment(\.supportsMultipleWindows)
     private var supportsMultipleWindows
 
@@ -37,7 +44,7 @@ struct MainView: View {
         NavigationSplitView {
             SidebarView(tree: context.tree, navigator: navigator)
                 .navigationTitle("DocSee")
-                .navigationSplitViewColumnWidth(min: 350, ideal: 350, max: nil)
+                .navigationSplitViewColumnWidth(min: 250, ideal: 300, max: nil)
         } detail: {
             DocumentView(context: context, navigator: navigator)
                 .ignoresSafeArea(.all, edges: .bottom)
@@ -57,11 +64,6 @@ struct MainView: View {
                     }
                 }
         }
-        .toolbar {
-            ToolbarItem(placement: .debugBar) {
-                DebugModeButton()
-            }
-        }
         .environment(\.openURL, .init(handler: { url in
             switch url.scheme {
             case "doc":
@@ -70,7 +72,8 @@ struct MainView: View {
                     path: url.path(),
                     sourceLanguage: .swift
                 ))
-                return .discarded
+                return .handled
+                
             default: return .systemAction
             }
         }))
@@ -90,7 +93,7 @@ struct MainView: View {
                     try await workspace.registerProvider(provider)
                 }
             } catch {
-                print("Error registering Bundle Provider")
+                print("Error registering Bundle Provider \(error)")
             }
         }
     }

@@ -48,8 +48,90 @@ private struct NavigatorTreeRootView: View {
     }
 }
 
-// MARK: Node
 
+struct BundleLeafView: View {
+    let bundle: NavigatorTree.Node
+    
+    @Binding
+    var language: NavigatorTree.Node?
+    
+    @Environment(Navigator.self)
+    private var navigator
+     
+    @Binding
+    var isExpanded: Bool
+    
+    private func pageType(_ language: NavigatorTree.Node?) -> PageType {
+        if let language, language.children.count == 1 {
+            language.children.first!.type
+        } else {
+            .framework
+        }
+    }
+    
+    var body: some View {
+        HStack(spacing: 2) {
+            LabeledContent(content: {
+                if let language, bundle.children.count > 1 {
+                    Text(language.title)
+                        .font(.caption)
+                        .padding(2)
+                        .background(in: .rect(cornerRadius: 5))
+                        .backgroundStyle(Color.accentColor.tertiary)
+                }
+            }, label: {
+                LeafView(
+                    node: .init(
+                        title: bundle.title,
+                        reference: language?.reference ?? language?.children.first?.reference,
+                        type: pageType(language)
+                    ),
+                    canEdit: false
+                )
+            })
+            .onTapGesture {
+                if let language {
+                    if let topic = language.children.first?.reference {
+                        navigator.goto(topic)
+                    }
+                    withAnimation {
+                        isExpanded = true
+                    }
+                } else {
+                    withAnimation {
+                        isExpanded.toggle()
+                    }
+                }
+            }
+        }
+        .contextMenu {
+            if let language, bundle.children.count > 1 {
+                Menu {
+                    ForEach(bundle.children, id: \.id) { langNode in
+                        Button(action: {
+                            self.language = langNode
+                        }) {
+                            Label {
+                                Text(langNode.title)
+                            } icon: {
+                                if self.language?.id == langNode.id {
+                                    Image(systemName: "checkmark")
+                                }
+                            }
+                        }
+                    }
+                } label: {
+                    Text("Language: "+(language.title))
+                }
+                .menuStyle(ButtonMenuStyle())
+                .buttonStyle(.borderedProminent)
+            }
+        }
+    }
+}
+
+
+// MARK: Node
 struct BundleRootView: View {
     let bundle: NavigatorTree.Node
 
@@ -78,66 +160,37 @@ struct BundleRootView: View {
 
     var body: some View {
         if let langNode = currentLanguage {
-            if langNode.children.count > 1 {
-                DisclosureGroup(isExpanded: $isExpanded) {
+            // Has language
+            DisclosureGroup(isExpanded: $isExpanded) {
+                if langNode.children.count > 1 {
                     OutlineGroup(langNode.children, children: \.nonEmptyChildren) { child in
                         LeafView(node: child, canEdit: false)
                     }
-                } label: {
-                    HStack(spacing: 2) {
-                        LeafView(
-                            node: .init(
-                                title: bundle.title,
-                                reference: nil,
-                                type: .root
-                            ),
-                            canEdit: false
-                        )
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .onTapGesture {
-                            isExpanded = true
-
-                            if let topic = langNode.children.first?.reference {
-                                navigator.goto(topic)
-                            }
-                        }
-
-                        Menu {
-                            ForEach(bundle.children, id: \.id) { langNode in
-                                Button(action: {
-                                    currentLanguage = langNode
-                                }) {
-                                    Label {
-                                        Text(langNode.title)
-                                    } icon: {
-                                        if currentLanguage?.id == langNode.id {
-                                            Image(systemName: "checkmark")
-                                        }
-                                    }
-                                }
-                            }
-                        } label: {
-                            Text(langNode.title)
-                        }
-                        .menuStyle(ButtonMenuStyle())
-                        .buttonStyle(.borderedProminent)
-                    }
-                }
-            } else if let first = langNode.children.first {
-                DisclosureGroup {
+                } else if let first = langNode.children.first {
                     OutlineGroup(first.children, children: \.nonEmptyChildren) { child in
                         LeafView(node: child, canEdit: false)
                     }
-                } label: {
-                    LeafView(node: first, canEdit: false)
                 }
+            } label: {
+                BundleLeafView(
+                    bundle: bundle,
+                    language: $currentLanguage,
+                    isExpanded: $isExpanded
+                )
             }
         } else {
-            ProgressView()
-                .onChange(of: bundle.children.isEmpty) { _, _ in
-                    currentLanguage = bundle.children.first
-                }
-                .environment(\.controlSize, .mini)
+            BundleLeafView(
+                bundle: bundle,
+                language: $currentLanguage,
+                isExpanded: $isExpanded
+            )
+            .safeAreaInset(edge: .trailing) {
+                ProgressView()
+                    .environment(\.controlSize, .mini)
+            }
+            .onChange(of: bundle.children.isEmpty) { _, _ in
+                currentLanguage = bundle.children.first
+            }
         }
     }
 }

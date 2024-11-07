@@ -21,7 +21,7 @@ public struct DocSeeIndexProvider: DataProvider {
 
     init(
         identifier: String = UUID().uuidString,
-        baseURI: URL = URL(string: "http://192.168.1.219:8080")!,
+        baseURI: URL = URL(string: "http://localhost:8080")!,
         path: String
     ) {
         self.identifier = identifier
@@ -47,6 +47,7 @@ public struct DocSeeIndexProvider: DataProvider {
     public func bundles() async throws -> [DocumentationBundle] {
         let bundleBaseUrl = baseURI.appending(path: path)
 
+        print(self.path)
         let metadataUrl = bundleBaseUrl.appending(component: "metadata.json")
         let data = try await contentsOfURL(metadataUrl)
         let decoder = JSONDecoder()
