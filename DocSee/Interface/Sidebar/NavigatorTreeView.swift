@@ -311,9 +311,6 @@ struct LeafView: View {
                 } icon: {
                     PageTypeIcon(node.type)
                 }
-                .contextMenu {
-                    TopicContextMenu(topic)
-                }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -322,7 +319,7 @@ struct LeafView: View {
                 .draggable(Bookmark(topic: topic, displayName: node.title))
                 .tag(topic)
                 .contextMenu {
-                    TopicContextMenu(topic)
+                    TopicActions.ContextMenu(topic)
                 }
             } else if case .groupMarker = node.type {
                 GroupMarkerView(node: node, canEdit: canEdit)

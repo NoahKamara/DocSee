@@ -8,18 +8,20 @@
 import Docsy
 import SwiftUI
 
-struct CopyTopicToClipboardButton: View {
-    let topic: TopicReference
-
-    init(_ topic: TopicReference) {
-        self.topic = topic
-    }
-
-    var body: some View {
-        Button(action: {
-            Pasteboard.setURL(topic.url)
-        }) {
-            Label("Copy Link", systemImage: "document.on.clipboard")
+extension TopicActions {
+    struct CopyLink: View {
+        let topic: TopicReference
+        
+        init(_ topic: TopicReference) {
+            self.topic = topic
+        }
+        
+        var body: some View {
+            Button(action: {
+                Pasteboard.setURL(topic.url)
+            }) {
+                Label("Copy Link", systemImage: "document.on.clipboard")
+            }
         }
     }
 }
@@ -33,7 +35,7 @@ extension TopicReference {
 }
 
 #Preview {
-    CopyTopicToClipboardButton(.preview)
+    TopicActions.CopyLink(.preview)
         .padding(20)
 }
 

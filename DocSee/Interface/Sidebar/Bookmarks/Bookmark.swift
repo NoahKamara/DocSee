@@ -76,10 +76,7 @@ struct BookmarksView: View {
                         .padding(2)
                 }
                 .contextMenu {
-                    if supportsMultipleWindows {
-                        OpenTopicInWindowButton(bookmark.topic)
-                    }
-                    CopyTopicToClipboardButton(bookmark.topic)
+                    TopicActions.ContextMenu(bookmark.topic)
                 }
             }
             .onInsert(of: [.bookmark]) { offset, items in

@@ -8,12 +8,7 @@
 import Docsy
 import Foundation
 
-enum DocseeIndexProviderError: Error {
-    case notFound
-    case unknown(_ statusCode: Int)
-}
-
-public struct DocSeeIndexProvider: DataProvider {
+struct DocSeeIndexProvider: DataProvider {
     public let identifier: String
     let baseURI: URL
     let urlSession = URLSession.shared
@@ -63,3 +58,9 @@ public struct DocSeeIndexProvider: DataProvider {
         return [bundle]
     }
 }
+
+enum DocseeIndexProviderError: Error {
+    case notFound
+    case unknown(_ statusCode: Int)
+}
+

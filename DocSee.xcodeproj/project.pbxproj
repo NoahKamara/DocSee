@@ -11,12 +11,14 @@
 		FD857F5D2CBDC9F600F949CD /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F5C2CBDC9F600F949CD /* Docsy */; };
 		FD857F5F2CBDC9F600F949CD /* DocsySchema in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F5E2CBDC9F600F949CD /* DocsySchema */; };
 		FD857F642CBDCA0400F949CD /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F632CBDCA0400F949CD /* DocCViewer */; };
+		FDAAFFD42CDBFBA3009BFDF9 /* ProviderDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAAFFB82CDBFBA3009BFDF9 /* ProviderDescriptor.swift */; };
 		FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FDDB4FEE2C7AD0810038592C /* Docsy */; };
 		FDEDD9432CC98134006FB572 /* BundleAppSourceProvider in Frameworks */ = {isa = PBXBuildFile; productRef = FDEDD9422CC98134006FB572 /* BundleAppSourceProvider */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FD85D9CE2C795DD200C74606 /* DocSee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocSee.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDAAFFB82CDBFBA3009BFDF9 /* ProviderDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderDescriptor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -69,6 +71,7 @@
 				FD85D9CF2C795DD200C74606 /* Products */,
 				FDAC8B252C7FD48C00FC4198 /* Resources */,
 				FDC381EB2C8B977D001AB4DE /* Frameworks */,
+				FDAAFFB82CDBFBA3009BFDF9 /* ProviderDescriptor.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDAAFFD42CDBFBA3009BFDF9 /* ProviderDescriptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +305,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DocSee/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DocSee/Previews/Preview Content\"";
 				DEVELOPMENT_TEAM = ME2UKFKL5H;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -342,7 +346,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DocSee/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DocSee/Previews/Preview Content\"";
 				DEVELOPMENT_TEAM = ME2UKFKL5H;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;

@@ -49,17 +49,15 @@ struct MainView: View {
             DocumentView(context: context, navigator: navigator)
                 .ignoresSafeArea(.all, edges: .bottom)
                 .toolbar {
-                    if supportsMultipleWindows {
-                        ToolbarItem(id: "open-topic-in-window") {
-                            OptionalTopicButton(navigator.selection) { topic in
-                                OpenTopicInWindowButton(topic)
+                    if let topic = navigator.selection {
+                        if supportsMultipleWindows {
+                            ToolbarItem(id: "open-topic-in-window") {
+                                TopicActions.OpenWindow(topic)
                             }
                         }
-                    }
-
-                    ToolbarItem(id: "copy-topic-link") {
-                        OptionalTopicButton(navigator.selection) { topic in
-                            CopyTopicToClipboardButton(topic)
+                        
+                        ToolbarItem(id: "copy-topic-link") {
+                            TopicActions.CopyLink(topic)
                         }
                     }
                 }

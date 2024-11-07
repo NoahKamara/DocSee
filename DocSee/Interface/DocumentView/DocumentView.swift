@@ -146,7 +146,6 @@ extension ThemeSettings {
 
         settings.theme.color = color
 
-        print(settings.description)
         return settings
     }()
 }
@@ -181,7 +180,7 @@ struct DocumentView: View {
                 guard let newValue else { return }
                 viewer.navigate(to: .init(bundleIdentifier: newValue.bundleIdentifier, path: newValue.path))
             }
-            .task {
+            .task(id: "url-did-change") {
                 do {
                     let urlDidChangePublisher = viewer.bridge.channel(for: .didNavigate)
 
