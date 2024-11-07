@@ -12,12 +12,14 @@ struct NavigatorTreeView: View {
     let tree: NavigatorTree
 
     var body: some View {
-//        NavigatorTreeRootView(root: tree.root)
         ForEach(tree.root.children) { child in
-            NodeView(node: child, canEdit: true)
+            if child.type == .root {
+                BundleRootView(bundle: child)
+            } else {
+                LeafView(node: child, canEdit: true)
+            }
         }
         .onMove { indices, newOffset in
-            print("MOVE")
             withAnimation(.default) {
                 tree.root.moveChildren(from: indices, to: newOffset)
             }
@@ -28,23 +30,6 @@ struct NavigatorTreeView: View {
 #Preview {
     List {
         NavigatorTreeView(tree: .preview())
-    }
-}
-
-// MARK: Root
-
-private struct NavigatorTreeRootView: View {
-    let root: NavigatorTree.Node
-
-    var body: some View {
-        ForEach(root.children) { child in
-            NodeView(node: child, canEdit: true)
-        }
-        .onMove { indices, newOffset in
-            withAnimation(.default) {
-                root.moveChildren(from: indices, to: newOffset)
-            }
-        }
     }
 }
 
@@ -131,6 +116,7 @@ struct BundleLeafView: View {
 }
 
 
+
 // MARK: Node
 struct BundleRootView: View {
     let bundle: NavigatorTree.Node
@@ -162,15 +148,18 @@ struct BundleRootView: View {
         if let langNode = currentLanguage {
             // Has language
             DisclosureGroup(isExpanded: $isExpanded) {
-                if langNode.children.count > 1 {
-                    OutlineGroup(langNode.children, children: \.nonEmptyChildren) { child in
-                        LeafView(node: child, canEdit: false)
-                    }
-                } else if let first = langNode.children.first {
-                    OutlineGroup(first.children, children: \.nonEmptyChildren) { child in
-                        LeafView(node: child, canEdit: false)
+                Group {
+                    if langNode.children.count > 1 {
+                        OutlineGroup(langNode.children, children: \.nonEmptyChildren) { child in
+                            LeafView(node: child, canEdit: false)
+                        }
+                    } else if let first = langNode.children.first {
+                        OutlineGroup(first.children, children: \.nonEmptyChildren) { child in
+                            LeafView(node: child, canEdit: false)
+                        }
                     }
                 }
+                .moveDisabled(true)
             } label: {
                 BundleLeafView(
                     bundle: bundle,
@@ -199,31 +188,30 @@ struct BundleRootView: View {
 //    BundleRootView()
 // }
 
-private struct NodeView: View {
-    let node: NavigatorTree.Node
-
-    @State
-    var isExpanded: Bool = false
-
-    var canEdit: Bool = false
-
-    var body: some View {
-        if node.type == .root {
-//            LanguageGroupNodeView(node: node)
-            BundleRootView(bundle: node)
-        } else if !node.children.isEmpty {
-            DisclosureGroup {
-                ForEach(node.children) { child in
-                    NodeView(node: child)
-                }
-            } label: {
-                LeafView(node: node, canEdit: false)
-            }
-        } else {
-            LeafView(node: node, canEdit: canEdit)
-        }
-    }
-}
+//private struct NodeView: View {
+//    let node: NavigatorTree.Node
+//
+//    @State
+//    var isExpanded: Bool = false
+//
+//    var canEdit: Bool = false
+//
+//    var body: some View {
+//        if !node.children.isEmpty {
+//            DisclosureGroup {
+//                ForEach(node.children) { child in
+//                    NodeView(node: child)
+//                }
+//            } label: {
+//                LeafView(node: node, canEdit: false)
+//                    .moveDisabled(canEdit)
+//            }
+//        } else {
+//            LeafView(node: node, canEdit: canEdit)
+//                .moveDisabled(canEdit)
+//        }
+//    }
+//}
 
 struct TappableDisclosureGroup: DisclosureGroupStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -269,7 +257,6 @@ private struct LanguageGroupNodeView: View {
                 LeafView(node: child, canEdit: false)
                     .tag(child.reference)
             }
-            .moveDisabled(true)
         }
 //        if node.children.isEmpty {
 //            LeafView(node: child, canEdit: false)
@@ -312,11 +299,12 @@ struct LeafView: View {
                     PageTypeIcon(node.type)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+#if os(iOS)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     navigator?.selection = topic
                 }
-                .draggable(Bookmark(topic: topic, displayName: node.title))
+#endif
                 .tag(topic)
                 .contextMenu {
                     TopicActions.ContextMenu(topic)
