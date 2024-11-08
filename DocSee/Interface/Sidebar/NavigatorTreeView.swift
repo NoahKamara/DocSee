@@ -13,11 +13,7 @@ struct NavigatorTreeView: View {
 
     var body: some View {
         ForEach(tree.root.children) { child in
-            if child.type == .root {
-                BundleRootView(bundle: child)
-            } else {
-                LeafView(node: child, canEdit: true)
-            }
+            NodeView(node: child)
         }
         .onMove { indices, newOffset in
             withAnimation(.default) {
@@ -34,91 +30,44 @@ struct NavigatorTreeView: View {
 }
 
 
-struct BundleLeafView: View {
-    let bundle: NavigatorTree.Node
-    
-    @Binding
-    var language: NavigatorTree.Node?
-    
-    @Environment(Navigator.self)
-    private var navigator
-     
-    @Binding
-    var isExpanded: Bool
-    
-    private func pageType(_ language: NavigatorTree.Node?) -> PageType {
-        if let language, language.children.count == 1 {
-            language.children.first!.type
-        } else {
-            .framework
-        }
-    }
-    
+// MARK: Node
+
+struct NodeView: View {
+    let node: NavigatorTree.Node
+
+    @State
+    var isExpanded: Bool = false
+
+    var canEdit: Bool = false
+
     var body: some View {
-        HStack(spacing: 2) {
-            LabeledContent(content: {
-                if let language, bundle.children.count > 1 {
-                    Text(language.title)
-                        .font(.caption)
-                        .padding(2)
-                        .background(in: .rect(cornerRadius: 5))
-                        .backgroundStyle(Color.accentColor.tertiary)
+        if node.type == .root {
+            BundleRootView(bundle: node)
+        } else if !node.children.isEmpty {
+            DisclosureGroup {
+                ForEach(node.children) { child in
+                    NodeView(node: child)
                 }
-            }, label: {
-                LeafView(
-                    node: .init(
-                        title: bundle.title,
-                        reference: language?.reference ?? language?.children.first?.reference,
-                        type: pageType(language)
-                    ),
-                    canEdit: false
-                )
-            })
-            .onTapGesture {
-                if let language {
-                    if let topic = language.children.first?.reference {
-                        navigator.goto(topic)
-                    }
-                    withAnimation {
-                        isExpanded = true
-                    }
-                } else {
-                    withAnimation {
-                        isExpanded.toggle()
-                    }
-                }
+            } label: {
+                LeafView(node: node, canEdit: false)
             }
-        }
-        .contextMenu {
-            if let language, bundle.children.count > 1 {
-                Menu {
-                    ForEach(bundle.children, id: \.id) { langNode in
-                        Button(action: {
-                            self.language = langNode
-                        }) {
-                            Label {
-                                Text(langNode.title)
-                            } icon: {
-                                if self.language?.id == langNode.id {
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                        }
-                    }
-                } label: {
-                    Text("Language: "+(language.title))
-                }
-                .menuStyle(ButtonMenuStyle())
-                .buttonStyle(.borderedProminent)
-            }
+        } else {
+            LeafView(node: node, canEdit: canEdit)
+                .moveDisabled(canEdit)
         }
     }
 }
 
+fileprivate extension NavigatorTree.Node {
+    var nonEmptyChildren: [NavigatorTree.Node]? {
+        access(keyPath: \.children)
+        return children.isEmpty ? nil : children
+    }
+}
 
 
-// MARK: Node
-struct BundleRootView: View {
+// MARK: Bundle Root
+fileprivate struct BundleRootView: View {
     let bundle: NavigatorTree.Node
 
     var langNode: NavigatorTree.Node? {
@@ -148,18 +97,28 @@ struct BundleRootView: View {
         if let langNode = currentLanguage {
             // Has language
             DisclosureGroup(isExpanded: $isExpanded) {
-                Group {
-                    if langNode.children.count > 1 {
-                        OutlineGroup(langNode.children, children: \.nonEmptyChildren) { child in
-                            LeafView(node: child, canEdit: false)
-                        }
-                    } else if let first = langNode.children.first {
-                        OutlineGroup(first.children, children: \.nonEmptyChildren) { child in
-                            LeafView(node: child, canEdit: false)
-                        }
+                if langNode.children.count > 1 {
+                    OutlineGroup(langNode.children, children: \.nonEmptyChildren) { child in
+                        LeafView(node: child, canEdit: false)
+                            .moveDisabled(true)
                     }
+                } else if let first = langNode.children.first {
+                    LeafView(
+                        node: .init(
+                            title: first.title,
+                            reference: first.reference,
+                            type: first.type
+                        ),
+                        canEdit: false
+                    )
+                    .moveDisabled(true)
+                    
+                    OutlineGroup(first.children, children: \.nonEmptyChildren) { child in
+                        LeafView(node: child, canEdit: false)
+                            .moveDisabled(true)
+                    }
+                    .moveDisabled(true)
                 }
-                .moveDisabled(true)
             } label: {
                 BundleLeafView(
                     bundle: bundle,
@@ -184,97 +143,56 @@ struct BundleRootView: View {
     }
 }
 
-// #Preview {
-//    BundleRootView()
-// }
-
-//private struct NodeView: View {
-//    let node: NavigatorTree.Node
-//
-//    @State
-//    var isExpanded: Bool = false
-//
-//    var canEdit: Bool = false
-//
-//    var body: some View {
-//        if !node.children.isEmpty {
-//            DisclosureGroup {
-//                ForEach(node.children) { child in
-//                    NodeView(node: child)
-//                }
-//            } label: {
-//                LeafView(node: node, canEdit: false)
-//                    .moveDisabled(canEdit)
-//            }
-//        } else {
-//            LeafView(node: node, canEdit: canEdit)
-//                .moveDisabled(canEdit)
-//        }
-//    }
-//}
-
-struct TappableDisclosureGroup: DisclosureGroupStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        Section {
-            if configuration.isExpanded {
-                configuration.content
-            }
-        } header: {
-            HStack {
-                configuration.label
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                Button(action: { configuration.isExpanded.toggle() }) {
-                    Image(systemName: "chevron.right")
-                        .rotationEffect(configuration.isExpanded ? .degrees(90) : .zero)
-                }
-            }
+// MARK: Bundle Leaf
+fileprivate struct BundleLeafView: View {
+    let bundle: NavigatorTree.Node
+    
+    @Binding
+    var language: NavigatorTree.Node?
+    
+    @Environment(Navigator.self)
+    private var navigator
+     
+    @Binding
+    var isExpanded: Bool
+    
+    private func pageType(_ language: NavigatorTree.Node?) -> PageType {
+        if let language, language.children.count == 1 {
+            language.children.first!.type
+        } else {
+            .framework
         }
     }
-}
-
-extension NavigatorTree.Node {
-    var nonEmptyChildren: [NavigatorTree.Node]? {
-        access(keyPath: \.children)
-        return children.isEmpty ? nil : children
+    
+    var rootNode: NavigatorTree.Node {
+        language
+            .map({ node in
+                node.children.first(where: { $0.type == .framework }) ?? node.children.first ?? bundle
+            }) ?? bundle
     }
-}
-
-// MARK: LanguageGroup
-
-private struct LanguageGroupNodeView: View {
-    var node: NavigatorTree.Node
-
-    var language: SourceLanguage = .swift
-
-    init(node: NavigatorTree.Node) {
-        self.node = node
-    }
-
+    
     var body: some View {
-        ForEach(node.children.first!.children) { subNode in
-            OutlineGroup(subNode, children: \.nonEmptyChildren) { child in
-                LeafView(node: child, canEdit: false)
-                    .tag(child.reference)
+        LabeledContent(content: {
+            if let language, bundle.children.count > 1 {
+                Text(language.title)
+                    .font(.caption)
+                    .padding(2)
+                    .background(in: .rect(cornerRadius: 5))
+                    .backgroundStyle(Color.accentColor.tertiary)
             }
-        }
-//        if node.children.isEmpty {
-//            LeafView(node: child, canEdit: false)
-//        } else {
-//            DisclosureGroup {
-//                ForEach(node.children) { child in
-//                    NodeView(node: child, isExpanded: false)
-//                }
-//            } label: {
-//                LeafView(node: child, canEdit: false)
-//            }
-//        }
-//
-//        DisclosureGroup(node.children, children: \.nonEmptyChildren) { child in
-//
-//        }
+        }, label: {
+            LeafView(
+                node: .init(
+                    title: bundle.title,
+                    reference: language?.reference,
+                    type: .root
+                ),
+                canEdit: false
+            )
+        })
     }
 }
+
 
 // MARK: Leaf
 
@@ -288,27 +206,37 @@ struct LeafView: View {
     private var supportsMultipleWindows
 
     @Environment(Navigator.self)
-    var navigator: Navigator?
+    var navigator: Navigator
 
     var body: some View {
         Group {
             if let topic = node.reference {
                 Label {
-                    Text(node.title)
+                    if node.children.isEmpty {
+                        Text(node.title)
+                    } else {
+                        Text(node.title)
+#if os(iOS) // Highlight selected items on ios
+                            .bold(navigator.selection == topic)
+                            .foregroundStyle(navigator.selection == topic ? .primary : .primary)
+#endif
+                    }
                 } icon: {
                     PageTypeIcon(node.type)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-#if os(iOS)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    navigator?.selection = topic
-                }
-#endif
                 .tag(topic)
                 .contextMenu {
                     TopicActions.ContextMenu(topic)
                 }
+#if os(iOS)
+                .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    navigator.goto(topic)
+                }
+#endif
+                
             } else if case .groupMarker = node.type {
                 GroupMarkerView(node: node, canEdit: canEdit)
             } else {
@@ -323,7 +251,7 @@ struct LeafView: View {
     }
 }
 
-private struct GroupMarkerView: View {
+fileprivate struct GroupMarkerView: View {
     @Bindable
     var node: NavigatorTree.Node
 
