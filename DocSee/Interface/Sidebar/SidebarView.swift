@@ -19,7 +19,7 @@ struct SidebarView: View {
 
     var body: some View {
         List(selection: $navigator.selection) {
-            BookmarksView()
+//            BookmarksView()
 
             NavigatorTreeView(tree: tree)
 

@@ -9,6 +9,9 @@ import Docsy
 import SwiftUI
 
 struct NavigatorTreeView: View {
+    @Environment(DocSeeContext.self)
+    var context: DocSeeContext?
+    
     let tree: NavigatorTree
 
     var body: some View {
@@ -19,6 +22,8 @@ struct NavigatorTreeView: View {
             withAnimation(.default) {
                 tree.root.moveChildren(from: indices, to: newOffset)
             }
+            
+            Task { try await context?.save() }
         }
     }
 }
