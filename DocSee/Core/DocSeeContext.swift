@@ -17,11 +17,24 @@ final class DocSeeContext: Sendable, DocumentationContextDataProviderDelegate {
 
     var tree: NavigatorTree
 
+    var displayName: String {
+        get {
+            access(keyPath: \.project.displayName)
+            return project.displayName
+        }
+        set {
+            withMutation(keyPath: \.project.displayName) {
+                project.displayName = newValue
+            }
+        }
+    }
+    
     private var project: Project
 
     init(workspace: DocumentationWorkspace) {
         self.workspace = workspace
         self.project = Project(
+            displayName: "Scratchpad",
             items: [],
             references: [:]
         )
@@ -30,18 +43,17 @@ final class DocSeeContext: Sendable, DocumentationContextDataProviderDelegate {
     }
 
     func load(_ newProject: Project) async throws {
-        if project.isPersistent {
-            try await project.save()
-        }
+        try await save()
+        try await persist()
 
         let children = newProject.items.map { item in
-            switch item {
-            case .bundle(let bundleIdentifier):
-                bundleReference(metadata: project.references[bundleIdentifier]!.metadata)
+            switch item.kind {
+            case .bundle:
+                bundleReference(metadata: project.references[item.reference!]!.metadata)
 
-            case .groupMarker(let displayName):
+            case .groupMarker:
                 NavigatorTree.Node(
-                    title: displayName,
+                    title: item.displayName,
                     type: .groupMarker,
                     children: []
                 )
@@ -60,12 +72,15 @@ final class DocSeeContext: Sendable, DocumentationContextDataProviderDelegate {
     func save() async throws {
         project.items = tree.root.children.map { page in
             if let topic = page.reference {
-                Project.ProjectNode.bundle(topic.bundleIdentifier)
+                Project.ProjectNode.bundle(displayName: page.title, identifier: topic.bundleIdentifier)
             } else {
-                Project.ProjectNode.groupMarker(page.title)
+                Project.ProjectNode.groupMarker(title: page.title)
             }
         }
-        try await project.save()
+    }
+    
+    func persist() async throws {
+        try await project.persist()
     }
 
     /// Add a bundle to the project

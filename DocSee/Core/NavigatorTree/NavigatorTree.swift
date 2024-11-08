@@ -11,6 +11,11 @@ import Observation
 
 enum DocumentationSource: Codable, Sendable {
     case localFS(LocalFS)
+    case index(DocSeeIndex)
+    
+    struct DocSeeIndex: Codable {
+        let path: String
+    }
 
     struct LocalFS: Codable, Sendable {
         let rootURL: URL
@@ -24,6 +29,7 @@ private func loadProvider(_ source: DocumentationSource) throws(PersistableDataP
                 rootURL: localFS.rootURL,
                 allowArbitraryCatalogDirectories: true
             )
+        case .index(let index): DocSeeIndexProvider(path: index.path)
         }
     } catch {
         throw .setupFailure(error)
@@ -81,34 +87,63 @@ final class PersistableDataProvider: Sendable, DataProvider, Codable {
     }
 }
 
+@Observable
 class Project: Codable {
     struct Bundle: Codable {
         let source: DocumentationSource
         let metadata: DocumentationBundle.Metadata
     }
 
-    enum ProjectNode: Codable {
-        case bundle(BundleIdentifier)
-        case groupMarker(String)
+    class ProjectNode: Identifiable, Codable {
+        enum Kind: Codable {
+            case bundle
+            case groupMarker
+        }
+        
+        let kind: Kind
+        let displayName: String
+        let reference: String?
+        
+        
+        init(kind: Kind, displayName: String, reference: String?) {
+            self.kind = kind
+            self.displayName = displayName
+            self.reference = reference
+        }
+        
+        public static func groupMarker(title: String) -> ProjectNode {
+            ProjectNode(kind: .groupMarker, displayName: title, reference: nil)
+        }
+        
+        public static func bundle(displayName: String, identifier: BundleIdentifier) -> ProjectNode {
+            ProjectNode(
+                kind: .bundle,
+                displayName: displayName,
+                reference: identifier
+            )
+        }
     }
 
+    var displayName: String
     var items: [ProjectNode]
     var references: [BundleIdentifier: Bundle]
 
-    open var isPersistent: Bool = false
-
     init(
+        displayName: String,
         items: [ProjectNode],
         references: [BundleIdentifier: Bundle]
     ) {
+        self.displayName = displayName
         self.items = items
         self.references = references
     }
 
-    open func save() async throws {
-        fatalError("save() must be implemented by a subclass of Project")
+    open func persist() throws {
+        return
     }
 }
+
+
 
 import OSLog
 
