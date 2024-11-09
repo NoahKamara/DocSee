@@ -82,6 +82,7 @@ struct MainView: View {
                     "docsee/testdocumentation",
                     "docsee/swiftdocc",
                     "docsee/slothcreator",
+                    "docsee/ArgumentParser.doccarchive"
                 ]
 
                 let indexProviders = bundlePaths.map { path in

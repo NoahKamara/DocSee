@@ -16,7 +16,7 @@ struct NavigatorTreeView: View {
 
     var body: some View {
         ForEach(tree.root.children) { child in
-            NodeView(node: child)
+            NodeView(node: child, canEdit: true)
         }
         .onMove { indices, newOffset in
             withAnimation(.default) {
@@ -291,6 +291,7 @@ fileprivate struct GroupMarkerView: View {
                 } else {
                     Text(node.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(.rect)
                         .contextMenu {
                             Button(action: { editTitle() }) {
                                 Label("Rename", systemImage: "pencil")
