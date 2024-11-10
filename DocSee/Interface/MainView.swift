@@ -27,6 +27,47 @@ import DocCViewer
 import AppKit
 #endif
 
+
+struct InspectorSidebar: View {
+    var tree: NavigatorTree
+
+    var navigator: Navigator
+    
+    static let collapsedDetent = PresentationDetent.height(80)
+    
+    @State
+    private var detent: PresentationDetent = Self.collapsedDetent
+    
+    var body: some View {
+        NavigationStack {
+            SidebarView(tree: tree, navigator: navigator)
+        }
+        .presentationBackground(content: {
+            Color.green
+        })
+        .presentationDetents([Self.collapsedDetent, .medium, .large], selection: $detent)
+        .interactiveDismissDisabled(true)
+        .presentationContentInteraction(detent == Self.collapsedDetent ? .resizes : .scrolls)
+        .presentationBackgroundInteraction(.enabled(upThrough: .medium))
+        .presentationCornerRadius(30)
+        .overlay {
+            Group {
+                if detent == Self.collapsedDetent {
+                    ZStack {
+                        Rectangle()
+                            .fill(.regularMaterial)
+                            .frame(maxHeight: .infinity)
+                            .ignoresSafeArea(.all, edges: .bottom)
+                        
+                        Button("Show Navigator", action: { detent = .medium })
+                            .frame(height: 80)
+                    }
+                }
+            }
+        }
+    }
+}
+
 struct MainView: View {
     @Environment(\.documentationWorkspace)
     private var workspace
@@ -40,28 +81,46 @@ struct MainView: View {
     @Environment(\.supportsMultipleWindows)
     private var supportsMultipleWindows
 
+#if os(iOS)
+    @Environment(\.horizontalSizeClass)
+    private var horizontalSizeClass
+#endif
+    
+    @State
+    var isShowingInspector: Bool = true
+    
     var body: some View {
-        NavigationSplitView {
-            SidebarView(tree: context.tree, navigator: navigator)
-                .navigationTitle("DocSee")
-                .navigationSplitViewColumnWidth(min: 250, ideal: 300, max: nil)
-        } detail: {
-            DocumentView(context: context, navigator: navigator)
-                .ignoresSafeArea(.all, edges: .bottom)
-                .toolbar {
-                    if let topic = navigator.selection {
-                        if supportsMultipleWindows {
-                            ToolbarItem(id: "open-topic-in-window") {
-                                TopicActions.OpenWindow(topic)
+        Group {
+#if os(iOS)
+        if horizontalSizeClass == .compact {
+            NavigationStack {
+                detail
+                    .toolbar(content: {
+                        ToolbarItem(placement: .bottomBar) {
+                            Button(action: { isShowingInspector.toggle() }) {
+                                Image(systemName: "list.dash.header.rectangle")
                             }
                         }
-                        
-                        ToolbarItem(id: "copy-topic-link") {
-                            TopicActions.CopyLink(topic)
-                        }
+                    })
+                    .inspector(isPresented: .constant(true)) {
+                        InspectorSidebar(tree: context.tree, navigator: navigator)
                     }
-                }
+            }
+        } else {
+            NavigationSplitView {
+                sidebar
+            } detail: {
+                detail
+            }
         }
+#else
+        NavigationSplitView {
+            sidebar
+        } detail: {
+            detail
+        }
+#endif
+    }
         .environment(\.openURL, .init(handler: { url in
             switch url.scheme {
             case "doc":
@@ -95,6 +154,31 @@ struct MainView: View {
                 print("Error registering Bundle Provider \(error)")
             }
         }
+    }
+    
+    var sidebar: some View {
+        SidebarView(tree: context.tree, navigator: navigator)
+            .navigationTitle("DocSee")
+            .navigationSplitViewColumnWidth(min: 250, ideal: 300, max: nil)
+            .listStyle(.sidebar)
+    }
+    
+    var detail: some View {
+        DocumentView(context: context, navigator: navigator)
+            .ignoresSafeArea(.all, edges: .bottom)
+            .toolbar {
+                if let topic = navigator.selection {
+                    if supportsMultipleWindows {
+                        ToolbarItem(id: "open-topic-in-window") {
+                            TopicActions.OpenWindow(topic)
+                        }
+                    }
+                    
+                    ToolbarItem(id: "copy-topic-link") {
+                        TopicActions.CopyLink(topic)
+                    }
+                }
+            }
     }
 }
 

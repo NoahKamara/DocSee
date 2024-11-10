@@ -41,13 +41,6 @@ struct SidebarView: View {
                 EditButton()
             }
 #endif
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    self.showsBundleBrowser = true
-                }) {
-                    Label("Add documentation", systemImage: "book.pages")
-                }
-            }
             
             ToolbarItem {
                 Menu {

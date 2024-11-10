@@ -141,7 +141,7 @@ fileprivate struct BundleRootView: View {
                 ProgressView()
                     .environment(\.controlSize, .mini)
             }
-            .onChange(of: bundle.children.isEmpty) { _, _ in
+            .onChange(of: bundle.children.isEmpty, initial: true) { _, _ in
                 currentLanguage = bundle.children.first
             }
         }
