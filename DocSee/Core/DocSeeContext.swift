@@ -100,14 +100,19 @@ final class DocSeeContext: Sendable, DocumentationContextDataProviderDelegate {
             metadata: .init(displayName: displayName, identifier: bundleIdentifier)
         )
 
-        project.references[bundleIdentifier] = bundle
+        do {
+            project.references[bundleIdentifier] = bundle
 
-        if tree.getBundleNode(with: bundleIdentifier) == nil {
-            let node = bundleReference(metadata: .init(displayName: displayName, identifier: bundleIdentifier))
-            tree.root.insertChild(node, at: 0)
+            if tree.getBundleNode(with: bundleIdentifier) == nil {
+                let node = bundleReference(metadata: .init(displayName: displayName, identifier: bundleIdentifier))
+                tree.root.insertChild(node, at: 0)
+            }
+
+            try await workspace.registerProvider(provider)
+        } catch {
+            project.references[bundleIdentifier] = nil
+            throw error
         }
-
-        try await workspace.registerProvider(provider)
     }
 
     // MARK: DocumentationContextDataProviderDelegate
@@ -124,11 +129,7 @@ final class DocSeeContext: Sendable, DocumentationContextDataProviderDelegate {
             tree.root.insertChild(newNode, at: 0)
         }
 
-        Task {
-            let indexData = try await dataProvider.contentsOfURL(bundle.indexURL, in: bundle)
-            let index = try JSONDecoder().decode(DocumentationIndex.self, from: indexData)
-            didResolveIndex(index, for: bundle)
-        }
+        resolveIndexTask(bundle: bundle, provider: dataProvider)
     }
 
     func dataProvider(
@@ -136,7 +137,38 @@ final class DocSeeContext: Sendable, DocumentationContextDataProviderDelegate {
         didRemoveBundle bundle: Docsy.DocumentationBundle
     ) {}
 
-    func didResolveIndex(_ index: DocumentationIndex, for bundle: DocumentationBundle) {
+    
+    private func resolveIndexTask(bundle: DocumentationBundle, provider: DocumentationContextDataProvider) {
+        Task {
+            do {
+                let indexData = try await provider.contentsOfURL(bundle.indexURL, in: bundle)
+                let index = try JSONDecoder().decode(DocumentationIndex.self, from: indexData)
+                didResolveIndex(index, for: bundle)
+            } catch {
+                print("failed to resolve index")
+                didFailToResolveIndex(for: bundle)
+            }
+        }
+    }
+    
+    
+    private func didFailToResolveIndex(for bundle: DocumentationBundle) {
+        let bundleNode = tree.root.firstChild(where: {
+            $0.type == .root && $0.reference == bundle.rootReference
+        })
+
+        guard let bundleNode else {
+            print("bundle not found: \(bundle.identifier)")
+            return
+        }
+        
+        bundleNode.appendChild(.init(
+            title: "Failed to resolve Index",
+            type: .extension
+        ))
+    }
+    
+    private func didResolveIndex(_ index: DocumentationIndex, for bundle: DocumentationBundle) {
         let bundleNode = tree.root.firstChild(where: {
             $0.type == .root && $0.reference == bundle.rootReference
         })

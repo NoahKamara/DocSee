@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD3E18C52C8A494F009362BB /* DocCViewer */; };
+		FD6BC07D2CE0DEA700865531 /* FormValidator in Frameworks */ = {isa = PBXBuildFile; productRef = FD6BC07C2CE0DEA700865531 /* FormValidator */; };
 		FD857F5D2CBDC9F600F949CD /* Docsy in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F5C2CBDC9F600F949CD /* Docsy */; };
 		FD857F5F2CBDC9F600F949CD /* DocsySchema in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F5E2CBDC9F600F949CD /* DocsySchema */; };
 		FD857F642CBDCA0400F949CD /* DocCViewer in Frameworks */ = {isa = PBXBuildFile; productRef = FD857F632CBDCA0400F949CD /* DocCViewer */; };
@@ -53,6 +54,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD857F5F2CBDC9F600F949CD /* DocsySchema in Frameworks */,
+				FD6BC07D2CE0DEA700865531 /* FormValidator in Frameworks */,
 				FDDB4FEF2C7AD0810038592C /* Docsy in Frameworks */,
 				FD3E18C62C8A494F009362BB /* DocCViewer in Frameworks */,
 				FD857F642CBDCA0400F949CD /* DocCViewer in Frameworks */,
@@ -117,6 +119,7 @@
 				FD857F5E2CBDC9F600F949CD /* DocsySchema */,
 				FD857F632CBDCA0400F949CD /* DocCViewer */,
 				FDEDD9422CC98134006FB572 /* BundleAppSourceProvider */,
+				FD6BC07C2CE0DEA700865531 /* FormValidator */,
 			);
 			productName = DocSee;
 			productReference = FD85D9CE2C795DD200C74606 /* DocSee.app */;
@@ -149,6 +152,7 @@
 			packageReferences = (
 				FD857F5B2CBDC9F600F949CD /* XCLocalSwiftPackageReference "Modules/Docsy" */,
 				FD857F602CBDCA0400F949CD /* XCLocalSwiftPackageReference "Modules/DocCViewer" */,
+				FD6BC07B2CE0DEA700865531 /* XCRemoteSwiftPackageReference "SwiftUIFormValidator" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FD85D9CF2C795DD200C74606 /* Products */;
@@ -412,10 +416,26 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		FD6BC07B2CE0DEA700865531 /* XCRemoteSwiftPackageReference "SwiftUIFormValidator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Open-Bytes/SwiftUIFormValidator";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		FD3E18C52C8A494F009362BB /* DocCViewer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DocCViewer;
+		};
+		FD6BC07C2CE0DEA700865531 /* FormValidator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD6BC07B2CE0DEA700865531 /* XCRemoteSwiftPackageReference "SwiftUIFormValidator" */;
+			productName = FormValidator;
 		};
 		FD857F5C2CBDC9F600F949CD /* Docsy */ = {
 			isa = XCSwiftPackageProductDependency;
